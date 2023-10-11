@@ -1,16 +1,18 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif;
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 .app-container{
-  width: 100vw;
-  height: calc(100vh - 100px);
+  width: 100%;
+  min-height: calc(100vh - 85px);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .App-logo {

@@ -1,21 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./navbar.scss";
 import spkLogo from "../../assets/spkLogo.svg";
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <div className="nav-wrapper">
         <div className="logo">
-          <img src={spkLogo} alt="SPK Logo" />
+            <Link to="/">
+                <img src={spkLogo} alt="SPK Logo" />
+            </Link>
         </div>
         <div className="nav-links">
-          <a href="#get-started">Get Started</a>
-          <a href="#community">Explore communities</a>
-          <a href="#community">Create community</a>
-          <a href="#community">Login</a>
+          <Link to="/community-setup">Get Started</Link>
+          <Link to="/communities">Explore communities</Link>
+          <Link to="/community-create">Create community</Link>
+          <Link to="/login">Login</Link>
         </div>
-      </div>
     </div>
   );
 };
