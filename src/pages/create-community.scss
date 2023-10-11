@@ -1,9 +1,9 @@
-.setup {
+.create-community {
     display: flex;
     justify-content: center;
     align-items: center;
   
-    .setup-container {
+    .create-community-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -53,8 +53,13 @@
             font-size: 16px;
             font: bold;
             color: rgb(239, 124, 37);
-            margin-bottom: 10px;
         }
+      }
+
+      .operation-info{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
       }
   
       .form-wrapper {
@@ -68,6 +73,25 @@
             border-bottom: 1px solid gray;
             outline: none;
             font-size: 14px;
+          }
+
+          .warning{
+              font-size: 16px;
+              font: bold;
+              color: rgb(239, 124, 37);
+        }
+
+          .password-input{
+            display: flex;
+            position: relative;
+            width: 100%;
+            input{
+                width: 100%;
+            }
+
+            .svg{
+                cursor: pointer;
+            }
           }
           
   
