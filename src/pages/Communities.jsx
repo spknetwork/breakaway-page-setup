@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCommunities } from "../api/hive";
+import { getCommunities, subscribe } from "../api/hive";
 import "./communities.scss";
 import spkimage from "../assets/spkimage.png";
 
@@ -76,7 +76,7 @@ const Communities = () => {
                 </div>
               </div>
               <div className="right">
-                <button>Join</button>
+                <button onClick={()=> subscribe("souljay", "hive-"+c.id)}>Join</button>
               </div>
             </div>
           ))}

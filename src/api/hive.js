@@ -1,7 +1,7 @@
 import { keychainBroadcast } from "../helpers/keychain";
 import { SERVERS } from "../constants/servers";
 
-import { Client } from "@hiveio/dhive";
+import { Client, PrivateKey } from "@hiveio/dhive";
 
 const client = new Client(SERVERS, {
   timeout: 3000,
@@ -74,3 +74,28 @@ export const getCommunities = (last = "", limit = 100, query = null, sort = "ran
     });
   };
   
+
+export  const subscribe = async (username, community) => {
+  const json = ["subscribe", { community }];
+  const result = await broadcastPostingJSON(username, "community", json)
+  console.log(result)
+  return result;
+};
+
+export const broadcastPostingJSON = (username, id, json) => {
+  // With posting private key
+  const postingKey = ""; // to be handled
+  if (postingKey) {
+    const privateKey = PrivateKey.fromString(postingKey);
+
+    const operation = {
+      id,
+      required_auths: [],
+      required_posting_auths: [username],
+      json: JSON.stringify(json)
+    };
+
+    return client.broadcast.json(operation, privateKey);
+  }
+
+};
