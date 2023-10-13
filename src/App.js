@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import CreateCommunity from "./pages/CreateCommunity";
 import Login from "./pages/Login";
 import Communities from "./pages/Communities";
+import Community from "./pages/Community";
 import "./App.scss";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/communities" element={<Communities/>} />
+        <Route path="/community/:id" element={<Community/>} />
         <Route path="/community-setup" element={<Setup/>} />
         <Route path="/community-create" element={<CreateCommunity/>} />
       </Routes>

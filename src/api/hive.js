@@ -63,3 +63,14 @@ export const createHiveCommunity = async (username, communityName, keys) => {
     }
   
   };
+
+export const getCommunities = (last = "", limit = 100, query = null, sort = "rank", observer = "") => {
+    return bridgeApiCall("list_communities", {
+      last: last,
+      limit: limit,
+      query: query,
+      sort: sort,
+      observer: observer
+    });
+  };
+  
