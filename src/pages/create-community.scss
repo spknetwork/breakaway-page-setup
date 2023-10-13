@@ -67,7 +67,7 @@
         flex-direction: column;
         gap: 30px;
   
-        input {
+        input, textarea {
             padding: 10px;
             border: none;
             border-bottom: 1px solid gray;
@@ -81,19 +81,33 @@
               color: rgb(239, 124, 37);
         }
 
-          .password-input{
+          .password-input, .community-input{
             display: flex;
             position: relative;
+            align-items: center;
             width: 100%;
             input{
+                font: bold;
+                font-size: 16px;
                 width: 100%;
+                flex: 3;
             }
 
             .svg{
+                padding: 3px;
                 cursor: pointer;
+
+                &:hover {
+                  background-color: #b4d0ee;
+                  border-radius: 5px;
+                }
             }
+
           }
           
+          .community-input{
+            margin-top: 15px;
+          }
   
         button {
           padding: 10px;

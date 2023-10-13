@@ -1,15 +1,119 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { copyIcon } from "../icons/svg";
+import { generatePassword, getPrivateKeys, genCommuninityName } from "../helpers/community";
+import { createHiveCommunity, getCommunity } from "../api/hive";
 import "./create-community.scss"
 
 const CreateCommunity = () => {
 
-    const [hiveId, setHiveId] = useState("");
-  const [theme, setTheme] = useState("");
-  const [message, setMessage] = useState("");
-  const [step, setStep] = useState(1);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false)
+    const [communityTitle, setCommunityTitle] = useState("");
+    const [aboutCommunity, setAboutCommunity] = useState("");
+    const [message, setMessage] = useState("");
+    const [step, setStep] = useState(1);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [communityName, setCommunityName] = useState("")
+    const [communityPassword, setCommunityPassword] = useState("");
+    const [communityKeys, setCommunityKeys] = useState({});
+
+    const namePattern = "^hive-[1]\\d{4,6}$";
+
+    const minRows = 2;
+    const maxRows = 8;
+
+  useEffect(()=> {
+    const usernamee = genCommuninityName();
+    setCommunityName(usernamee)
+    handleInfo();
+  },[]);
+  
+  useEffect(()=> {
+    if(step === 2) {
+      checkCommunity()
+    }
+  },[step, communityName]);
+
+  const handleInfo = () =>{
+    generatePassword(32)
+        .then(password => {
+            setCommunityPassword(password);
+            const keys = getPrivateKeys(communityName, password)
+            setCommunityKeys(keys)
+            console.log(keys)
+        })
+        .catch(error => {
+            console.error(error);
+    });
+  };
+
+  const handleCommuntiyInfo = () => {
+    console.log(error)
+    console.log(aboutCommunity)
+    if(!aboutCommunity || !communityTitle) {
+      setError("Please fill in the require fields")
+      return;
+    }
+
+    setStep(2)
+    setSuccess(true)
+  }
+
+  const handleAboutChange = (event) => {
+    const textareaLineHeight = 24;
+    const previousRows = event.target.rows;
+    event.target.rows = minRows;
+    console.log(event.target.rows)
+  
+    const currentRows = Math.floor(event.target.scrollHeight / textareaLineHeight);
+  
+    if (currentRows === previousRows) {
+      event.target.rows = currentRows;
+    }
+  
+    if (currentRows >= maxRows) {
+      event.target.rows = maxRows;
+      event.target.scrollTop = event.target.scrollHeight;
+    }
+  
+    setAboutCommunity(event.target.value);
+  };
+
+  const createCommunity = async () => {
+    if(error) {
+      return;
+    }
+    await createHiveCommunity("adesojisouljay", communityName, communityKeys )
+  }
+
+  const checkCommunity = async () => {
+    const communityNameRegex = new RegExp(namePattern);
+
+    if (communityNameRegex.test(communityName)) {
+      getCommunity(communityName).then((r) => {
+        if (r) {
+          setError("name not available");
+          setMessage("")
+        } else {
+          setError("")
+          setMessage("Available")
+        }
+      });
+    } else {
+          setError("name not valid");
+          setMessage("")
+    }
+  }
+
+  const copyToClipboard = (text) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+  
+    document.body.appendChild(textArea);
+      textArea.select();
+    document.execCommand('copy');
+  
+    document.body.removeChild(textArea);
+  }
 
   return (
     <div className="create-community">
@@ -31,14 +135,18 @@ const CreateCommunity = () => {
             </div>
             <div className="form-wrapper">
                 <>
-                    <input type="text" placeholder="Community title" onChange={e => setHiveId(e.target.value)} />
-                    <input type="text" placeholder="Write something about your community..." onChange={e => setTheme(e.target.value)} />
+                    <input type="text" placeholder="Community title" onChange={e => setCommunityTitle(e.target.value)} />
+                    <textarea
+                        rows={minRows}
+                        scrollHeight
+                        onChange={handleAboutChange}
+                        placeholder="Write something about your community..." 
+                        type="text" 
+                    />
                 </>
             <>
-                <button onClick={()=> {
-                    setStep(2)
-                    setSuccess(true)
-                    }}>Continue</button>
+                <button
+                  onClick={()=> handleCommuntiyInfo()}>Continue</button>
                 <span className="">Already have a community? <a href="">click to login</a></span>
             </>
             </div>
@@ -53,26 +161,31 @@ const CreateCommunity = () => {
             </div>
             <div className="form-wrapper">
                 <>
+                    <div className="community-input">
+                      <div className="community-name">
+                        <soan>Community name:</soan>
+                      </div>
                         <input 
                         type="text" 
-                        value={"hive-124363"}
-                        readOnly
+                        value={communityName}
+                        onChange={(e)=> setCommunityName(e.target.value)}
                         />
+                    </div>
                         <span className="warning">Make sure you copy and save you password securely before you proceed. </span>
                     <div className="password-input">
+                      <div className="community-password">
+                        <span>Password:</span>
+                      </div>
                         <input 
                         type="text"
-                        value={"p56rfsdfDvaliaUVudfvkKVGUYsddkyg"}
+                        value={communityPassword}
                         readOnly
                         />
-                        <span>{copyIcon}</span>
+                        <span onClick={() => copyToClipboard(communityPassword)}>{copyIcon}</span>
                     </div>
                 </>
             <>
-                <button onClick={()=>{
-                     setStep(3)
-                     setSuccess(true)
-                     }}>Create community</button>
+                <button onClick={()=> createCommunity()}>Create community</button>
                 {step === 1 && <span className="">Already have a community? <a href="">click to login</a></span>}
             </>
             </div>
@@ -82,4 +195,4 @@ const CreateCommunity = () => {
   )
 }
 
-export default CreateCommunity
+export default CreateCommunity;

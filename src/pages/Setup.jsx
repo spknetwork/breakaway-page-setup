@@ -12,7 +12,7 @@ const Setup = () => {
   const [success, setSuccess] = useState(false)
 
   useEffect(() => {
-    axios.get("http://localhost:2000/check-directory")
+    axios.get("http://localhost:4000/check-directory")
       .then(response => {
         if (response.status === 200 && response.data.directoryExists) {
           setStep(2);
@@ -23,7 +23,7 @@ const Setup = () => {
         console.error("Error checking directory:", error);
       });
 
-    axios.get("http://localhost:2000/check-env-file")
+    axios.get("http://localhost:4000/check-env-file")
       .then(response => {
         if (response.status === 200 && response.data.envFileExists) {
           setStep(3);
@@ -38,7 +38,7 @@ const Setup = () => {
   const cloneReposiory = () => {
     setMessage("");
     
-    axios.post("http://localhost:2000/clone-repo")
+    axios.post("http://localhost:4000/clone-repo")
       .then(response => {
         console.log("Response from /clone-repo:", response);
 
@@ -81,7 +81,7 @@ const Setup = () => {
       }, 3000);
     } else {
       setError(false);
-      axios.post("http://localhost:2000/create-variables", { hive_id: hiveId, theme, tags })
+      axios.post("http://localhost:4000/create-variables", { hive_id: hiveId, theme, tags })
         .then(response => {
           console.log("Response from /create-variables:", response);
 
@@ -117,7 +117,7 @@ const Setup = () => {
   const runDocker = () => {
     setMessage("");
     
-    axios.post("http://localhost:2000/run-docker")
+    axios.post("http://localhost:4000/run-docker")
       .then(response => {
         console.log("Response from /run-docker:", response);
 
