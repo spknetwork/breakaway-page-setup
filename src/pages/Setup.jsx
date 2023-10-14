@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import api from "../api/axioisInstance";
 import "./setup.scss";
 
 const Setup = () => {
@@ -11,8 +12,11 @@ const Setup = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false)
 
+  const user = useSelector(state => state)
+  
+  console.log(user)
   useEffect(() => {
-    axios.get("http://localhost:4000/check-directory")
+    api.get("/check-directory")
       .then(response => {
         if (response.status === 200 && response.data.directoryExists) {
           setStep(2);
@@ -23,7 +27,7 @@ const Setup = () => {
         console.error("Error checking directory:", error);
       });
 
-    axios.get("http://localhost:4000/check-env-file")
+    api.get("/check-env-file")
       .then(response => {
         if (response.status === 200 && response.data.envFileExists) {
           setStep(3);
@@ -38,7 +42,7 @@ const Setup = () => {
   const cloneReposiory = () => {
     setMessage("");
     
-    axios.post("http://localhost:4000/clone-repo")
+    api.post("/clone-repo")
       .then(response => {
         console.log("Response from /clone-repo:", response);
 
@@ -81,7 +85,7 @@ const Setup = () => {
       }, 3000);
     } else {
       setError(false);
-      axios.post("http://localhost:4000/create-variables", { hive_id: hiveId, theme, tags })
+      api.post("/create-variables", { hive_id: hiveId, theme, tags })
         .then(response => {
           console.log("Response from /create-variables:", response);
 
@@ -117,7 +121,7 @@ const Setup = () => {
   const runDocker = () => {
     setMessage("");
     
-    axios.post("http://localhost:4000/run-docker")
+    api.post("/run-docker")
       .then(response => {
         console.log("Response from /run-docker:", response);
 

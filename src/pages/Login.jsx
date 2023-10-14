@@ -1,9 +1,14 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import keychainLogo from "../assets/keychain.png"
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../redux/authSlice';
+import { setUser } from '../redux/userSlice';
 import "./login.scss"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { getAccount } from "../api/hive";
+import api from "../api/axioisInstance";
 
 const Login = () => {
 
@@ -12,10 +17,10 @@ const Login = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
   const loginKc = async () => {
-    console.log(username)
     try {
         if (!username) {
           setError("some parameters missing")
@@ -54,16 +59,25 @@ const Login = () => {
   };
       
   const processLogin = async (username, ts, sig, community) => {
-  
     try {
-        const data = await axios.get('http://localhost:4000/auth/login', {
+      const response = await api.get('/auth/login', {
         params: { username, ts, sig, community },
-        });
-        console.log("sig", sig)
-        console.log("ts", ts)
-        console.log("data", data)
-    } catch (err) {
-        console.error(err.message);
+      });
+
+      const { token, ...user } = response.data.response;
+
+      const accountInfo = await getAccount(username);
+
+      dispatch(login({ accessToken: token }));
+      dispatch(setUser(accountInfo));
+
+      setMessage("Login successful");
+      console.log('Login Successful', 'success');
+
+      navigate("/community-setup");
+    } catch (error) {
+      console.error('Login Failed: ', error);
+      setError("Login Failed, please try again");
     }
   };
 

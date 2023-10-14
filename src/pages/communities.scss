@@ -7,11 +7,9 @@
     margin-top: 50px;
 
     .community-header {
-        background: white;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        z-index: 1;
+        // position: -webkit-sticky;
+        // position: sticky;
+        // top: 0;
       }
 
       .search-container{
@@ -19,6 +17,9 @@
         display: flex;
         justify-content: center;
         width: 100%;
+        // position: -webkit-sticky;
+        // position: sticky;
+        // top: 50px;
 
           .communities-search{
               background: white;

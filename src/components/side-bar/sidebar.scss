@@ -1,0 +1,51 @@
+.sidebar{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 50px;
+
+    .top{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+
+        img{
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+        h5{
+            font-size: 18px;
+            font: bold;
+        }
+    }
+
+    .middle{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 16px;
+        font: bold;
+
+    }
+    .bottom{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 16px;
+        font: bold;
+
+        .wallet-info{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 16px;
+            font: bold;
+        }
+
+    }
+}
