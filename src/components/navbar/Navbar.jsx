@@ -26,6 +26,7 @@ const Navbar = () => {
           <Link to="/community-setup">Get Started</Link>
           <Link to="/communities">Explore communities</Link>
           <Link to="/community-create">Create community</Link>
+          <Link to="/docker-setup">Docker Setup</Link>
           {!auth.isAuthenticated ? <Link to="/login">Login</Link> : 
           <span onClick={() =>  dispatch(logoutAndClear())}>
             <Link to="/">Logout</Link>

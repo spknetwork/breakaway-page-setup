@@ -6,6 +6,7 @@ import CreateCommunity from './pages/CreateCommunity';
 import Login from './pages/Login';
 import Communities from './pages/Communities';
 import Community from './pages/Community';
+import DockerSetup from "./pages/DockerSetup";
 import PrivateRoute from './private-routes/PrivateRoutes';
 import { useSelector } from 'react-redux';
 import "./App.scss"
@@ -49,6 +50,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <CreateCommunity />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/docker-setup"
+                element={
+                  <PrivateRoute>
+                    <DockerSetup />
                   </PrivateRoute>
                 }
               />
