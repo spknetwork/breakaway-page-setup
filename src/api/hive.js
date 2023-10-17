@@ -1,4 +1,4 @@
-import { keychainBroadcast } from "../helpers/keychain";
+import { keychainBroadcast, addAccountTokeychain } from "../helpers/keychain";
 import { SERVERS } from "../constants/servers";
 
 import { Client, PrivateKey } from "@hiveio/dhive";
@@ -29,39 +29,61 @@ export const getCommunity = async (name, observer = "") => {
 
 export const createHiveCommunity = async (username, communityName, keys) => {
 
-    const operation = [
-      "account_create",
-      {
-        fee: 3,
-        creator: username,
-        new_account_name: communityName,
-        owner: {
-          weight_threshold: 1,
-          account_auths: [],
-          key_auths: [[keys.ownerPubkey, 1]]
-        },
-        active: {
-          weight_threshold: 1,
-          account_auths: [],
-          key_auths: [[keys.activePubkey, 1]]
-        },
-        posting: {
-          weight_threshold: 1,
-          account_auths: [["spk-network", 1]],
-          key_auths: [[keys.postingPubkey, 1]]
-        },
-        memo_key: keys.memoPubkey,
-        json_metadata: ""
-      }
-    ];
-  
+    const op_name = "account_create";
+    const memoKey = keys.memo
+    const activeKey = keys.active
+    const postingKey = keys.posting
+    
+    console.log(memoKey, activeKey, postingKey)
+    const owner = {
+      weight_threshold: 1,
+      account_auths: [],
+      key_auths: [[keys.ownerPubkey, 1]]
+    };
+    const active = {
+      weight_threshold: 1,
+      account_auths: [],
+      key_auths: [[keys.activePubkey, 1]]
+    };
+    const posting = {
+      weight_threshold: 1,
+      account_auths: [["ecency.app", 1]],
+      key_auths: [[keys.postingPubkey, 1]]
+    };
+
+    const ops = [];
+    const params = {
+      creator: username,
+      new_account_name: communityName,
+      owner,
+      active,
+      posting,
+      memo_key: keys.memoPubkey,
+      json_metadata: "",
+      extensions: [],
+      fee: "3.000 HIVE"
+    };
+
+    const operation = [op_name, params];
+    ops.push(operation);
+    
     try {
-      await keychainBroadcast(username, [operation], "Active");
+       await keychainBroadcast(username, [operation], "Active");
     } catch (error) {
      console.log(error)
       return;
     }
-  
+    
+    //Add comm acc to keychain
+    try {
+      await addAccountTokeychain(communityName, {
+        active: activeKey, 
+        posting: postingKey,
+        memo: memoKey
+      })
+    } catch (error) {
+      console.log(error)
+    }
   };
 
 export const getCommunities = (last = "", limit = 100, query = null, sort = "rank", observer = "") => {
@@ -72,8 +94,7 @@ export const getCommunities = (last = "", limit = 100, query = null, sort = "ran
       sort: sort,
       observer: observer
     });
-  };
-  
+  }; 
 
 export  const subscribe = async (username, community) => {
   const json = ["subscribe", { community }];
@@ -98,4 +119,16 @@ export const broadcastPostingJSON = (username, id, json) => {
     return client.broadcast.json(operation, privateKey);
   }
 
+};
+
+export const updateCommunity = (username, community, props) => {
+  const json = ["updateProps", { community, props }];
+  
+  return broadcastPostingJSON(username, "community", json);
+};
+
+export const  setUserRole = (username, community, account, role) => {
+  const json = ["setRole", { community, account, role }];
+  
+  return broadcastPostingJSON(username, "community", json);
 };

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getCommunities, subscribe } from "../api/hive";
 import "./communities.scss";
 import spkimage from "../assets/spkimage.png";
+import Loader from "../components/loader/Loader";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
@@ -46,7 +47,7 @@ const Communities = () => {
           onChange={handleCommunitySearch}
         />
       </div>
-      {loading ? <div className="communities-container">Loading...</div> : communityLists.length > 0 ?
+      {loading ? <div className="communities-container"><Loader/></div> : communityLists.length > 0 ?
       <div className="communities-container">
         <div className="community">
           {communityLists.map((c, i) => (

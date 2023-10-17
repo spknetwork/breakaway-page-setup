@@ -39,7 +39,6 @@ const SideBar = () => {
             {/* //to handle reputation properly */}
             <span>Reputation: 70</span>
             <span>About: {userProfile?.profile?.about}</span>
-            <span>Post count: {userData?.post_count}</span>
             <span>Location: {userProfile.profile?.location}</span>
             <span>Joined: {userData?.created}</span>
         </div>
@@ -48,11 +47,9 @@ const SideBar = () => {
                 <h3>Wallet Info</h3>
             </div>
             <div className="wallet-info">
-                <span>Hive balance: 70</span>
-                <span>Hive power: 1000 HP</span>
-                <span>HBD balance: $100</span>
-                <span>HBD savings: $100</span>
-                <span>Pending reward: 399</span>
+                <span>Hive: {userData?.balance}</span>
+                <span>HBD: {userData.hbd_balance}</span>
+                <span>HBD savings: {userData.savings_hbd_balance}</span>
             </div>
         </div>
     </div>
