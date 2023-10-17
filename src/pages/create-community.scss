@@ -4,6 +4,7 @@
     align-items: center;
   
     .create-community-container {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -67,7 +68,7 @@
         flex-direction: column;
         gap: 30px;
   
-        input {
+        input, textarea {
             padding: 10px;
             border: none;
             border-bottom: 1px solid gray;
@@ -81,20 +82,63 @@
               color: rgb(239, 124, 37);
         }
 
-          .password-input{
+          .password-input, .community-input{
             display: flex;
             position: relative;
+            align-items: center;
             width: 100%;
             input{
+                font: bold;
+                font-size: 16px;
                 width: 100%;
+                flex: 3;
             }
 
             .svg{
+                padding: 3px;
                 cursor: pointer;
+
+                &:hover {
+                  color: #007bff;
+                }
             }
+
           }
           
+          .community-input{
+            margin-top: 15px;
+          }
   
+        button {
+          padding: 10px;
+          cursor: pointer;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-weight: bold;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+
+      .community-success{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+
+        .succes-top{
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
         button {
           padding: 10px;
           cursor: pointer;
@@ -114,3 +158,13 @@
     }
   }
   
+  .download-keys{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    align-self: center;
+    border-radius: 50%;
+    .svg{
+      width: 30px;
+    }
+  }

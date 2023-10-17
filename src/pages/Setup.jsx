@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import api from "../api/axioisInstance";
+import Loader from "../components/loader/Loader";
 import "./setup.scss";
 
 const Setup = () => {
@@ -9,10 +12,15 @@ const Setup = () => {
   const [message, setMessage] = useState("");
   const [step, setStep] = useState(1);
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false)
+  const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+  
 
+  const user = useSelector(state => state)
+  
+  console.log(user)
   useEffect(() => {
-    axios.get("http://localhost:2000/check-directory")
+    api.get("/check-directory")
       .then(response => {
         if (response.status === 200 && response.data.directoryExists) {
           setStep(2);
@@ -23,7 +31,7 @@ const Setup = () => {
         console.error("Error checking directory:", error);
       });
 
-    axios.get("http://localhost:2000/check-env-file")
+    api.get("/check-env-file")
       .then(response => {
         if (response.status === 200 && response.data.envFileExists) {
           setStep(3);
@@ -36,9 +44,10 @@ const Setup = () => {
   }, []);
 
   const cloneReposiory = () => {
+    setIsLoading(true)
     setMessage("");
     
-    axios.post("http://localhost:2000/clone-repo")
+    api.post("/clone-repo")
       .then(response => {
         console.log("Response from /clone-repo:", response);
 
@@ -47,6 +56,7 @@ const Setup = () => {
             setMessage(response.data.message);
             setSuccess(true)
             setStep(2);
+            setIsLoading(false)
           } else {
             setError("Error: " + response.data.message);
           }
@@ -63,6 +73,7 @@ const Setup = () => {
       .catch(error => {
         console.error("Error in /clone-repo request:", error);
         setError("Error: " + error.message);
+        setIsLoading(false)
 
         setTimeout(() => {
           setError(false);
@@ -72,6 +83,7 @@ const Setup = () => {
 
   const createEnvVariables = () => {
     setMessage("");
+    setIsLoading(true)
     
     if (!hiveId || !theme || !tags) {
       setError("Please fill in all required fields.");
@@ -81,7 +93,8 @@ const Setup = () => {
       }, 3000);
     } else {
       setError(false);
-      axios.post("http://localhost:2000/create-variables", { hive_id: hiveId, theme, tags })
+      setIsLoading(true)
+      api.post("/create-variables", { hive_id: hiveId, theme, tags })
         .then(response => {
           console.log("Response from /create-variables:", response);
 
@@ -90,6 +103,7 @@ const Setup = () => {
               setMessage(response.data.message);
               setSuccess(true)
               setStep(3);
+              setIsLoading(false)
             } else {
               setError("Error: " + response.data.message);
             }
@@ -106,7 +120,7 @@ const Setup = () => {
           console.error("Error in /create-variables request:", error);
           setError(false);
           setError("Error: " + error?.response?.data.message);
-
+          setIsLoading(false)
           setTimeout(() => {
             setError(false);
           }, 3000);
@@ -116,8 +130,9 @@ const Setup = () => {
 
   const runDocker = () => {
     setMessage("");
+    setIsLoading(true)
     
-    axios.post("http://localhost:2000/run-docker")
+    api.post("/run-docker")
       .then(response => {
         console.log("Response from /run-docker:", response);
 
@@ -126,6 +141,7 @@ const Setup = () => {
             setMessage(response.data.message);
             setSuccess(true)
             setStep(4);
+            setIsLoading(false)
           } else {
             setError("Error: " + response.data.message);
           }
@@ -141,7 +157,7 @@ const Setup = () => {
       .catch(error => {
         console.error("Error in /run-docker request:", error);
         setError("Error: " + error.message);
-        
+        setIsLoading(false)
 
         setTimeout(() => {
           setError(false);
@@ -152,6 +168,7 @@ const Setup = () => {
   return (
     <div className="setup">
       <div className="setup-container">
+        {isLoading && <Loader/>}
         <div className="header">
           <h1>Project Setup - Step {step}</h1>
         </div>
@@ -182,7 +199,7 @@ const Setup = () => {
           )}
           {step === 1 && <>
             <button onClick={cloneReposiory}>Clone Repository</button>
-            <span className="">Don"t have a community? <a href="">click to create</a></span>
+            <span className="">Don"t have a community? <Link to="/community-create">click to create</Link></span>
           </>}
           {step === 2 && <button onClick={createEnvVariables}>Set Up Variables</button>}
           {step === 3 && <button onClick={runDocker}>Run Docker</button>}
