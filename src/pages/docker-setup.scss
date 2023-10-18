@@ -36,16 +36,34 @@
       button {
         padding: 12px;
         cursor: pointer;
+        background-color: transparent;
+        color: #007bff;
+        border: none;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: rgba(0, 123, 255, 0.1);
+          color: #007bff;
+        }
+      }
+
+      .copy-button,
+      .download-button {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: #007bff;
+        border: none;
         background-color: #007bff;
         color: white;
-        border: none;
         border-radius: 5px;
         font-weight: bold;
         font-size: 16px;
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: #0056b3;
+          background-color: rgba(0, 123, 255, 0.8);
         }
       }
     }
@@ -61,6 +79,10 @@
         font-size: 14px;
         white-space: pre-wrap;
         word-wrap: break-word;
+        max-height: 300px;
+        overflow-y: auto;
+        border: none;
+        border-radius: 5px;
       }
     }
 
@@ -79,6 +101,23 @@
         &:hover {
           text-decoration: underline;
         }
+      }
+    }
+
+    .copy-button {
+      padding: 10px 20px;
+      cursor: pointer;
+      color: #007bff;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(0, 123, 255, 0.8);
       }
     }
   }
