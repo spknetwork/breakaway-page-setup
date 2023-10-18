@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FaCopy } from "react-icons/fa";
 import "./docker-setup.scss";
 
 const DockerSetup = () => {
@@ -11,8 +13,13 @@ const DockerSetup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(dockerComposeConfig).then(() => {
+      setSuccessMessage("Docker Compose configuration copied to clipboard.");
+    });
+  };
+
   const handleDownload = () => {
-    // Generate the Docker Compose configuration based on user inputs
     const config = `version: '3'
 services:
   ${containerName}:
@@ -69,7 +76,25 @@ services:
             <div className="step-info">
               <div className="info">Docker Compose Configuration:</div>
             </div>
-            <pre>{dockerComposeConfig}</pre>
+            <div className="docker-compose-config">
+              <div className="config-action-buttons">
+                <button onClick={handleCopyToClipboard} className="copy-button">
+                  <FaCopy /> Copy to Clipboard
+                </button>
+              </div>
+              <SyntaxHighlighter language="yaml" style={a11yDark}>
+                {dockerComposeConfig}
+              </SyntaxHighlighter>
+            </div>
+            <a
+              href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+                dockerComposeConfig
+              )}`}
+              download="docker-compose.yml"
+              className="download-button"
+            >
+              Download as docker-compose.yml
+            </a>
           </div>
         )}
       </div>
