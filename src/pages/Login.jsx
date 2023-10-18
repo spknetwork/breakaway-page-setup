@@ -88,10 +88,8 @@ const Login = () => {
   };
 
   const loginKey = async () => {
-    console.log(typeof username, typeof privateKey);
     try {
       const response = await api.post('/auth/login-key', { username, key: privateKey, community: "3speak" });
-      console.log(response);
   
       const { token, ...user } = response.data.response;
   

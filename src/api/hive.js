@@ -19,7 +19,6 @@ export const getAccount = async (username) => await getAccounts([username]).then
 export const getCommunity = async (name, observer = "") => {
   try {
         const result = await bridgeApiCall("get_community", { name, observer });
-        console.log(result);
         return result;
     } catch (error) {
         console.error(error);
@@ -34,7 +33,6 @@ export const createHiveCommunity = async (username, communityName, keys) => {
     const activeKey = keys.active
     const postingKey = keys.posting
     
-    console.log(memoKey, activeKey, postingKey)
     const owner = {
       weight_threshold: 1,
       account_auths: [],
@@ -99,7 +97,6 @@ export const getCommunities = (last = "", limit = 100, query = null, sort = "ran
 export  const subscribe = async (username, community) => {
   const json = ["subscribe", { community }];
   const result = await broadcastPostingJSON(username, "community", json)
-  console.log(result)
   return result;
 };
 

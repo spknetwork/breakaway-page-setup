@@ -18,7 +18,6 @@ const Setup = () => {
 
   const user = useSelector(state => state)
   
-  console.log(user)
   useEffect(() => {
     api.get("/check-directory")
       .then(response => {
@@ -49,7 +48,6 @@ const Setup = () => {
     
     api.post("/clone-repo")
       .then(response => {
-        console.log("Response from /clone-repo:", response);
 
         if (response.status === 200) {
           if (response.data.success) {
@@ -96,7 +94,6 @@ const Setup = () => {
       setIsLoading(true)
       api.post("/create-variables", { hive_id: hiveId, theme, tags })
         .then(response => {
-          console.log("Response from /create-variables:", response);
 
           if (response.status === 200) {
             if (response.data.success) {
@@ -134,8 +131,6 @@ const Setup = () => {
     
     api.post("/run-docker")
       .then(response => {
-        console.log("Response from /run-docker:", response);
-
         if (response.status === 200) {
           if (response.data.success) {
             setMessage(response.data.message);

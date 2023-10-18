@@ -20,7 +20,6 @@ const Communities = () => {
     setLoading(true);
     try {
       const communities = await getCommunities("", 100, searchQuery || null, "rank", "");
-      console.log(communities)
       setCommunityLists(communities || []);
       setLoading(false);
     } catch (error) {
