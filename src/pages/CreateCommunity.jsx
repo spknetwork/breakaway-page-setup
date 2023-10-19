@@ -29,11 +29,14 @@ const CreateCommunity = () => {
     const minRows = 2;
     const maxRows = 8;
 
+    const usernamee = communityName === "" ? genCommuninityName() : communityName;
+
   useEffect(()=> {
-    const usernamee = genCommuninityName();
     setCommunityName(usernamee)
-    handleInfo();
-  },[]);
+    if (step === 2) {
+      handleInfo();
+      }
+    },[step]);
   
   useEffect(()=> {
     if(step === 2) {
@@ -41,22 +44,19 @@ const CreateCommunity = () => {
     }
   },[step, communityName]);
 
-  const handleInfo = () =>{
-    generatePassword(32)
-        .then(password => {
-            setCommunityPassword(password);
-            const keys = getPrivateKeys(communityName, password)
-            setCommunityKeys(keys)
-            console.log(keys)
-        })
-        .catch(error => {
-            console.error(error);
-    });
+  const handleInfo = async () =>{
+        try {
+          const password = await generatePassword(32)
+          setCommunityPassword(password);
+          const keys = getPrivateKeys(communityName, password)
+            setCommunityKeys(keys)          
+        } catch (error) {
+          console.log(error)
+        }
   };
 
   const handleCommuntiyInfo = () => {
     console.log(error)
-    console.log(aboutCommunity)
     if(!aboutCommunity || !communityTitle) {
       setError("Please fill in the require fields")
       return;
@@ -70,7 +70,6 @@ const CreateCommunity = () => {
     const textareaLineHeight = 24;
     const previousRows = event.target.rows;
     event.target.rows = minRows;
-    console.log(event.target.rows)
   
     const currentRows = Math.floor(event.target.scrollHeight / textareaLineHeight);
   
@@ -94,18 +93,19 @@ const CreateCommunity = () => {
     }
 
     try {
-     const response = await createHiveCommunity(userData.name, communityName, communityKeys )
-     console.log(response)
-     if(response?.success == true) {
+     const response = await createHiveCommunity(userData?.name, communityName, communityKeys )
+     console.log("response", response.success)
+     if(response.success === true) {
        setStep(4)
        setIsLoading(false)
-      } else{
-        setStep(4)
-        setError("something went wrong")
-        setIsLoading(false)
-     }
+      } 
     } catch (error) {
-      console.log(error)
+      if (error.success === false){
+        setStep(4)
+        setIsLoading(false)
+        setError(error.message)
+        console.log(error)
+      }
     }
   }
 
@@ -184,6 +184,7 @@ const CreateCommunity = () => {
       element.download = `${communityName}_hive_keys.txt`;
       document.body.appendChild(element);
       element.click();
+      console.log("download", communityName)
       setIsDownloaded(true);
   };
 
@@ -257,7 +258,12 @@ const CreateCommunity = () => {
                         />
                         <span onClick={() => copyToClipboard(communityPassword)}>{copyIcon}</span>
                     </div>
-                    <button className="download-keys" onClick={downloadKeys}>
+                    <button 
+                      disabled={error} 
+                      style={{cursor: error ? "not-allowed" : "pointer"}} 
+                      className="download-keys" 
+                      onClick={downloadKeys}
+                      >
                       Download keys{downloadSvg}
                     </button>
                 </>
@@ -292,7 +298,8 @@ const CreateCommunity = () => {
                 disabled={!isDownloaded} 
                 className="keychain-img" 
                 src={keychainLogo} alt="" 
-                onClick={()=> createCommunityKc()}
+                onClick={()=>{
+                   createCommunityKc()}}
                 />
             </>
             </div>

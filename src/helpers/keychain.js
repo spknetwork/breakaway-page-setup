@@ -6,9 +6,8 @@ export const keychainBroadcast = (account, operations, key, rpc = null) => {
         key,
         (resp) => {
           if (!resp.success) {
-            reject({ message: "Operation cancelled" });
+            reject(resp);
           }
-  
           resolve(resp);
         },
         rpc
