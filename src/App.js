@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import LandingPage from "./pages/LandingPage";
 import Setup from './pages/Setup';
 import Navbar from './components/navbar/Navbar';
 import SideBar from './components/side-bar/SideBar';
@@ -18,7 +19,9 @@ import "./App.scss"
 function App() {
   const { userData } = useSelector(state => state.user);
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  
+  
   useEffect(() => {
     getUserAccount();
   }, [])
@@ -30,15 +33,17 @@ function App() {
     } catch (error) {
       console.log(error)
     }
-  }
+  };
+
+  const shouldRenderSideBar = userData && location.pathname !== "/";
 
   return (
     <div className="App">
-      <BrowserRouter>
         <Navbar />
         <div className="container">
           <div className="app-container">
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route
                 path="/communities"
@@ -82,11 +87,12 @@ function App() {
               />
             </Routes>
           </div>
-           {userData && <div className="sidebar-container">
-            <SideBar/>
-          </div>}
+          {shouldRenderSideBar && (
+            <div className="sidebar-container">
+              <SideBar />
+            </div>
+          )}
         </div>
-      </BrowserRouter>
     </div>
   );
 }
