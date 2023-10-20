@@ -88,7 +88,7 @@
     
                 li {
                     margin-bottom: 20px;
-                    font-size: 18px;
+                    font-size: 20px;
                     font: bold;
                   }
             }
@@ -107,6 +107,7 @@
 
                 .content{
                     flex: 3;
+                    line-height: 25px; 
                 }
                 .button{
                     flex: 2;

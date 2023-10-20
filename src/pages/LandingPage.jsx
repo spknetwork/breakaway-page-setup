@@ -45,12 +45,10 @@ const LandingPage = () => {
           </div>
           <div>
             <ul>
-              <li>User would earn points for every actions</li>
+              <li>Users would earn points for every action</li>
               <li>Points would be accumulated over a period of time</li>
               <li>Accummulated points are converted and distributed in form of airdrop</li>
               <li>Airdrops are awarded based on users points balance</li>
-              <li>User would earn points for every actions</li>
-              <li>User would earn points for every actions</li>
             </ul>
           </div>
         </div>
@@ -60,7 +58,7 @@ const LandingPage = () => {
           </div>
           <div className="create">
             <div className="content">
-              <h3>If you are ready, you can proceed to create your own breakaway community</h3>
+              <h3>If you are ready, you can proceed to create your own breakaway community. No coding knowledge is required.</h3>
             </div>
             <div className="button">
               <Link to="/community-create">
