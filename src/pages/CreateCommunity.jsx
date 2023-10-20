@@ -15,7 +15,6 @@ const CreateCommunity = () => {
     const [message, setMessage] = useState("");
     const [step, setStep] = useState(1);
     const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [communityName, setCommunityName] = useState("")
     const [communityPassword, setCommunityPassword] = useState("");
     const [communityKeys, setCommunityKeys] = useState({});
@@ -29,28 +28,25 @@ const CreateCommunity = () => {
     const minRows = 2;
     const maxRows = 8;
 
-  useEffect(()=> {
-    const usernamee = genCommuninityName();
-    setCommunityName(usernamee)
-    handleInfo();
-  },[]);
+    const usernamee = communityName === "" ? genCommuninityName() : communityName;
   
   useEffect(()=> {
+    setCommunityName(usernamee)
     if(step === 2) {
-      checkCommunity()
+      checkCommunity();
+      handleInfo();
     }
   },[step, communityName]);
 
-  const handleInfo = () =>{
-    generatePassword(32)
-        .then(password => {
-            setCommunityPassword(password);
-            const keys = getPrivateKeys(communityName, password)
-            setCommunityKeys(keys)
-        })
-        .catch(error => {
-            console.error(error);
-    });
+  const handleInfo = async () =>{
+        try {
+          const password = await generatePassword(32)
+          setCommunityPassword(password);
+          const keys = getPrivateKeys(communityName, password)
+            setCommunityKeys(keys)          
+        } catch (error) {
+          console.log(error)
+        }
   };
 
   const handleCommuntiyInfo = () => {
@@ -58,9 +54,7 @@ const CreateCommunity = () => {
       setError("Please fill in the require fields")
       return;
     }
-
     setStep(2)
-    setSuccess(true)
   }
 
   const handleAboutChange = (event) => {
@@ -90,17 +84,19 @@ const CreateCommunity = () => {
     }
 
     try {
-     const response = await createHiveCommunity(userData.name, communityName, communityKeys )
-     if(response?.success == true) {
+     const response = await createHiveCommunity(userData?.name, communityName, communityKeys )
+     if(response.success === true) {
+      setError("")
        setStep(4)
        setIsLoading(false)
-      } else{
-        setStep(4)
-        setError("something went wrong")
-        setIsLoading(false)
-     }
+      } 
     } catch (error) {
-      console.log(error)
+      if (error.success === false){
+        setStep(4)
+        setIsLoading(false)
+        setError(error.message)
+        console.log(error)
+      }
     }
   }
 
@@ -116,7 +112,6 @@ const CreateCommunity = () => {
         } else {
           setError("")
           setMessage("Available")
-          //If community id changes, we should makle sure the new keys are downloaded
           setIsDownloaded(false)
         }
       });
@@ -187,16 +182,10 @@ const CreateCommunity = () => {
       <div className="create-community-container">
         {isLoading && <Loader/>}
         <div className="header">
-          <h2>Create Community - Step {step}</h2>
+          <h2>Create Hive Community</h2>
         </div>
         {error && <span className="error-message">{error}</span>}
         {message && step === 2 && <span className="success-message">{message}</span>}
-        <div className="progress-bar">
-          <div className={`progress-line ${success && step >= 1 ? "completed" : ""}`}></div>
-          <div className={`progress-line ${success && step > 2 ? "completed" : ""}`}></div>
-          <div className={`progress-line ${success && step > 3 ? "completed" : ""}`}></div>
-          <div className={`progress-line ${success && step >= 4 && !error ? "completed" : ""}`}></div>
-        </div>
         {step === 1 && <>
             <div className="step-info">
                 <span className="info">Fill in the required fields to proceed.</span>
@@ -252,7 +241,12 @@ const CreateCommunity = () => {
                         />
                         <span onClick={() => copyToClipboard(communityPassword)}>{copyIcon}</span>
                     </div>
-                    <button className="download-keys" onClick={downloadKeys}>
+                    <button 
+                      disabled={error} 
+                      style={{cursor: error ? "not-allowed" : "pointer"}} 
+                      className="download-keys" 
+                      onClick={downloadKeys}
+                      >
                       Download keys{downloadSvg}
                     </button>
                 </>
@@ -287,7 +281,8 @@ const CreateCommunity = () => {
                 disabled={!isDownloaded} 
                 className="keychain-img" 
                 src={keychainLogo} alt="" 
-                onClick={()=> createCommunityKc()}
+                onClick={()=>{
+                   createCommunityKc()}}
                 />
             </>
             </div>
@@ -314,7 +309,6 @@ const CreateCommunity = () => {
           <div>
               <button onClick={()=> {
                 setStep(1);
-                setSuccess(false);
                 }}>Try again</button>
           </div>
         </div>

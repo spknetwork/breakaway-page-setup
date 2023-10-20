@@ -27,7 +27,7 @@ export const getCommunity = async (name, observer = "") => {
 };
 
 export const createHiveCommunity = async (username, communityName, keys) => {
-
+  return new Promise(async (resolve, reject) => {
     const op_name = "account_create";
     const memoKey = keys.memo
     const activeKey = keys.active
@@ -64,15 +64,19 @@ export const createHiveCommunity = async (username, communityName, keys) => {
 
     const operation = [op_name, params];
     ops.push(operation);
-    
+
     try {
-       await keychainBroadcast(username, [operation], "Active");
-    } catch (error) {
-     console.log(error)
-      return;
+      const response = await keychainBroadcast(username, [operation], "Active");
+      if (response) {
+        resolve(response);
+      } else {
+        reject("Account creation failed");
+      }
+    } catch (err) {
+      console.log(err);
+      reject(err);
     }
-    
-    //Add comm acc to keychain
+
     try {
       await addAccountTokeychain(communityName, {
         active: activeKey, 
@@ -82,7 +86,8 @@ export const createHiveCommunity = async (username, communityName, keys) => {
     } catch (error) {
       console.log(error)
     }
-  };
+  });
+};
 
 export const getCommunities = (last = "", limit = 100, query = null, sort = "rank", observer = "") => {
     return bridgeApiCall("list_communities", {
