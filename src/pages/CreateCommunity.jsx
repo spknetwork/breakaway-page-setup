@@ -50,12 +50,10 @@ const CreateCommunity = () => {
   };
 
   const handleCommuntiyInfo = () => {
-    console.log(error)
     if(!aboutCommunity || !communityTitle) {
       setError("Please fill in the require fields")
       return;
     }
-
     setStep(2)
   }
 
