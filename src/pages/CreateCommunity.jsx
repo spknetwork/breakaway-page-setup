@@ -47,7 +47,6 @@ const CreateCommunity = () => {
             setCommunityPassword(password);
             const keys = getPrivateKeys(communityName, password)
             setCommunityKeys(keys)
-            console.log(keys)
         })
         .catch(error => {
             console.error(error);
@@ -55,8 +54,6 @@ const CreateCommunity = () => {
   };
 
   const handleCommuntiyInfo = () => {
-    console.log(error)
-    console.log(aboutCommunity)
     if(!aboutCommunity || !communityTitle) {
       setError("Please fill in the require fields")
       return;
@@ -70,7 +67,6 @@ const CreateCommunity = () => {
     const textareaLineHeight = 24;
     const previousRows = event.target.rows;
     event.target.rows = minRows;
-    console.log(event.target.rows)
   
     const currentRows = Math.floor(event.target.scrollHeight / textareaLineHeight);
   
@@ -95,7 +91,6 @@ const CreateCommunity = () => {
 
     try {
      const response = await createHiveCommunity(userData.name, communityName, communityKeys )
-     console.log(response)
      if(response?.success == true) {
        setStep(4)
        setIsLoading(false)

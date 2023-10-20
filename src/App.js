@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import LandingPage from "./pages/LandingPage";
 import Setup from './pages/Setup';
 import Navbar from './components/navbar/Navbar';
@@ -19,8 +19,9 @@ import "./App.scss"
 function App() {
   const { userData } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
   
-
+  
   useEffect(() => {
     getUserAccount();
   }, [])
@@ -34,11 +35,10 @@ function App() {
     }
   };
 
-  const shouldRenderSideBar = userData && window.location.pathname !== "/";
+  const shouldRenderSideBar = userData && location.pathname !== "/";
 
   return (
     <div className="App">
-      <BrowserRouter>
         <Navbar />
         <div className="container">
           <div className="app-container">
@@ -93,7 +93,6 @@ function App() {
             </div>
           )}
         </div>
-      </BrowserRouter>
     </div>
   );
 }
