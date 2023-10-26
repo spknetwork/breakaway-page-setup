@@ -2,7 +2,7 @@ const communitySetupSteps = [
     {
       step: 1,
       title: "Community",
-      description: "Create a Hive community",
+      description: "Create/choose a Hive community",
     },
     {
       step: 2,
@@ -21,8 +21,8 @@ const communitySetupSteps = [
     },
     {
       step: 5,
-      title: "Enjoy!",
-      description: "We'll take the rest from there!",
+      title: "Docker container",
+      description: "Generate the docker container",
     },
   ];
   
