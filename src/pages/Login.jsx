@@ -51,7 +51,7 @@ const Login = () => {
               setMessage("loging successfull");
             console.log('Login Successfull', 'success');
             setIsLoading(false)
-            navigate("/community-setup")
+            navigate("/")
             } else {
             console.log('Login Failed, try again', 'error');
             setIsLoading(false)
