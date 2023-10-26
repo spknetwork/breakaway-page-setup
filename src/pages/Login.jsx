@@ -80,7 +80,7 @@ const Login = () => {
       setMessage("Login successful");
       console.log('Login Successful', 'success');
 
-      navigate("/community-setup");
+      navigate("/");
     } catch (error) {
       console.error('Login Failed: ', error);
       setError("Login Failed, please try again");
