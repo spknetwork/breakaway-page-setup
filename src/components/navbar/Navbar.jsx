@@ -23,7 +23,7 @@ const Navbar = () => {
             </Link>
         </div>
         <div className="nav-links">
-          <Link to="/community-setup">Get Started</Link>
+          {/* <Link to="/community-setup">Get Started</Link> */}
           <Link to="/communities">Explore communities</Link>
           <Link to="/community-create">Create community</Link>
           <Link to="/docker-setup">Docker Setup</Link>
