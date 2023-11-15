@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
@@ -38,8 +38,13 @@ const DockerSetup = () => {
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
-    handleGenerateCompose();
   };
+
+  useEffect(() => {
+    if (containerEntries.length > 0) {
+      handleGenerateCompose();
+    }
+  }, [containerEntries]);
 
   const handleGenerateCompose = () => {
     if (containerEntries.length === 0) {
