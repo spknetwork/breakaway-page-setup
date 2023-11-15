@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { FaCopy } from "react-icons/fa";
+import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
+
+const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 
 const DockerSetup = () => {
   const [containerEntries, setContainerEntries] = useState([]); // Store multiple container entries
@@ -12,6 +14,12 @@ const DockerSetup = () => {
   const [TAGS, setTags] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [dockerComposeConfig, setDockerComposeConfig] = useState("");
+  const [showTooltip, setShowTooltip] = useState({
+    containerName: false,
+    port: false,
+    HIVE_ID: false,
+    TAGS: false,
+  });
 
   const handleAddContainer = () => {
     if (containerName && HIVE_ID && TAGS) {
@@ -22,7 +30,7 @@ const DockerSetup = () => {
         TAGS,
       };
 
-      setContainerEntries([...containerEntries, newEntry]); // Add the new entry to the list
+      setContainerEntries([...containerEntries, newEntry]);
       setContainerName("");
       setPort("");
       setHiveId("");
@@ -30,8 +38,13 @@ const DockerSetup = () => {
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
-    handleGenerateCompose();
   };
+
+  useEffect(() => {
+    if (containerEntries.length > 0) {
+      handleGenerateCompose();
+    }
+  }, [containerEntries]);
 
   const handleGenerateCompose = () => {
     if (containerEntries.length === 0) {
@@ -63,30 +76,93 @@ const DockerSetup = () => {
         <div className="success-message">{successMessage}</div>
 
         <div className="form-wrapper">
-          {/* <input
-            type="text"
-            placeholder="Container Name"
-            value={containerName}
-            onChange={(e) => setContainerName(e.target.value)}
-          /> */}
-          <input
-            type="text"
-            placeholder="Port (default: 3000)"
-            value={port}
-            onChange={(e) => setPort(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="HIVE_ID"
-            value={HIVE_ID}
-            onChange={(e) => setHiveId(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="TAGS"
-            value={TAGS}
-            onChange={(e) => setTags(e.target.value)}
-          />
+          <div className="input-with-tooltip">
+            <FaQuestionCircle
+              className="tooltip-icon"
+              onClick={() =>
+                setShowTooltip({
+                  ...showTooltip,
+                  containerName: !showTooltip.containerName,
+                })
+              }
+            />
+            {showTooltip.containerName && (
+              <Tooltip text="Each container is a server, names are for reference and can be arbitrary" />
+            )}
+            <input
+              type="text"
+              placeholder="Container Name"
+              value={containerName}
+              onChange={(e) => setContainerName(e.target.value)}
+              onFocus={() =>
+                setShowTooltip({ ...showTooltip, containerName: true })
+              }
+              onBlur={() =>
+                setShowTooltip({ ...showTooltip, containerName: false })
+              }
+            />
+          </div>
+          <div className="input-with-tooltip">
+            <FaQuestionCircle
+              className="tooltip-icon"
+              onClick={() =>
+                setShowTooltip({
+                  ...showTooltip,
+                  port: !showTooltip.port,
+                })
+              }
+            />
+            {showTooltip.containerName && (
+              <Tooltip text="Port where connections will be handled, each community port must be unique, one port per community" />
+            )}
+            <input
+              type="text"
+              placeholder="Port (default: 3000)"
+              value={port}
+              onChange={(e) => setPort(e.target.value)}
+            />
+          </div>
+          <div className="input-with-tooltip">
+            <FaQuestionCircle
+              className="tooltip-icon"
+              onClick={() =>
+                setShowTooltip({
+                  ...showTooltip,
+                  HIVE_ID: !showTooltip.HIVE_ID,
+                })
+              }
+            />
+            {showTooltip.containerName && (
+              <Tooltip text="ID works similarly to a username and refers to the Hive ID of the community" />
+            )}
+            <input
+              type="text"
+              placeholder="HIVE_ID"
+              value={HIVE_ID}
+              onChange={(e) => setHiveId(e.target.value)}
+            />
+          </div>
+          <div className="input-with-tooltip">
+            <FaQuestionCircle
+              className="tooltip-icon"
+              onClick={() =>
+                setShowTooltip({
+                  ...showTooltip,
+                  TAGS: !showTooltip.TAGS,
+                })
+              }
+            />
+            {showTooltip.containerName && (
+              <Tooltip text="Extra tags can be used to show extra content on the feed even if the tag was posted outside the community" />
+            )}
+            <input
+              type="text"
+              placeholder="TAGS"
+              value={TAGS}
+              onChange={(e) => setTags(e.target.value)}
+            />
+          </div>
+
           <button onClick={handleAddContainer}>Add Container</button>
           {/* <button onClick={handleGenerateCompose}>
             Generate Docker Compose
@@ -119,7 +195,38 @@ const DockerSetup = () => {
             </a>
           </div>
         )}
-
+        <div className="instructions">
+          <h2>Running the Docker Compose</h2>
+          <p>
+            To run this generated Docker Compose file, you need a local
+            installation of docker
+          </p>
+          <ol>
+            <li>
+              You can download and read more about Docker from{" "}
+              <a href="https://www.docker.com/get-started/">here</a>
+            </li>
+            <li>
+              Open a terminal or command prompt, depending on your operating
+              system.
+            </li>
+            <li>
+              Navigate to the directory containing the generated{" "}
+              <code>docker-compose.yml</code> file, possibly the Downloads
+              folder, although it is recommended you move it somewhere else.
+            </li>
+            <li>Run the following command to start the containers:</li>
+          </ol>
+          <pre>
+            <SyntaxHighlighter language="bash" style={a11yDark}>
+              {`docker-compose up -d`}
+            </SyntaxHighlighter>
+          </pre>
+          <p>
+            This command will start the containers defined in the{" "}
+            <code>docker-compose.yml</code> file in detached mode.
+          </p>
+        </div>
         {/* <div className="container-entries">
           <h2>Container Entries</h2>
           <ul>
