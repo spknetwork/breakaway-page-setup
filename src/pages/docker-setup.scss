@@ -23,6 +23,46 @@
       flex-direction: column;
       gap: 20px;
 
+      .input-with-tooltip {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+          padding: 12px;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          border-bottom: 1px solid gray;
+          width: 100%;
+          text-align: center;
+        }
+
+        .tooltip-icon {
+          margin-left: 10px;
+          cursor: pointer;
+          color: #888;
+        }
+
+        .tooltip {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 200px;
+          padding: 8px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          z-index: 1;
+          display: none;
+        }
+
+        &:hover .tooltip {
+          display: block;
+        }
+      }
+
       input {
         padding: 12px;
         border: none;
