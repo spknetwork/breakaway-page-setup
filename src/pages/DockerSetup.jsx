@@ -75,7 +75,13 @@ const DockerSetup = () => {
     const composeConfig = `version: '3'\nservices:\n${containerEntries
       .map(
         (entry, index) =>
-          `  container${index}:\n    image: pspc/ecency-boilerplate:legacy\n    ports:\n      - "${entry.port}:3000"\n    environment:\n      - USE_PRIVATE=1\n      - HIVE_ID=${entry.HIVE_ID}\n      - TAGS=${entry.TAGS}\n    restart: always`
+          `  ${
+            entry.containerName || `container${index}`
+          }:\n    image: pspc/ecency-boilerplate:legacy\n    ports:\n      - "${
+            entry.port
+          }:3000"\n    environment:\n      - USE_PRIVATE=1\n      - HIVE_ID=${
+            entry.HIVE_ID
+          }\n      - TAGS=${entry.TAGS}\n    restart: always`
       )
       .join("\n")}`;
 
