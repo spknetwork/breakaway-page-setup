@@ -20,8 +20,18 @@ const DockerSetup = () => {
     HIVE_ID: false,
     TAGS: false,
   });
+  const [fieldWarnings, setFieldWarnings] = useState({
+    containerName: "",
+    port: "",
+    HIVE_ID: "",
+    TAGS: "",
+  });
 
   const handleAddContainer = () => {
+    if (Object.values(fieldWarnings).some((warning) => warning !== "")) {
+      setSuccessMessage("Resolve field warnings before adding the container.");
+      return;
+    }
     if (containerName && HIVE_ID && TAGS) {
       const newEntry = {
         containerName,
@@ -40,6 +50,16 @@ const DockerSetup = () => {
     }
   };
 
+  const validatePort = (value) => {
+    const isPortUsed = containerEntries.some((entry) => entry.port === value);
+    if (isPortUsed) {
+      setFieldWarnings({ ...fieldWarnings, port: "Port is already in use." });
+    } else {
+      setFieldWarnings({ ...fieldWarnings, port: "" });
+    }
+    setPort(value);
+  };
+
   useEffect(() => {
     if (containerEntries.length > 0) {
       handleGenerateCompose();
@@ -55,7 +75,13 @@ const DockerSetup = () => {
     const composeConfig = `version: '3'\nservices:\n${containerEntries
       .map(
         (entry, index) =>
-          `  container${index}:\n    image: pspc/ecency-boilerplate:legacy\n    ports:\n      - "${entry.port}:3000"\n    environment:\n      - USE_PRIVATE=1\n      - HIVE_ID=${entry.HIVE_ID}\n      - TAGS=${entry.TAGS}\n    restart: always`
+          `  ${
+            entry.containerName || `container${index}`
+          }:\n    image: pspc/ecency-boilerplate:legacy\n    ports:\n      - "${
+            entry.port
+          }:3000"\n    environment:\n      - USE_PRIVATE=1\n      - HIVE_ID=${
+            entry.HIVE_ID
+          }\n      - TAGS=${entry.TAGS}\n    restart: always`
       )
       .join("\n")}`;
 
@@ -115,13 +141,19 @@ const DockerSetup = () => {
             {showTooltip.containerName && (
               <Tooltip text="Port where connections will be handled, each community port must be unique, one port per community" />
             )}
-            <input
-              type="text"
-              placeholder="Port (default: 3000)"
-              value={port}
-              onChange={(e) => setPort(e.target.value)}
-            />
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Port (default: 3000)"
+                value={port}
+                onChange={(e) => validatePort(e.target.value)}
+              />
+              {fieldWarnings.port && (
+                <div className="warning-message">{fieldWarnings.port}</div>
+              )}
+            </div>
           </div>
+
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
