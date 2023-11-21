@@ -20,8 +20,18 @@ const DockerSetup = () => {
     HIVE_ID: false,
     TAGS: false,
   });
+  const [fieldWarnings, setFieldWarnings] = useState({
+    containerName: "",
+    port: "",
+    HIVE_ID: "",
+    TAGS: "",
+  });
 
   const handleAddContainer = () => {
+    if (Object.values(fieldWarnings).some((warning) => warning !== "")) {
+      setSuccessMessage("Resolve field warnings before adding the container.");
+      return;
+    }
     if (containerName && HIVE_ID && TAGS) {
       const newEntry = {
         containerName,
@@ -38,6 +48,16 @@ const DockerSetup = () => {
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
+  };
+
+  const validatePort = (value) => {
+    const isPortUsed = containerEntries.some((entry) => entry.port === value);
+    if (isPortUsed) {
+      setFieldWarnings({ ...fieldWarnings, port: "Port is already in use." });
+    } else {
+      setFieldWarnings({ ...fieldWarnings, port: "" });
+    }
+    setPort(value);
   };
 
   useEffect(() => {
@@ -115,13 +135,19 @@ const DockerSetup = () => {
             {showTooltip.containerName && (
               <Tooltip text="Port where connections will be handled, each community port must be unique, one port per community" />
             )}
-            <input
-              type="text"
-              placeholder="Port (default: 3000)"
-              value={port}
-              onChange={(e) => setPort(e.target.value)}
-            />
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Port (default: 3000)"
+                value={port}
+                onChange={(e) => validatePort(e.target.value)}
+              />
+              {fieldWarnings.port && (
+                <div className="warning-message">{fieldWarnings.port}</div>
+              )}
+            </div>
           </div>
+
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
