@@ -7,7 +7,7 @@ import "./docker-setup.scss";
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 
 const DockerSetup = () => {
-  const [containerEntries, setContainerEntries] = useState([]); // Store multiple container entries
+  const [containerEntries, setContainerEntries] = useState([]);
   const [containerName, setContainerName] = useState("");
   const [port, setPort] = useState("");
   const [HIVE_ID, setHiveId] = useState("");
@@ -58,6 +58,36 @@ const DockerSetup = () => {
       setFieldWarnings({ ...fieldWarnings, port: "" });
     }
     setPort(value);
+  };
+
+  const validateContainerName = (value) => {
+    const isNameUsed = containerEntries.some(
+      (entry) => entry.containerName === value
+    );
+    if (isNameUsed) {
+      setFieldWarnings({
+        ...fieldWarnings,
+        containerName: "Container name is already in use.",
+      });
+    } else {
+      setFieldWarnings({ ...fieldWarnings, containerName: "" });
+    }
+    setContainerName(value);
+  };
+
+  const validateHiveId = (value) => {
+    const isHiveIdUsed = containerEntries.some(
+      (entry) => entry.HIVE_ID === value
+    );
+    if (isHiveIdUsed) {
+      setFieldWarnings({
+        ...fieldWarnings,
+        HIVE_ID: "Hive community ID is already in use.",
+      });
+    } else {
+      setFieldWarnings({ ...fieldWarnings, HIVE_ID: "" });
+    }
+    setHiveId(value);
   };
 
   useEffect(() => {
@@ -113,13 +143,13 @@ const DockerSetup = () => {
               }
             />
             {showTooltip.containerName && (
-              <Tooltip text="Each container is a server, names are for reference and can be arbitrary" />
+              <Tooltip text="Each container is a server" />
             )}
             <input
               type="text"
               placeholder="Container Name"
               value={containerName}
-              onChange={(e) => setContainerName(e.target.value)}
+              onChange={(e) => validateContainerName(e.target.value)}
               onFocus={() =>
                 setShowTooltip({ ...showTooltip, containerName: true })
               }
@@ -127,6 +157,11 @@ const DockerSetup = () => {
                 setShowTooltip({ ...showTooltip, containerName: false })
               }
             />
+            {fieldWarnings.containerName && (
+              <div className="warning-message">
+                {fieldWarnings.containerName}
+              </div>
+            )}
           </div>
           <div className="input-with-tooltip">
             <FaQuestionCircle
@@ -169,10 +204,13 @@ const DockerSetup = () => {
             )}
             <input
               type="text"
-              placeholder="HIVE_ID"
+              placeholder="Hive community ID"
               value={HIVE_ID}
-              onChange={(e) => setHiveId(e.target.value)}
+              onChange={(e) => validateHiveId(e.target.value)}
             />
+            {fieldWarnings.HIVE_ID && (
+              <div className="warning-message">{fieldWarnings.HIVE_ID}</div>
+            )}
           </div>
           <div className="input-with-tooltip">
             <FaQuestionCircle
@@ -196,9 +234,6 @@ const DockerSetup = () => {
           </div>
 
           <button onClick={handleAddContainer}>Add Container</button>
-          {/* <button onClick={handleGenerateCompose}>
-            Generate Docker Compose
-          </button> */}
         </div>
 
         {dockerComposeConfig && (
@@ -259,17 +294,6 @@ const DockerSetup = () => {
             <code>docker-compose.yml</code> file in detached mode.
           </p>
         </div>
-        {/* <div className="container-entries">
-          <h2>Container Entries</h2>
-          <ul>
-            {containerEntries.map((entry, index) => (
-              <li key={index}>
-                Container Name: {entry.containerName}, Port: {entry.port},
-                HIVE_ID: {entry.HIVE_ID}, TAGS: {entry.TAGS}
-              </li>
-            ))}
-          </ul>
-        </div> */}
       </div>
     </div>
   );
