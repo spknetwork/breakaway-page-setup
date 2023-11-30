@@ -12,6 +12,7 @@ const DockerSetup = () => {
   const [port, setPort] = useState("");
   const [HIVE_ID, setHiveId] = useState("");
   const [TAGS, setTags] = useState("");
+  const [domain, setDomain] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [dockerComposeConfig, setDockerComposeConfig] = useState("");
   const [showTooltip, setShowTooltip] = useState({
@@ -19,14 +20,34 @@ const DockerSetup = () => {
     port: false,
     HIVE_ID: false,
     TAGS: false,
+    domain: false,
   });
   const [fieldWarnings, setFieldWarnings] = useState({
     containerName: "",
     port: "",
     HIVE_ID: "",
     TAGS: "",
+    domain: "",
   });
 
+  const handleTooltipToggle = (field) => {
+    setShowTooltip((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+  };
+  const handleTooltipShow = (field) => {
+    setShowTooltip((prevState) => ({
+      ...prevState,
+      [field]: true,
+    }));
+  };
+  const handleTooltipHide = (field) => {
+    setShowTooltip((prevState) => ({
+      ...prevState,
+      [field]: false,
+    }));
+  };
   const handleAddContainer = () => {
     if (Object.values(fieldWarnings).some((warning) => warning !== "")) {
       setSuccessMessage("Resolve field warnings before adding the container.");
@@ -38,6 +59,7 @@ const DockerSetup = () => {
         port: port || "3000",
         HIVE_ID,
         TAGS,
+        domain,
       };
 
       setContainerEntries([...containerEntries, newEntry]);
@@ -90,6 +112,10 @@ const DockerSetup = () => {
     setHiveId(value);
   };
 
+  const validateDomain = (value) => {
+    setDomain(value);
+  };
+
   useEffect(() => {
     if (containerEntries.length > 0) {
       handleGenerateCompose();
@@ -102,18 +128,46 @@ const DockerSetup = () => {
       return;
     }
 
-    const composeConfig = `version: '3'\nservices:\n${containerEntries
+    const composeEntries = containerEntries.map(
+      (entry, index) => `  ${entry.containerName || `container${index}`}:
+      image: pspc/ecency-boilerplate:legacy
+      container_name: ${entry.containerName || `container${index}`}
+      ports:
+        - "${entry.port}:3000"
+      environment:
+        - USE_PRIVATE=1
+        - HIVE_ID=${entry.HIVE_ID}
+        - TAGS=${entry.TAGS}
+      networks:
+        - my_network
+      restart: always`
+    );
+
+    const nginxEnvVars = containerEntries
       .map(
         (entry, index) =>
-          `  ${
+          `      - VARIABLE${index + 1}=${entry.domain}_${
             entry.containerName || `container${index}`
-          }:\n    image: pspc/ecency-boilerplate:legacy\n    ports:\n      - "${
-            entry.port
-          }:3000"\n    environment:\n      - USE_PRIVATE=1\n      - HIVE_ID=${
-            entry.HIVE_ID
-          }\n      - TAGS=${entry.TAGS}\n    restart: always`
+          }:3000`
       )
-      .join("\n")}`;
+      .join("\n");
+
+    const composeConfig = `version: '3'
+  services:
+  ${composeEntries.join("\n")}
+    nginx:
+      image: dynamic-nginx-image
+      ports:
+        - "80:80"
+      environment:
+  ${nginxEnvVars ? `${nginxEnvVars.replace(/^/gm, "")}` : ""}
+      networks:
+        - my_network
+      restart: always
+    
+  networks:
+    my_network:
+      driver: bridge`;
 
     setSuccessMessage("Docker Compose configuration generated.");
     setDockerComposeConfig(composeConfig);
@@ -135,12 +189,9 @@ const DockerSetup = () => {
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
-              onClick={() =>
-                setShowTooltip({
-                  ...showTooltip,
-                  containerName: !showTooltip.containerName,
-                })
-              }
+              onClick={() => handleTooltipToggle("containerName")}
+              onMouseEnter={() => handleTooltipShow("containerName")}
+              onMouseLeave={() => handleTooltipHide("containerName")}
             />
             {showTooltip.containerName && (
               <Tooltip text="Each container is a server" />
@@ -166,12 +217,9 @@ const DockerSetup = () => {
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
-              onClick={() =>
-                setShowTooltip({
-                  ...showTooltip,
-                  port: !showTooltip.port,
-                })
-              }
+              onClick={() => handleTooltipToggle("containerName")}
+              onMouseEnter={() => handleTooltipShow("containerName")}
+              onMouseLeave={() => handleTooltipHide("containerName")}
             />
             {showTooltip.containerName && (
               <Tooltip text="Port where connections will be handled, each community port must be unique, one port per community" />
@@ -192,12 +240,9 @@ const DockerSetup = () => {
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
-              onClick={() =>
-                setShowTooltip({
-                  ...showTooltip,
-                  HIVE_ID: !showTooltip.HIVE_ID,
-                })
-              }
+              onClick={() => handleTooltipToggle("containerName")}
+              onMouseEnter={() => handleTooltipShow("containerName")}
+              onMouseLeave={() => handleTooltipHide("containerName")}
             />
             {showTooltip.containerName && (
               <Tooltip text="ID works similarly to a username and refers to the Hive ID of the community" />
@@ -215,12 +260,9 @@ const DockerSetup = () => {
           <div className="input-with-tooltip">
             <FaQuestionCircle
               className="tooltip-icon"
-              onClick={() =>
-                setShowTooltip({
-                  ...showTooltip,
-                  TAGS: !showTooltip.TAGS,
-                })
-              }
+              onClick={() => handleTooltipToggle("containerName")}
+              onMouseEnter={() => handleTooltipShow("containerName")}
+              onMouseLeave={() => handleTooltipHide("containerName")}
             />
             {showTooltip.containerName && (
               <Tooltip text="Extra tags can be used to show extra content on the feed even if the tag was posted outside the community" />
@@ -230,6 +272,25 @@ const DockerSetup = () => {
               placeholder="TAGS"
               value={TAGS}
               onChange={(e) => setTags(e.target.value)}
+            />
+          </div>
+          <div className="input-with-tooltip">
+            <FaQuestionCircle
+              className="tooltip-icon"
+              onClick={() => handleTooltipToggle("domain")}
+              onMouseEnter={() => handleTooltipShow("domain")}
+              onMouseLeave={() => handleTooltipHide("domain")}
+            />
+            {showTooltip.domain && (
+              <Tooltip text="The domain is the website for this specific domain" />
+            )}
+            <input
+              type="text"
+              placeholder="Domain"
+              value={domain}
+              onChange={(e) => validateDomain(e.target.value)}
+              onFocus={() => handleTooltipShow("domain")}
+              onBlur={() => handleTooltipHide("domain")}
             />
           </div>
 
