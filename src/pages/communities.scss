@@ -36,85 +36,211 @@
         box-shadow: 0px 0px 10px #d5d4d5;
         margin: 10px 0;
 
+        .view{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            align-self: flex-end;
+            cursor: pointer;
+
+            &:hover {
+                color: #0056b3;
+              }
+        }
+
         .community{
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            .community-wrapper{
-                padding: 20px;
-                width: 100%;
+            
+            .community-main{
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
-                border-bottom: 0.5px solid #d5d4d5;
-            
-                .left{    
-                    .top{
-                        display: flex;
-                        align-items: center;
-                        gap: 5px;
+                justify-content: center;
+                flex-wrap: wrap;
+                // background-color: blue;
+                padding: 20px;
+                // gap: 10px
+
+                .community-wrapper-list{
+                    padding: 20px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-bottom: 0.5px solid #d5d4d5;
                 
-                        img{
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;
-                            object-fit: cover;
-                        }
-                    }
-            
-                    .bottom{
-                        display: flex;
-                        flex-direction: column;
-                        gap: 15px;
-        
-                        .about{
-                            font-size: 12px;
-                            color: rgb(239, 124, 37);
-                            max-width: 300px;
-                        }
-                
-                        .community-info{
+                    .left{    
+                        .top{
                             display: flex;
                             align-items: center;
                             gap: 5px;
+                    
+                            img{
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                                object-fit: cover;
+                            }
                         }
-                        span{
-                            font-size: 16px;
+                
+                        .bottom{
+                            display: flex;
+                            flex-direction: column;
+                            gap: 15px;
+            
+                            .about{
+                                font-size: 14px;
+                                color: rgb(239, 124, 37);
+                                max-width: 300px;
+                            }
+                    
+                            .community-info{
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                            span{
+                                font-size: 16px;
+                                font-weight: bold;
+                            }
+    
+                            .admins-wrapper{
+                                display: flex;
+                                flex-wrap: wrap;
+                                max-width: 400px;
+                                gap: 5px;
+    
+                                .admin{
+                                    &:hover {
+                                        color: #007bff;
+                                      }
+                                }
+                            }
+                        }
+                    }
+                
+                    .right{    
+                        button{
+                            width: 150px;
+                            padding: 15px;
+                            background-color: #007bff;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
                             font-weight: bold;
+                            font-size: 16px;
+                            transition: background-color 0.3s ease;
+                            cursor: pointer;
+              
+                      &:hover {
+                        background-color: #0056b3;
+                      }
+                        }
+                    }
+                }
+
+                .community-wrapper-grid{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 10px;
+                    // background-color: yellow;
+                    box-shadow: 0px 0px 10px #d5d4d5;
+                    display: flex;
+                    margin-right: 10px;
+                    padding: 10px;
+                    width: 280px;
+
+                    // flex-direction: column;
+                    
+                    .grid-top{
+                        // background-color: red;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        // align-items: center;
+
+                        .top{
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+
+                            img{
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .bottom{
+                            display: flex;
+                            flex-direction: column;
+                            // align-self: center;
+                            // background-color: red;
+                            gap: 5px;
+
+                            .about{
+                                font-size: 14px;
+                                color: rgb(239, 124, 37);
+                                max-width: 300px;
+                            }
+                    
+                            .community-info{
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                            span{
+                                font-size: 16px;
+                                font-weight: bold;
+                            }
+                        }
+                        
+                        .community-info{
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 5px;
+
                         }
 
                         .admins-wrapper{
                             display: flex;
-                            flex-wrap: wrap;
-                            max-width: 400px;
-                            gap: 5px;
 
-                            .admin{
-                                &:hover {
-                                    color: #007bff;
-                                  }
+                            .admins{
+                                display: flex;
+                                gap: 5px;
+                                // flex-direction: column;
+                                flex-wrap: wrap;
+
+                                .each-admin{
+                                    background-color: rgb(228, 219, 219);
+                                    margin-right: 5px;
+                                }
                             }
                         }
+    
                     }
-                }
-            
-                .right{    
-                    button{
-                        width: 150px;
-                        padding: 15px;
-                        background-color: #007bff;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        font-weight: bold;
-                        font-size: 16px;
-                        transition: background-color 0.3s ease;
-                        cursor: pointer;
-          
-                  &:hover {
-                    background-color: #0056b3;
-                  }
+
+                    .right{    
+                        button{
+                            width: 150px;
+                            padding: 5px;
+                            background-color: #007bff;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
+                            font-weight: bold;
+                            font-size: 16px;
+                            transition: background-color 0.3s ease;
+                            cursor: pointer;
+              
+                      &:hover {
+                        background-color: #0056b3;
+                      }
+                        }
                     }
                 }
             }
@@ -122,3 +248,34 @@
     }
     }
     
+    .select-communities{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        select {
+            padding: 10px;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+    }
+    
+
+    .select-container {
+        position: relative;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+      
+        .styled-select {
+          display: inline-block;
+          background: #fff;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 5px;
+          cursor: pointer;
+        }
+      }
+      

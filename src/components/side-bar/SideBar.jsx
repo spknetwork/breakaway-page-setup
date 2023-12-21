@@ -9,6 +9,7 @@ const SideBar = () => {
     const { userData } = useSelector(state => state.user);
 
     useEffect(() => {
+      // console.log(userData)
         if (userData) {
             handleJsonMetaData();
         }
