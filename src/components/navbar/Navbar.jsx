@@ -16,9 +16,11 @@ const Navbar = ({ toggleSidebar }) => {
         </Link>
       </div>
       <div className="nav-links">
-        <Link to="/communities">Explore communities</Link>
-        <Link to="/community-create">Create community</Link>
-        <Link to="/docker-setup">Docker Setup</Link>
+        <Link to="/communities">Explore Communities</Link>
+        <Link to="/community-create">Create Community</Link>
+        <Link to="/docker-setup">Breakaway</Link>
+        <Link to="/about">About</Link>
+
         {!auth.isAuthenticated ? (
           <Link to="/login">Login</Link>
         ) : (

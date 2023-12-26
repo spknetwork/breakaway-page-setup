@@ -11,15 +11,21 @@ const Communities = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-        setTimeout(()=> {
-            fetchCommunities();
-        },3000)
+    setTimeout(() => {
+      fetchCommunities();
+    }, 3000);
   }, [searchQuery]);
 
   const fetchCommunities = async () => {
     setLoading(true);
     try {
-      const communities = await getCommunities("", 100, searchQuery || null, "rank", "");
+      const communities = await getCommunities(
+        "",
+        100,
+        searchQuery || null,
+        "rank",
+        ""
+      );
       setCommunityLists(communities || []);
       setLoading(false);
     } catch (error) {
@@ -35,7 +41,7 @@ const Communities = () => {
   return (
     <div className="communities setup">
       <div className="community-header">
-        <h1>All communities</h1>
+        <h1>Tokenized Breakaway Communities</h1>
       </div>
       <div className="search-container">
         <input
@@ -46,42 +52,51 @@ const Communities = () => {
           onChange={handleCommunitySearch}
         />
       </div>
-      {loading ? <div className="communities-container"><Loader/></div> : communityLists.length > 0 ?
-      <div className="communities-container">
-        <div className="community">
-          {communityLists.map((c, i) => (
-            <div className="community-wrapper" key={i}>
-              <div className="left">
-                <div className="top">
-                  <img src={spkimage} alt="" />
-                  <Link to={`/community/hive-${c.id}`}>{c.title}</Link>
-                </div>
-                <div className="bottom">
-                  <span className="about">{c.about}</span>
-                  <div className="community-info">
-                    <span>{c.subscribers} members</span>
-                    <span>|</span>
-                    <span>{c.num_pending} Posts</span>
-                    <span>|</span>
-                    <span>{c.num_authors} posters</span>
-                  </div>
-                  <div className="admins-wrapper">
-                    <span>Admin:</span>
-                    {c?.admins?.map((admin, i) => (
-                      <div key={i}>
-                        <span className="admin">@{admin}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="right">
-                <button onClick={()=> subscribe("souljay", "hive-"+c.id)}>Join</button>
-              </div>
-            </div>
-          ))}
+      {loading ? (
+        <div className="communities-container">
+          <Loader />
         </div>
-      </div> : <div className="communities-container">No community found</div>}
+      ) : communityLists.length > 0 ? (
+        <div className="communities-container">
+          <div className="community">
+            {communityLists.map((c, i) => (
+              <div className="community-wrapper" key={i}>
+                <div className="left">
+                  <div className="top">
+                    <img src={spkimage} alt="" />
+                    <Link to={`/community/hive-${c.id}`}>{c.title}</Link>
+                  </div>
+                  <div className="bottom">
+                    <span className="about">{c.about}</span>
+                    <div className="community-info">
+                      <span>{c.subscribers} members</span>
+                      <span>|</span>
+                      <span>{c.num_pending} Posts</span>
+                      <span>|</span>
+                      <span>{c.num_authors} posters</span>
+                    </div>
+                    <div className="admins-wrapper">
+                      <span>Admin:</span>
+                      {c?.admins?.map((admin, i) => (
+                        <div key={i}>
+                          <span className="admin">@{admin}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="right">
+                  <button onClick={() => subscribe("souljay", "hive-" + c.id)}>
+                    Join
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="communities-container">No community found</div>
+      )}
     </div>
   );
 };
