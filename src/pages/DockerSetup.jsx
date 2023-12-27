@@ -187,9 +187,7 @@ networks:
     <div className="docker-setup">
       <div className="docker-setup-container">
         <div className="instructions">
-          <h2>
-            This is where you can run your own Web3 enabled breakaway platform
-          </h2>
+          <h2>Become an owner of your own Web3 enabled platform</h2>
           <p>
             The first step is setting up a docker container by entering your
             community, server and URL details below
