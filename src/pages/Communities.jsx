@@ -27,12 +27,18 @@ const Communities = () => {
         "rank",
         ""
       );
+      console.log("communities");
+      console.log(communities);
+
       const pinnedCommunitiesData = await Promise.all(
         pinnedCommunities.map(async (communityId) => {
           try {
             let _community = await getCommunity(communityId);
             if (_community) {
-              return { ..._community, isPinned: true };
+              const admins = _community.team
+                .filter((member) => member[1] === "admin")
+                .map((admin) => admin[0]);
+              return { ..._community, isPinned: true, admins };
             } else {
               return _community;
             }
@@ -42,6 +48,8 @@ const Communities = () => {
           }
         })
       );
+      console.log("pinnedCommunitiesData");
+      console.log(pinnedCommunitiesData);
       setCommunityLists(
         (!searchQuery
           ? [...pinnedCommunitiesData, ...communities]
