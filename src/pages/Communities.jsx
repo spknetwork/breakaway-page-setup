@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getCommunities, subscribe } from "../api/hive";
+import { getCommunities, subscribe, getCommunity } from "../api/hive";
 import "./communities.scss";
 import spkimage from "../assets/spkimage.png";
 import Loader from "../components/loader/Loader";
@@ -9,6 +9,7 @@ const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,7 +27,26 @@ const Communities = () => {
         "rank",
         ""
       );
-      setCommunityLists(communities || []);
+      const pinnedCommunitiesData = await Promise.all(
+        pinnedCommunities.map(async (communityId) => {
+          try {
+            let _community = await getCommunity(communityId);
+            if (_community) {
+              return { ..._community, isPinned: true };
+            } else {
+              return _community;
+            }
+          } catch (error) {
+            console.error(`Error fetching community ${communityId}:`, error);
+            return null;
+          }
+        })
+      );
+      setCommunityLists(
+        (!searchQuery
+          ? [...pinnedCommunitiesData, ...communities]
+          : [...communities]) || []
+      );
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -60,7 +80,12 @@ const Communities = () => {
         <div className="communities-container">
           <div className="community">
             {communityLists.map((c, i) => (
-              <div className="community-wrapper" key={i}>
+              <div
+                className={`community-wrapper${
+                  c.isPinned ? " pinned-community" : ""
+                }`}
+                key={i}
+              >
                 <div className="left">
                   <div className="top">
                     <img src={spkimage} alt="" />
