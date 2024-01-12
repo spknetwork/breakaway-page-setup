@@ -134,7 +134,9 @@ const Communities = () => {
                       </div>
                     </div>
                     <div className="right">
-                      <button onClick={()=> subscribeCommunity(userData?.name, c.name)}>Join</button>
+                      {/* <button > */}
+                        <Link to={`/docker-setup`}>Start your own platform for this community</Link>
+                      {/* </button> */}
                     </div>
                   </div>
                 ))}

@@ -124,11 +124,11 @@ const Login = () => {
             <div className="form-wrapper">
                 <>
                     <input type="text" placeholder="@username" onChange={e => setUsername(e.target.value)} />
-                    <input type="text" placeholder="Your active key" onChange={e => setPrivateKey(e.target.value)} />
+                    {/* <input type="text" placeholder="Your active key" onChange={e => setPrivateKey(e.target.value)} /> */}
                 </>
                 <>
-                    <button onClick={() => loginKey(username, privateKey)}>Login</button>
-                    <h3>Sign in with</h3>
+                    {/* <button onClick={() => loginKey(username, privateKey)}>Login</button>
+                    <h3>Sign in with</h3> */}
                     <img className="keychain-img" src={keychainLogo} alt="" onClick={()=> loginKc()}/>
                     <span className="">Don't have an account? <Link to="/">click to signup</Link></span>
                 </>
