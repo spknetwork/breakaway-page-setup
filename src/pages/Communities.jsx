@@ -10,6 +10,11 @@ const Communities = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
+  const pinnedCommunitiesWebsties = {
+    "hive-109272": "https://hiverally.com",
+    "hive-115309": "https://digitalnetworkstate.media",
+    "hive-140169": "https://hivevibes.co",
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -119,9 +124,22 @@ const Communities = () => {
                   </div>
                 </div>
                 <div className="right">
-                  <button onClick={() => subscribe("souljay", "hive-" + c.id)}>
-                    Join
-                  </button>
+                  {c.isPinned ? (
+                    <button
+                      onClick={() =>
+                        window.open(
+                          `${pinnedCommunitiesWebsties[c.name]}`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      Access
+                    </button>
+                  ) : (
+                    <Link to="/docker-setup">
+                      <button>Create</button>
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}
