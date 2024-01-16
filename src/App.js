@@ -52,16 +52,10 @@ function App() {
       <div className="container">
         <div className="app-container">
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Communities />} />
+            <Route path="/about" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/communities"
-              element={
-                <PrivateRoute>
-                  <Communities />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/communities" element={<Communities />} />
             <Route
               path="/community/:id"
               element={
@@ -86,14 +80,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/docker-setup"
-              element={
-                <PrivateRoute>
-                  <DockerSetup />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/docker-setup" element={<DockerSetup />} />
           </Routes>
         </div>
         {shouldRenderSideBar && isSidebarOpen && (

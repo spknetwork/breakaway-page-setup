@@ -129,45 +129,49 @@ const DockerSetup = () => {
     }
 
     const composeEntries = containerEntries.map(
-      (entry, index) => `  ${entry.containerName || `container${index}`}:
-      image: pspc/ecency-boilerplate:legacy
-      container_name: ${entry.containerName || `container${index}`}
-      ports:
-        - "${entry.port}:3000"
-      environment:
-        - USE_PRIVATE=1
-        - HIVE_ID=${entry.HIVE_ID}
-        - TAGS=${entry.TAGS}
-      networks:
-        - my_network
-      restart: always`
+      (entry, index) => `${index !== 0 ? "  " : ""}${
+        entry.containerName || `container${index}`
+      }:
+    image: pspc/ecency-boilerplate:legacy
+    container_name: ${entry.containerName || `container${index}`}
+    ports:
+      - "${entry.port}:3000"
+    environment:
+      - USE_PRIVATE=1
+      - HIVE_ID=${entry.HIVE_ID}
+      - TAGS=${entry.TAGS}
+    networks:
+      - my_network
+    restart: always`
     );
 
     const nginxEnvVars = containerEntries
       .map(
         (entry, index) =>
-          `      - VARIABLE${index + 1}=${entry.domain}_${
+          `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
             entry.containerName || `container${index}`
           }:3000`
       )
       .join("\n");
 
+    const nginxEnvVarsFormatted = nginxEnvVars
+      ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
+      : "";
+
     const composeConfig = `version: '3'
-  services:
+services:
   ${composeEntries.join("\n")}
-    nginx:
-      image: dynamic-nginx-image
-      ports:
-        - "80:80"
-      environment:
-  ${nginxEnvVars ? `${nginxEnvVars.replace(/^/gm, "")}` : ""}
-      networks:
-        - my_network
-      restart: always
-    
-  networks:
-    my_network:
-      driver: bridge`;
+  nginx:
+    image: igormuba/nginx-to-docker:latest
+    ports:
+      - "80:80"
+    environment:
+${nginxEnvVarsFormatted}    networks:
+      - my_network
+    restart: always
+networks:
+  my_network:
+    driver: bridge`;
 
     setSuccessMessage("Docker Compose configuration generated.");
     setDockerComposeConfig(composeConfig);
@@ -182,6 +186,13 @@ const DockerSetup = () => {
   return (
     <div className="docker-setup">
       <div className="docker-setup-container">
+        <div className="instructions">
+          <h2>Become an owner of your own Web3 enabled platform</h2>
+          <p>
+            The first step is setting up a docker container by entering your
+            community, server and URL details below
+          </p>
+        </div>
         <div className="header">Docker Container Setup</div>
         <div className="success-message">{successMessage}</div>
 
@@ -324,15 +335,45 @@ const DockerSetup = () => {
           </div>
         )}
         <div className="instructions">
+          <h2>Accessing a VPS</h2>
+          <p>
+            To access your VPS, you'll need an SSH client. Here's how you can
+            connect:
+          </p>
+          <ol>
+            <li>
+              When you rent a VPS server you will receive authentication
+              details, such as user, password and IP
+            </li>
+
+            <li>Open your terminal or SSH client.</li>
+            <li>
+              Use the following command to connect to your VPS:{" "}
+              <code>ssh username@your_vps_ip</code>
+            </li>
+            <li>
+              If the VPS username is root and the IP is 127.0.0.1, as an
+              example, it will look like: <code>ssh root@127.0.0.1</code>
+            </li>
+            <li>Enter your password when prompted.</li>
+            <li>You should now be connected to your VPS.</li>
+          </ol>
+        </div>
+        <div className="instructions">
           <h2>Running the Docker Compose</h2>
           <p>
             To run this generated Docker Compose file, you need a local
-            installation of docker
+            installation of docker inside the VPS, after you are inside the VPS
+            terminal
           </p>
           <ol>
             <li>
               You can download and read more about Docker from{" "}
               <a href="https://www.docker.com/get-started/">here</a>
+            </li>
+            <li>
+              You can download and read more about Docker Compose from{" "}
+              <a href="https://docs.docker.com/compose/">here</a>
             </li>
             <li>
               Open a terminal or command prompt, depending on your operating
@@ -354,6 +395,67 @@ const DockerSetup = () => {
             This command will start the containers defined in the{" "}
             <code>docker-compose.yml</code> file in detached mode.
           </p>
+        </div>
+        <div className="instructions">
+          <h2>Pointing a Domain to an IP Using DNS Entries</h2>
+          <p>
+            To point a domain to an IP address using DNS entries, follow these
+            steps:
+          </p>
+          <ol>
+            <li>
+              Log in to your domain registrar's website or DNS hosting
+              provider's control panel.
+            </li>
+            <li>Navigate to the DNS management or DNS settings section.</li>
+            <li>
+              Find the option to edit or manage DNS records for your domain.
+            </li>
+            <li>
+              Locate the "A" record (Address record) or "CNAME" record
+              (Canonical Name record) settings.
+            </li>
+            <li>
+              If using an "A" record:
+              <ul>
+                <li>Create a new "A" record.</li>
+                <li>
+                  Enter the desired hostname (usually "@", to point the domain
+                  itself) or a subdomain.
+                </li>
+                <li>
+                  Enter the IP address in the "Value" or "Points to" field.
+                </li>
+                <li>Save the changes.</li>
+              </ul>
+            </li>
+            <li>
+              If using a "CNAME" record:
+              <ul>
+                <li>Create a new "CNAME" record.</li>
+                <li>
+                  Enter the desired subdomain (e.g., "www") in the "Name" field.
+                </li>
+                <li>
+                  Enter the domain or subdomain to point to in the "Value" or
+                  "Points to" field.
+                </li>
+                <li>Save the changes.</li>
+              </ul>
+            </li>
+            <li>
+              DNS changes might take some time to propagate across the internet
+              (usually several hours to a day).
+            </li>
+            <li>
+              Verify the changes by pinging your domain or using online DNS
+              lookup tools.
+            </li>
+            <li>
+              Once DNS propagation is complete, your domain should now point to
+              the specified IP address.
+            </li>
+          </ol>
         </div>
       </div>
     </div>

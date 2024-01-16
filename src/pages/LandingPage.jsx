@@ -1,13 +1,11 @@
-import React, { useEffect} from 'react'
-import { Link } from 'react-router-dom';
-import community from "../assets/community.png"
-import communitySetupSteps from '../constants/community-steps';
-import "./landing-page.scss"
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import community from "../assets/community.png";
+import communitySetupSteps from "../constants/community-steps";
+import "./landing-page.scss";
 
 const LandingPage = () => {
-
-    useEffect(()=> {
-    }, [])
+  useEffect(() => {}, []);
   return (
     <div className="landing-page">
       <div className="top">
@@ -17,10 +15,17 @@ const LandingPage = () => {
         <div className="landing-right">
           <h1>Create a "Break Away Community"!</h1>
           <div>
-            <h3>A tokenised content community connected to a Web3 decentralised back end infrastructure on the SPK Network that gives full self reliance to the community.</h3>
+            <h3>
+              A tokenised content community connected to a Web3 decentralised
+              back end infrastructure on the SPK Network that gives full self
+              reliance to the community.
+            </h3>
           </div>
           <div>
-            <h3>Here, you can easily and quickly create your own fully functioning content platform for your community.</h3>
+            <h3>
+              Here, you can easily and quickly create your own fully functioning
+              content platform for your community.
+            </h3>
           </div>
         </div>
       </div>
@@ -37,6 +42,11 @@ const LandingPage = () => {
             </div>
           ))}
         </div>
+        <div className="button">
+          <Link to="/community-create">
+            <button>Create your community</button>
+          </Link>
+        </div>
       </div>
       <div className="landing-bottom">
         <div className="points-wrapper">
@@ -47,7 +57,10 @@ const LandingPage = () => {
             <ul>
               <li>Users would earn points for every action</li>
               <li>Points would be accumulated over a period of time</li>
-              <li>Accummulated points are converted and distributed in form of airdrop</li>
+              <li>
+                Accummulated points are converted and distributed in form of
+                airdrop
+              </li>
               <li>Airdrops are awarded based on users points balance</li>
             </ul>
           </div>
@@ -58,18 +71,16 @@ const LandingPage = () => {
           </div>
           <div className="create">
             <div className="content">
-              <h3>If you are ready, you can proceed to create your own breakaway community. No coding knowledge is required.</h3>
-            </div>
-            <div className="button">
-              <Link to="/community-create">
-                <button>Create your community</button>
-              </Link>
+              <h3>
+                If you are ready, you can proceed to create your own breakaway
+                community. No coding knowledge is required.
+              </h3>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;
