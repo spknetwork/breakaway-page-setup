@@ -10,7 +10,7 @@ const Communities = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [selectedOption, setSelectedOption] = useState('Breakaway communities');
+  const [selectedOption, setSelectedOption] = useState('rank');
   const [gridView, setGridView] = useState(false);
 
   const pinnedCommunitiesWebsties = {
@@ -25,7 +25,7 @@ const Communities = () => {
   useEffect(() => {
     setTimeout(()=> {
       fetchCommunities();
-        },3000);
+        },3000)
       }, [searchQuery, selectedOption]);
       
   const handleSelectChange = async (event) => {
