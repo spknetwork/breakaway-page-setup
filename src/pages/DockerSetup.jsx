@@ -369,11 +369,15 @@ networks:
           <ol>
             <li>
               You can download and read more about Docker from{" "}
-              <a href="https://www.docker.com/get-started/">here</a>
+              <a href="https://www.docker.com/get-started/" target="_blank">
+                here
+              </a>
             </li>
             <li>
               You can download and read more about Docker Compose from{" "}
-              <a href="https://docs.docker.com/compose/">here</a>
+              <a href="https://docs.docker.com/compose/" target="_blank">
+                here
+              </a>
             </li>
             <li>
               Open a terminal or command prompt, depending on your operating

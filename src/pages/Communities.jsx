@@ -9,19 +9,23 @@ const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOption, setSelectedOption] = useState('rank');
+
+  const [selectedOption, setSelectedOption] = useState('Breakaway communities');
   const [gridView, setGridView] = useState(false);
+
+  const pinnedCommunitiesWebsties = {
+    "hive-109272": "https://hiverally.com",
+    "hive-115309": "https://digitalnetworkstate.media",
+    "hive-140169": "https://hivevibes.co",
+  };
 
   //test
   const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
-  const baComms = ["hive-109272", "hive-115309", "hive-140169"]
-
-
   
   useEffect(() => {
     setTimeout(()=> {
       fetchCommunities();
-        },3000)
+        },3000);
       }, [searchQuery, selectedOption]);
       
   const handleSelectChange = async (event) => {
@@ -29,7 +33,7 @@ const Communities = () => {
     setSelectedOption(selectedValue);
   
     if (selectedValue === 'Breakaway communities') {
-      const filteredCommunities = communityLists.filter((c) => baComms.includes(c.name));
+      const filteredCommunities = communityLists.filter((c) => pinnedCommunities.includes(c.name));
       setCommunityLists(filteredCommunities);
     } else {
       // fetchCommunities();
@@ -80,18 +84,6 @@ const Communities = () => {
   const handleCommunitySearch = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  const subscribeCommunity = (name, community) => {
-  
-    subscribe(name, community)
-      .then(() => {
-        const s = [name, community, "guest", ""];
-        return s
-      })
-      .catch((e) => {
-        console.log(e)
-      });
-  }
 
   return (
     <div className="communities setup">
@@ -166,7 +158,22 @@ const Communities = () => {
                   </div>
                 </div>
                 <div className="right">
-                  <Link to={`/docker-setup`}>Start your platform for this community</Link>
+                  {c.isPinned ? (
+                    <button
+                      onClick={() =>
+                        window.open(
+                          `${pinnedCommunitiesWebsties[c.name]}`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      Visit platform
+                    </button>
+                  ) : (
+                    <Link to="/docker-setup">
+                      Start your platform for this community
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}
