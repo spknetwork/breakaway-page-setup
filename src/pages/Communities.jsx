@@ -120,10 +120,10 @@ const Communities = () => {
               value={selectedOption}
               onChange={handleSelectChange}
             >
+              <option value="Breakaway communities">Breakaway communities</option>
               <option value="rank">Rank</option>
               <option value="new">New</option>
               <option value="subs">Members</option>
-              <option value="Breakaway communities">Breakaway communities</option>
             </select>
           </div>
           <div className="community-main">
