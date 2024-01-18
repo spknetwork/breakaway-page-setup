@@ -10,7 +10,7 @@ const Communities = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [selectedOption, setSelectedOption] = useState('rank');
+  const [selectedOption, setSelectedOption] = useState('Breakaway communities');
   const [gridView, setGridView] = useState(false);
 
   const pinnedCommunitiesWebsties = {
@@ -21,12 +21,13 @@ const Communities = () => {
 
   //test
   const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
-  
+
   useEffect(() => {
     setTimeout(()=> {
       fetchCommunities();
         },3000)
       }, [searchQuery, selectedOption]);
+  
       
   const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
@@ -36,7 +37,6 @@ const Communities = () => {
       const filteredCommunities = communityLists.filter((c) => pinnedCommunities.includes(c.name));
       setCommunityLists(filteredCommunities);
     } else {
-      // fetchCommunities();
       await getCommunities("", 100, searchQuery || null,  event.target.value, "");
     }
   };
@@ -45,9 +45,7 @@ const Communities = () => {
   const fetchCommunities = async () => {
     setLoading(true);
     try {
-      const communities = await getCommunities("", 100, searchQuery || null,  selectedOption, "");
-      console.log(communities)
-      // setCommunityLists(communities || []);
+      const communities = await getCommunities("", 100, searchQuery || null,  "rank", "");
 
       const pinnedCommunitiesData = await Promise.all(
         pinnedCommunities.map(async (communityId) => {
@@ -67,13 +65,18 @@ const Communities = () => {
           }
         })
       );
-      console.log("pinnedCommunitiesData");
-      console.log(pinnedCommunitiesData);
-      setCommunityLists(
-        (!searchQuery
-          ? [...pinnedCommunitiesData, ...communities]
-          : [...communities]) || []
-      );
+
+      const mergedCommunities = (!searchQuery
+        ? [...pinnedCommunitiesData, ...communities]
+        : [...communities]) || []
+
+      if (selectedOption === 'Breakaway communities') {
+        const filteredCommunities = mergedCommunities.filter((c) => pinnedCommunities.includes(c.name));
+        setCommunityLists(filteredCommunities);
+      } else {
+        setCommunityLists(mergedCommunities);
+      }
+
       setLoading(false);
     } catch (error) {
       console.log(error);
