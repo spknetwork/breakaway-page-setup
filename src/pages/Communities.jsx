@@ -4,6 +4,7 @@ import { getCommunities, subscribe, getCommunity } from "../api/hive";
 import "./communities.scss";
 import spkimage from "../assets/spkimage.png";
 import Loader from "../components/loader/Loader";
+import { getAllCommunities } from "../api/breakaway";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
@@ -71,10 +72,16 @@ const Communities = () => {
     setSearchQuery(e.target.value);
   };
 
+  const allComms = async ()=> {
+    const data = await getAllCommunities()
+    console.log(data)
+  }
+
   return (
     <div className="communities setup">
       <div className="community-header">
         <h1>Tokenized Breakaway Communities</h1>
+        <button onClick={()=>allComms()}>test</button>
       </div>
       <div className="search-container">
         <input
@@ -102,7 +109,7 @@ const Communities = () => {
                 <div className="left">
                   <div className="top">
                     <img src={spkimage} alt="" />
-                    <Link to={`/community/hive-${c.id}`}>{c.title}</Link>
+                    <Link to={`/community/${c.title}`}>{c.title}</Link>
                   </div>
                   <div className="bottom">
                     <span className="about">{c.about}</span>

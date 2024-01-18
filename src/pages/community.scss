@@ -1,0 +1,17 @@
+.single-community{
+    display: flex;
+    justify-content: center;
+
+    .community-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .info{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+}
