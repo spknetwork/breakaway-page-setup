@@ -51,7 +51,7 @@ const Login = () => {
               setMessage("loging successfull");
             console.log('Login Successfull', 'success');
             setIsLoading(false)
-            navigate("/community-setup")
+            navigate("/")
             } else {
             console.log('Login Failed, try again', 'error');
             setIsLoading(false)
@@ -80,7 +80,7 @@ const Login = () => {
       setMessage("Login successful");
       console.log('Login Successful', 'success');
 
-      navigate("/community-setup");
+      navigate("/");
     } catch (error) {
       console.error('Login Failed: ', error);
       setError("Login Failed, please try again");
@@ -124,11 +124,11 @@ const Login = () => {
             <div className="form-wrapper">
                 <>
                     <input type="text" placeholder="@username" onChange={e => setUsername(e.target.value)} />
-                    <input type="text" placeholder="Your active key" onChange={e => setPrivateKey(e.target.value)} />
+                    {/* <input type="text" placeholder="Your active key" onChange={e => setPrivateKey(e.target.value)} /> */}
                 </>
                 <>
-                    <button onClick={() => loginKey(username, privateKey)}>Login</button>
-                    <h3>Sign in with</h3>
+                    {/* <button onClick={() => loginKey(username, privateKey)}>Login</button>
+                    <h3>Sign in with</h3> */}
                     <img className="keychain-img" src={keychainLogo} alt="" onClick={()=> loginKc()}/>
                     <span className="">Don't have an account? <Link to="/">click to signup</Link></span>
                 </>

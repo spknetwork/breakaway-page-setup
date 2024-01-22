@@ -39,10 +39,10 @@ function App() {
   };
 
   const shouldRenderSideBar = userData;
+  
   useEffect(() => {
-    console.log(isSidebarOpen);
-    console.log(shouldRenderSideBar);
   }, [isSidebarOpen, shouldRenderSideBar]);
+
   return (
     <div className="App">
       <Navbar

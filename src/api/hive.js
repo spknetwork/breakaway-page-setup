@@ -89,7 +89,7 @@ export const createHiveCommunity = async (username, communityName, keys) => {
   });
 };
 
-export const getCommunities = (last = "", limit = 100, query = null, sort = "rank", observer = "") => {
+export const getCommunities = (last = "", limit = 1000, query = null, sort = "rank", observer = "") => {
     return bridgeApiCall("list_communities", {
       last: last,
       limit: limit,
@@ -102,12 +102,12 @@ export const getCommunities = (last = "", limit = 100, query = null, sort = "ran
 export  const subscribe = async (username, community) => {
   const json = ["subscribe", { community }];
   const result = await broadcastPostingJSON(username, "community", json)
+  console.log(username, community)
   return result;
 };
 
 export const broadcastPostingJSON = (username, id, json) => {
-  // With posting private key
-  const postingKey = ""; // to be handled
+  const postingKey = "key";
   if (postingKey) {
     const privateKey = PrivateKey.fromString(postingKey);
 
