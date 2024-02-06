@@ -67,6 +67,24 @@
                     cursor: pointer;
                 }
             }
+
+            .sort-buttons{
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                span{
+                    font-size: 16px;
+                    font: bold;
+                    cursor: pointer;
+
+                }
+
+                .clicked{
+                    text-decoration: underline;
+
+                }
+            }
           
           .community-main{
               display: flex;

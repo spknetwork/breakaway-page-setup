@@ -4,6 +4,7 @@ import { getCommunities, subscribe, getCommunity } from "../api/hive";
 import "./communities.scss";
 import Loader from "../components/loader/Loader";
 import { gridIcon, listView } from "../icons/svg";
+import { fetchCommunityDockers } from "../api/breakaway";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
@@ -12,69 +13,73 @@ const Communities = () => {
 
   const [selectedOption, setSelectedOption] = useState('Breakaway communities');
   const [gridView, setGridView] = useState(false);
-
-  const pinnedCommunitiesWebsties = {
-    "hive-109272": "https://hiverally.com",
-    "hive-115309": "https://digitalnetworkstate.media",
-    "hive-140169": "https://hivevibes.co",
-  };
-
-  //test
-  const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
+  const [activeSpan, setActiveSpan] = useState(0);
+  const [baCommunities, setBaCommunities] = useState(null)
 
   useEffect(() => {
     setTimeout(()=> {
       fetchCommunities();
         },3000)
-      }, [searchQuery, selectedOption]);
+      }, [searchQuery, selectedOption, baCommunities]);
+
+      useEffect(() => {
+        getCommunitiesDocker()
+      }, [])
   
-      
   const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
   
     if (selectedValue === 'Breakaway communities') {
-      const filteredCommunities = communityLists.filter((c) => pinnedCommunities.includes(c.name));
+      console.log(communityLists)
+        const filteredCommunities = communityLists.filter(c => {
+          return baCommunities?.some(filterObj => filterObj.communityId === c.communityId);
+      });
       setCommunityLists(filteredCommunities);
     } else {
       await getCommunities("", 100, searchQuery || null,  event.target.value, "");
     }
-  };
-      
+  };   
 
   const fetchCommunities = async () => {
     setLoading(true);
     try {
-      const communities = await getCommunities("", 100, searchQuery || null,  "rank", "");
 
-      const pinnedCommunitiesData = await Promise.all(
-        pinnedCommunities.map(async (communityId) => {
-          try {
-            let _community = await getCommunity(communityId);
-            if (_community) {
-              const admins = _community.team
-                .filter((member) => member[1] === "admin")
-                .map((admin) => admin[0]);
-              return { ..._community, isPinned: true, admins };
-            } else {
-              return _community;
+      if(baCommunities){
+
+        const communities = await getCommunities("", 100, searchQuery || null,  "rank", "");
+  
+        const pinnedCommunitiesData = await Promise.all(
+          baCommunities?.map(async (c) => {
+            try {
+              let _community = await getCommunity(c.communityId);
+              if (_community) {
+                const admins = _community.team
+                  .filter((member) => member[1] === "admin")
+                  .map((admin) => admin[0]);
+                return { ..._community, isPinned: true, admins };
+              } else {
+                return _community;
+              }
+            } catch (error) {
+              console.error(`Error fetching community ${c.communityId}:`, error);
+              return null;
             }
-          } catch (error) {
-            console.error(`Error fetching community ${communityId}:`, error);
-            return null;
-          }
-        })
-      );
-
-      const mergedCommunities = (!searchQuery
-        ? [...pinnedCommunitiesData, ...communities]
-        : [...communities]) || []
-
-      if (selectedOption === 'Breakaway communities') {
-        const filteredCommunities = mergedCommunities.filter((c) => pinnedCommunities.includes(c.name));
-        setCommunityLists(filteredCommunities);
-      } else {
-        setCommunityLists(mergedCommunities);
+          })
+        );
+  
+        const mergedCommunities = (!searchQuery
+          ? [...pinnedCommunitiesData, ...communities]
+          : [...communities]) || []
+  
+          if (selectedOption === 'Breakaway communities') {
+            const filteredCommunities = mergedCommunities.filter(c => {
+                return baCommunities?.some(b => b?.communityId === c?.name);
+            });
+            setCommunityLists(filteredCommunities);
+        } else {
+            setCommunityLists(mergedCommunities);
+        }
       }
 
       setLoading(false);
@@ -87,6 +92,17 @@ const Communities = () => {
   const handleCommunitySearch = (e) => {
     setSearchQuery(e.target.value);
   };
+
+  const handleSpanClick = (index) => {
+    setActiveSpan(index);
+    // getCommunitiesDocker()
+  };
+
+  const getCommunitiesDocker = async () => {
+    const data = await fetchCommunityDockers();
+    setBaCommunities(data?.communities)
+    console.log(data?.communities)
+  }
 
   return (
     <div className="communities setup">
@@ -126,6 +142,33 @@ const Communities = () => {
               <option value="subs">Members</option>
             </select>
           </div>
+          {selectedOption === "Breakaway communities" && <div className="sort-buttons">
+            <h3>Sort Communities by:</h3>
+            <span
+              onClick={() => handleSpanClick(0)}
+              style={{ textDecoration: activeSpan === 0 ? 'underline' : 'none' }}
+            >
+              Points
+            </span>
+            <span
+              onClick={() => handleSpanClick(1)}
+              style={{ textDecoration: activeSpan === 1 ? 'underline' : 'none' }}
+            >
+              Activities
+            </span>
+            <span
+              onClick={() => handleSpanClick(2)}
+              style={{ textDecoration: activeSpan === 2 ? 'underline' : 'none' }}
+            >
+              Created
+            </span>
+            <span
+              onClick={() => handleSpanClick(3)}
+              style={{ textDecoration: activeSpan === 3 ? 'underline' : 'none' }}
+            >
+              Members
+            </span>
+          </div>}
           <div className="community-main">
             {communityLists.map((c, i) => (
               <div
@@ -162,15 +205,15 @@ const Communities = () => {
                 </div>
                 <div className="right">
                   {c.isPinned ? (
-                    <button
-                      onClick={() =>
-                        window.open(
-                          `${pinnedCommunitiesWebsties[c.name]}`,
-                          "_blank"
-                        )
-                      }
+                   <button
+                      onClick={() => {
+                          const community = baCommunities?.find(b => b.communityId === c.name);
+                          if (community) {
+                              window.open(`${community.domain}`, "_blank");
+                          }
+                      }}
                     >
-                      Visit platform
+                        Visit platform
                     </button>
                   ) : (
                     <Link to="/docker-setup">

@@ -2,7 +2,8 @@ import axios from "axios";
 import { store } from "../redux/store";
 
 const api = axios.create({
-  baseURL: "https://breakaway-points-system-api.onrender.com",
+  baseURL: "http://localhost:4000",
+  // baseURL: "https://breakaway-points-system-api.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
