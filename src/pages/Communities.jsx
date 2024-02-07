@@ -95,8 +95,31 @@ const Communities = () => {
 
   const handleSpanClick = (index) => {
     setActiveSpan(index);
-    // getCommunitiesDocker()
-  };
+  
+    let sortedCommunities = [...baCommunities];
+  
+    switch (index) {
+      case 0:
+        sortedCommunities.sort((a, b) => b.totalCommunityPoints - a.totalCommunityPoints);
+        break;
+      case 1:
+        sortedCommunities.sort((a, b) => b.activitiesCount - a.activitiesCount);
+        break;
+      case 2:
+        sortedCommunities.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        break;
+      case 3:
+        sortedCommunities.sort((a, b) => b.numberOfMembers - a.numberOfMembers);
+        break;
+      default:
+        break;
+    }
+    const filteredCommunityLists = sortedCommunities.map((sortedCommunity) =>
+      communityLists.find((community) => community.name === sortedCommunity.communityId)
+    );
+  
+    setCommunityLists(filteredCommunityLists);
+  };  
 
   const getCommunitiesDocker = async () => {
     const data = await fetchCommunityDockers();
@@ -173,23 +196,23 @@ const Communities = () => {
             {communityLists.map((c, i) => (
               <div
                 className={`${gridView ? "community-wrapper-grid" : "community-wrapper-list"}
-                    community-wrapper${c.isPinned ? " pinned-community" : ""}
+                    community-wrapper${c?.isPinned ? " pinned-community" : ""}
                     `}
                 key={i}
               >
                 <div className="left grid-top">
                   <div className="top">
-                    <img src={`https://images.hive.blog/u/${c.name}/avatar`} alt="" />
-                    <Link to={`/community/hive-${c.id}`}>{c.title}</Link>
+                    <img src={`https://images.hive.blog/u/${c?.name}/avatar`} alt="" />
+                    <Link to={`/community/hive-${c?.id}`}>{c?.title}</Link>
                   </div>
                   <div className="bottom">
-                    <span className="about">{c.about}</span>
+                    <span className="about">{c?.about}</span>
                     <div className="community-info">
-                      <span>{c.subscribers} members</span>
+                      <span>{c?.subscribers} members</span>
                       <span>|</span>
-                      <span>{c.num_pending} Posts</span>
+                      <span>{c?.num_pending} Posts</span>
                       <span>|</span>
-                      <span>{c.num_authors} posters</span>
+                      <span>{c?.num_authors} posters</span>
                     </div>
                     <div className="admins-wrapper">
                       <span>Admin:</span>
@@ -204,7 +227,7 @@ const Communities = () => {
                   </div>
                 </div>
                 <div className="right">
-                  {c.isPinned ? (
+                  {c?.isPinned ? (
                    <button
                       onClick={() => {
                           const community = baCommunities?.find(b => b.communityId === c.name);
