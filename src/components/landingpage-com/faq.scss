@@ -1,0 +1,82 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  @import "../../mixins.scss";
+  
+  body {
+    font-family: sans-serif;
+    color: #343a40;
+    line-height: 1;
+  }
+  
+  .accordion {
+    width: 900px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    h2{
+        font-size: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    @include respond(phone) {
+        width: 100%;
+      }
+  }
+  
+  .item {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    padding: 12px 0px;
+    padding-right: 20px;
+    cursor: pointer;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    grid-template-columns: auto 1fr auto;
+    
+    align-items: center;
+  }
+  .title-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+ 
+  
+  .title {
+    font-size: 24px !important;
+    font-weight: 500;
+    @include respond(phone) {
+        font-size: 18px;
+      }
+  }
+  
+  .content-box {
+    grid-column: 2 / -1;
+    // padding-bottom: 16px;
+    line-height: 1.6;
+    color: grey;
+  }
+  
+  .content-box ul {
+    color: #868e96;
+    margin-left: 16px;
+    margin-top: 16px;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* OPEN STATE */
+  .open {
+    border-top: 4px solid grey;
+  }
+  
+  .open .number,
+  .open .title {
+    color: #fff;
+  }
+  /* //// */

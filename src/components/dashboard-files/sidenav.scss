@@ -1,0 +1,96 @@
+@import "../../mixins.scss";
+.logo-wrap{
+    img{
+        width: 70px;
+        margin-bottom: 12px;
+    }
+}
+.list-wrap{
+    padding: 10px;
+}
+.first-wrap{
+    color: grey;
+    h4{
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    ul{
+        cursor: pointer;
+        list-style: none;
+        .li-wrap{
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            &:hover{
+                color: #fff;
+            }
+            li{
+                text-decoration: none; 
+                margin-bottom: 7px; 
+                padding: 10px;
+            }
+        } 
+        
+        
+    }
+
+}
+
+.account-wrap{
+    margin-top: 15px;
+    color: grey;
+    h4{
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    ul{
+        cursor: pointer;
+        list-style: none;
+        .li-wrap{
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            color: grey !important;
+            &:hover{
+                color: #fff;
+            }
+            li{
+                margin-bottom: 7px; 
+                padding: 10px;
+            }
+        }  
+    }
+}
+.link{
+    color: grey;
+}
+.dark-mode-wrap{
+    padding: 6px;
+    background-color: black;
+    margin-top: 150px;
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    .light{
+        
+        padding:10px 25px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        // background-color: white;
+    }
+    .dark{
+        padding:10px 25px; 
+        display: flex;
+        align-items: center;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        gap: 4px;
+    }
+    
+}
+

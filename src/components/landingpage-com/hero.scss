@@ -1,0 +1,88 @@
+@import "../../mixins.scss";
+.hero-section{
+  height: 80vh;
+  @include respond(phone) {
+    height: 50vh;
+  }
+}
+.hero-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h1{
+      font-size: 60px;
+      margin-bottom: 30px;
+      padding-top: 120px;
+      @include respond(phone) {
+        font-size: 28px;
+        text-align: start;
+        padding-top: 60px;
+      }
+      
+    }
+    p{
+      font-size: 22px;
+      margin-bottom: 20px;
+      width: 70%;
+      text-align: center;
+      margin: 0px 200px;
+      margin-bottom: 12px;
+      @include respond(phone) {
+        font-size: 20px;
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+  
+    }
+    .btn-hero{
+      padding: 13px 70px;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 40px;
+      @include respond(phone) {
+        padding: 12px 50px;
+        line-height: 1.8rem;
+        display: none;
+       
+        
+      }
+  
+    }
+  }
+  .phone-text-btn{
+    padding: 10px 30px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 40px;
+      display: inline;
+      @include respond(desktop) {
+        display: none;
+        
+      }
+
+  }
+  .carousel{
+    display: flex;
+  }
+  .carousel-wrap{
+    display: flex;
+    align-items: center;
+    padding-left: 1rem/* 16px */;
+    padding-right: 1rem/* 16px */;
+    margin-left: 0.75rem/* 12px */;
+    border-radius: 0.375rem/* 6px */;
+    gap: 15px;
+    border: 1px solid grey;
+    border-radius: 10px;
+  
+   
+  }
+  .caro-img{
+    width: 70px;
+  }
+
+  
