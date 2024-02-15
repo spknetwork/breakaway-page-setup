@@ -3,6 +3,8 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  overflow-y: scroll !important;
+  height: 100%;
   @include respond(phone) {
     width: 350px;
     margin: 0px auto;
