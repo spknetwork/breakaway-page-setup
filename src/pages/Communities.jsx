@@ -78,7 +78,15 @@ const Communities = () => {
 
       const mergedCommunities =
         (!searchQuery
-          ? [...pinnedCommunitiesData, ...communities]
+          ? [
+              ...pinnedCommunitiesData,
+              ...communities.filter(
+                (community) =>
+                  !pinnedCommunitiesData.some(
+                    (pinnedCommunity) => pinnedCommunity.name === community.name
+                  )
+              ),
+            ]
           : [...communities]) || [];
 
       if (selectedOption === "Breakaway communities") {
