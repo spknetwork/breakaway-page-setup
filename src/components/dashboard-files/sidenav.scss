@@ -53,12 +53,35 @@
             color: grey !important;
             &:hover{
                 color: #fff;
+                border-radius: 7px;
+                border-left: solid 7px #007bff;
+                border-top:solid 1px grey  ;
+                border-right:solid 1px grey  ;
+                border-bottom:solid 1px grey ;
+                
+                padding-left: 15px;
             }
             li{
                 margin-bottom: 7px; 
                 padding: 10px;
             }
         }  
+    }
+}
+.li-wrap{
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    &:hover{
+        color: #fff !important;
+        // background-color: #9fb5cc;
+        border-radius: 7px;
+        border-left: solid 7px #007bff;
+        border-top:solid 1px grey  ;
+        border-right:solid 1px grey  ;
+        border-bottom:solid 1px grey ;
+        
+        padding-left: 15px;
     }
 }
 .link{

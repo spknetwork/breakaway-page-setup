@@ -34,7 +34,7 @@ export default function Sidenav() {
         <div className=" account-wrap">
             <h4>Account</h4>
             <ul>
-            <div className="li-wrap"><span><CgProfile size={20} /></span><li>Profile</li></div>
+            <Link to="/profle-page" className="link"><div className="li-wrap"><span><CgProfile size={20} /></span><li>Profile</li></div></Link>
             <div className="li-wrap"><span><FaWallet /></span> <li>wallet</li></div>
             <div className="li-wrap"><span><TiPointOfInterest /></span><li>Breakaway Point</li></div>
             <div className="li-wrap"><span><MdOutlineSupportAgent size={20} /></span><li>Help&Support</li></div>
