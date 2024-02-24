@@ -1,7 +1,6 @@
 @import "../mixins.scss";
 .profile-wrap{
     overflow-y: scroll  !important;
-    // overflow-x: none  !important;
     height: 100vh;  
     
     @include respond(phone) {

@@ -48,7 +48,5 @@ body {
    transition: all 0.5s ease-in-out;
    &:hover{
     background-image: linear-gradient(to left, #4968ea, #46aef2);
-    // background-image: -webkit-gradient(linear, left top, right top, from(#4968ea), color-stop(#46aef2), color-stop(#46aef2), to(#4968ea));
-
   }
 }
