@@ -66,7 +66,6 @@ function App() {
             <Route path="/communities" element={<Communities />} />
             <Route path="/community-setup" element={<PrivateRoute><Setup /></PrivateRoute>} />
             <Route path="/community-create" element={<PrivateRoute><CreateCommunity /> </PrivateRoute> } />
-            {/* <Route path="/community-create" element={<PrivateRoute><Texts/> </PrivateRoute> } /> */}
             <Route path="/docker-setup" element={<DockerSetup />} />
             <Route path="/profle-page" element={<Profilepage />} />
             </Routes>
