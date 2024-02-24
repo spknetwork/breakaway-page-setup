@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Setup from "./pages/Setup";
 import Navbar from "./components/navbar/Navbar";
-import SideBar from "./components/side-bar/SideBar";
+// import SideBar from "./components/side-bar/SideBar";
 import CreateCommunity from "./pages/CreateCommunity";
 import Login from "./pages/Login";
 import Communities from "./pages/Communities";
@@ -18,7 +18,7 @@ import Sidenav from "./components/dashboard-files/Sidenav";
 import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
 import Profilepage from "./pages/Profilepage";
-import Texts from "./pages/Texts";
+
 
 function App() {
   const { userData } = useSelector((state) => state.user);
