@@ -25,10 +25,8 @@ const Communities = () => {
   const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
 
   useEffect(() => {
-    setTimeout(()=> {
-      fetchCommunities();
-        },3000)
-      }, [searchQuery, selectedOption]);
+    fetchCommunities();
+  }, [searchQuery, selectedOption]);
   
       
    const handleSelectChange = async (event) => {
