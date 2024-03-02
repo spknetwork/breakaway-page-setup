@@ -58,11 +58,7 @@ const Navbar = ({ toggleSidebar }) => {
             
         </ul>
         <div className="btn-search-wrap">
-         <div className="search-wrap">
-           <input className="input"
-           placeholder="search" />
-           <IoSearch />
-         </div>
+         
          {!auth.isAuthenticated ? (<Link to="/login" onClick={()=> setNav(!nav)}><button className="btn-login bg-btn">Login</button></Link>) : ""} 
 
         </div>
@@ -87,11 +83,6 @@ const Navbar = ({ toggleSidebar }) => {
             <div className="break-wrap list " ><span><TbMilitaryRank size={20} /></span><li>Ranking</li></div>
             <div className="break-wrap"><span><MdOutlineWidgets size={20} /></span><li>New</li></div>
             <div className="break-wrap"><span><IoPeopleCircleSharp size={20} /></span><li>Members</li></div>
-            <div className="search-wrap-sm-nav">
-            <input className="input-sm-nav"
-             placeholder="search" />
-             <IoSearch />
-             </div>
              {!auth.isAuthenticated ? (<Link to="/login" onClick={()=> setNav(!nav)}><button className="btn-side">Login</button></Link>) : ""}
              <div className="social-icons">
              <BsDiscord size={20} /> <FaTelegramPlane size={20}  />
@@ -108,4 +99,3 @@ const Navbar = ({ toggleSidebar }) => {
 
 export default Navbar;
 
-// ///

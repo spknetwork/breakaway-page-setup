@@ -6,15 +6,15 @@ import Loader from "../components/loader/Loader";
 import { HiUsers } from "react-icons/hi";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { CommunityList } from "../components/communities/CommunityList";
+import LoaderSK from "./LoaderSK";
+import { IoSearch } from "react-icons/io5";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
   const [selectedOption, setSelectedOption] = useState('Breakaway communities');
   const [gridView, setGridView] = useState(false);
-
   const pinnedCommunitiesWebsties = {
     "hive-109272": "https://hiverally.com",
     "hive-115309": "https://digitalnetworkstate.media",
@@ -31,7 +31,7 @@ const Communities = () => {
       }, [searchQuery, selectedOption]);
   
       
-  const handleSelectChange = async (event) => {
+   const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
   
@@ -72,7 +72,7 @@ const Communities = () => {
         ? [...pinnedCommunitiesData, ...communities]
         : [...communities]) || []
 
-      if (selectedOption === 'Breakaway communities') {
+       if (selectedOption === 'Breakaway communities') {
         const filteredCommunities = mergedCommunities.filter((c) => pinnedCommunities.includes(c.name));
         setCommunityLists(filteredCommunities);
       } else {
@@ -88,6 +88,7 @@ const Communities = () => {
 
   const handleCommunitySearch = (e) => {
     setSearchQuery(e.target.value);
+    // setSearchQuery= "";
   };
 
   return (
@@ -98,7 +99,7 @@ const Communities = () => {
       <div className="community-section">
         {loading ? (
           <div className="communities-container">
-            <Loader />
+            <LoaderSK />
           </div>
         ) : communityLists.length > 0 ? (
           <div className="community-wrap">
@@ -117,6 +118,11 @@ const Communities = () => {
                 <option value="new">New</option>
                 <option value="subs">Members</option>
               </select>
+              
+              <div className="search-wrap">
+                <input className="input" value={searchQuery} placeholder="Search community" type="text" onChange={handleCommunitySearch} /><IoSearch className="search-icon" />
+              </div>
+
             </div>
             <div className="community-box">
               {communityLists.map((c, i) => (

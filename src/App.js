@@ -19,7 +19,6 @@ import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
 import Profilepage from "./pages/Profilepage";
 
-
 function App() {
   const { userData } = useSelector((state) => state.user);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -43,41 +42,50 @@ function App() {
   };
 
   const shouldRenderSideBar = userData;
-  
-  useEffect(() => {
-  }, [isSidebarOpen, shouldRenderSideBar]);
+
+  useEffect(() => {}, [isSidebarOpen, shouldRenderSideBar]);
 
   return (
     <div className="App">
-       {!shouldRenderSideBar && (<Navbar
-        toggleSidebar={toggleSidebar}
-        shouldRenderSideBar={shouldRenderSideBar}
-      />)}
+      {!shouldRenderSideBar && (
+        <Navbar
+          toggleSidebar={toggleSidebar}
+          shouldRenderSideBar={shouldRenderSideBar}
+        />
+      )}
       <div className="container">
-      {shouldRenderSideBar && (<div className="side-nav-wrap"> <Sidenav /></div>)}
-        <div className="main-container">
-        {shouldRenderSideBar && (<div className="top-wrap"><Navmain /></div>)}
-          <div className="main-box-wrap">
-           <div className="app-container">
-            <Routes>
-            <Route path="/" element={<Communities />} />
-            <Route path="/about" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/communities" element={<Communities />} />
-            <Route path="/community-setup" element={<PrivateRoute><Setup /></PrivateRoute>} />
-            <Route path="/community-create" element={<PrivateRoute><CreateCommunity /> </PrivateRoute> } />
-            <Route path="/docker-setup" element={<DockerSetup />} />
-            <Route path="/profle-page" element={<Profilepage />} />
-            </Routes>
-           </div>
-           {shouldRenderSideBar && (<div className="update-wrap">
-             <Update />
-            </div>)}
+        {shouldRenderSideBar && (
+          <div className="side-nav-wrap">
+            {" "}
+            <Sidenav />
           </div>
-          
-
+        )}
+        <div className="main-container">
+          {shouldRenderSideBar && (
+            <div className="top-wrap">
+              <Navmain />
+            </div>
+          )}
+          <div className="main-box-wrap">
+            <div className="app-container">
+              <Routes>
+                <Route path="/" element={<Communities />} />
+                <Route path="/about" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/communities" element={<Communities />} />
+                <Route path="/community-setup" element={<PrivateRoute><Setup /></PrivateRoute>} />
+                <Route path="/community-create" element={<PrivateRoute> <CreateCommunity />{" "} </PrivateRoute>} />
+                <Route path="/docker-setup" element={<DockerSetup />} />
+                <Route path="/profle-page" element={<Profilepage />} />
+              </Routes>
+            </div>
+            {shouldRenderSideBar && (
+              <div className="update-wrap">
+                <Update />
+              </div>
+            )}
+          </div>
         </div>
-        
       </div>
     </div>
   );
@@ -91,7 +99,7 @@ export default App;
 // .docker-main-wrap{
 //   padding: 10px 30px;
 //   @include respond(phone) {
-//       padding: 0%; 
+//       padding: 0%;
 //   }
 // }
 // .hero-text-wrap{
@@ -107,7 +115,7 @@ export default App;
 //       margin-bottom: 30px;
 
 //   }
-  
+
 // }
 // .header{
 //   text-align: center;
@@ -126,16 +134,15 @@ export default App;
 //   @include respond(phone) {
 //       display: flex;
 //       flex-direction: column;
-      
+
 //     }
 // }
 // .forms-wrapper{
 //   width: 50%;
 //   @include respond(phone) {
-//       width: 100%; 
+//       width: 100%;
 //   }
 // }
-
 
 // .instruction-Wrap{
 //   display: flex;
@@ -144,14 +151,14 @@ export default App;
 //   @include respond(phone) {
 //       display: flex;
 //       flex-direction: column;
-      
+
 //     }
 // }
 // .input-with-tooltip{
 //   margin-bottom: 10px;
 //   input{
 //     padding: 10px 20px;
-//     border-radius: 7px;  
+//     border-radius: 7px;
 //     width: 100% ;
 //     outline: none;
 //   }
@@ -187,7 +194,7 @@ export default App;
 // .doc-box{
 //   width: 50%;
 //   @include respond(phone) {
-//       width: 100%; 
+//       width: 100%;
 //   }
 // }
 // .download-wrap{
@@ -215,7 +222,7 @@ export default App;
 //       &:hover {
 //         background-color: rgba(0, 123, 255, 0.8);
 //       }
-  
+
 // }
 // .docker-compose-config {
 //   margin-top: 20px;
@@ -248,11 +255,11 @@ export default App;
 //       margin-bottom: 3px;
 //   }
 //   ul{
-      
+
 //       color: grey;
 //       li{
 //           margin-bottom: 3px;
-          
+
 //       }
 //   }
 //   h4{
@@ -263,6 +270,6 @@ export default App;
 // .doc-compose{
 //   width: 50%;
 //   @include respond(phone) {
-//       width: 100%; 
+//       width: 100%;
 //   }
 // }

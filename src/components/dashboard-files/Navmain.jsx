@@ -65,11 +65,7 @@ export default function Navmain() {
       <img className="logo" src={logo} alt="" />
       <h3>Dashboard</h3>
       <div className="wrap-left">
-        <div className="search-wrap">
-          <input className="input"
-          placeholder="search" />
-          <IoSearch />
-        </div>
+       
         <div className="nav-profile-wrap " >
          <img src={`https://images.hive.blog/u/${userData?.name}/avatar`} alt="" />
          <h3>{truncateUserName(userNames)}</h3>

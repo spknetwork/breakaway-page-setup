@@ -45,28 +45,6 @@
   }
 }
 
-.search-wrap{
-    display: flex;
-    padding: 8px 12px;
-    align-items: center;
-    border: 1px solid grey;
-    border-radius: 10px;
-    width: fit-content;
-    @include respond(phone) {
-      display: none;
-    }
-  
-   
-    //
-    .input{
-      background: #0b1126;
-      border: none;
-      outline: none;
-      width: 180px;
-      color: #fff;
-      
-    }
-  }
 
 .icon-wrap{
   @include respond(phone) {

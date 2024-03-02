@@ -12,7 +12,7 @@
 }
 
 .community-box {
-    height: 70vh;
+    height: 90vh;
     overflow-y: scroll !important;
     scroll-behavior: smooth;
 }
@@ -33,14 +33,46 @@
 
     }
 }
-.search-wrapper{
+
+.search-wrap{
     display: flex;
-    justify-content: center;
+    padding: 8px 12px;
     align-items: center;
-}
+    border: 1px solid grey;
+    border-radius: 10px;
+    width: fit-content;
+    @include respond(phone) {
+        width: 140px;
+    }
+  
+   
+    
+    .input{
+      background: #0b1126;
+      border: none;
+      outline: none;
+      width: 180px;
+      color: #fff;
+      @include respond(phone) {
+        width: 120px;
+    }
+      
+    }
+  }
 .select{
+    padding: 5px 10px;
+    border-radius: 7px;
     background: grey;
     outline: none;
+    @include respond(phone) {
+        width: 170px;
+        padding: 5px 7px;
+    }
+}
+.search-icon{
+    @include respond(phone) {
+        display: none;
+    }
 }
 .community-section{
     width: 100%;
@@ -175,11 +207,10 @@
 }
 .select-communities{
     margin-bottom: 7px;
+    display: flex;
+    justify-content: space-between;
 }
-.select{
-    padding: 5px 10px;
-    border-radius: 7px;
-}
+
 .community-info{
     display: flex;
     margin-bottom: 7px;

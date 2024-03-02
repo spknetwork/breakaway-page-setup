@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 export default function Sidenav() {
   return (
-    <div>
+    <div className="sidenavmian-wrap">
       <div className="logo-wrap">
         <img className="" src={Logo} alt="" />
       </div>

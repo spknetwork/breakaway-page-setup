@@ -1,4 +1,10 @@
 @import "../../mixins.scss";
+.sidenavmian-wrap{
+    height: 100%;
+    position: fixed;
+    overflow-y: hidden !important;
+    top: 0px;
+}
 .logo-wrap{
     img{
         width: 70px;

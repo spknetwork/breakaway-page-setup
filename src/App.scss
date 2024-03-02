@@ -16,6 +16,7 @@
 }
 
 .container {
+  overflow-x: hidden !important;
   display: flex;
   height: 100vh;
   scroll-behavior: smooth; 
@@ -38,10 +39,11 @@
   }
 }
 
-.top-wrap{
-  position: sticky;
-  top: 0px;
-}
+// .top-wrap{
+//   // position: sticky;
+//   // overflow-y: hidden;
+  // top: 0px;
+// }
 
 .main-box-wrap{
   display: flex;
