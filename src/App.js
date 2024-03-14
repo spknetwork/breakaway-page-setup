@@ -39,9 +39,8 @@ function App() {
   };
 
   const shouldRenderSideBar = userData;
-  
-  useEffect(() => {
-  }, [isSidebarOpen, shouldRenderSideBar]);
+
+  useEffect(() => {}, [isSidebarOpen, shouldRenderSideBar]);
 
   return (
     <div className="App">
@@ -64,22 +63,8 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/community-setup"
-              element={
-                <PrivateRoute>
-                  <Setup />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/community-create"
-              element={
-                <PrivateRoute>
-                  <CreateCommunity />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/community-setup" element={<Setup />} />
+            <Route path="/community-create" element={<CreateCommunity />} />
             <Route path="/docker-setup" element={<DockerSetup />} />
           </Routes>
         </div>
