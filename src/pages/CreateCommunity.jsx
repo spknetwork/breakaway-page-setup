@@ -333,10 +333,12 @@ const CreateCommunity = () => {
               <div className="succes-top">
                 <h2>Congratulations🎉✅</h2>
                 <h3>You have successfully created community {communityName}</h3>
+                <hr />
+                <h3>Would you like to setup it up on your own server?</h3>
               </div>
               <div>
-                <Link to="/community-setup">
-                  <button>Setup your breakaway community </button>
+                <Link to="/docker-setup">
+                  <button>Setup self hosted website</button>
                 </Link>
               </div>
             </div>
