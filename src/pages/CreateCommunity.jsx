@@ -225,7 +225,7 @@ const CreateCommunity = () => {
                   value={aboutCommunity}
                   scrollHeight
                   onChange={handleAboutChange}
-                  placeholder="Write something about your community..."
+                  placeholder="Community description"
                   type="text"
                 />
               </>

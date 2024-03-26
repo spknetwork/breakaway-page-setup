@@ -132,7 +132,7 @@ const DockerSetup = () => {
       (entry, index) => `${index !== 0 ? "  " : ""}${
         entry.containerName || `container${index}`
       }:
-    image: pspc/ecency-boilerplate:legacy
+    image: igormuba/ecency-boilerplate:1.0.3
     container_name: ${entry.containerName || `container${index}`}
     ports:
       - "${entry.port}:3000"
@@ -186,6 +186,34 @@ networks:
   return (
     <div className="docker-setup">
       <div className="docker-setup-container">
+        <div className="tutorial-links">
+          <h2>Breakaway docker setup tutorials:</h2>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank">
+            Funding a namecheap account - Part 1 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank">
+            Acquiring a web domain - Part 2 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank">
+            Acquiring a Linux web server - Part 3 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank">
+            SSH info and accessing the server - Part 4 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank">
+            Docker install and configure - Part 5 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank">
+            Running the community on the server - Part 6 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank">
+            Pointing your domain URL to server - Part 7 of 8
+          </a>
+          <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank">
+            Cloudflare SSL and DDoS protection - Part 8 of 8
+          </a>
+        </div>
         <div className="instructions">
           <h2>Become an owner of your own Web3 enabled platform</h2>
           <p>
@@ -205,7 +233,7 @@ networks:
               onMouseLeave={() => handleTooltipHide("containerName")}
             />
             {showTooltip.containerName && (
-              <Tooltip text="Each container is a server" />
+              <Tooltip text="Each container is a server, the name is a unique identifier." />
             )}
             <input
               type="text"

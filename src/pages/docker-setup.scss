@@ -12,6 +12,22 @@
     border-radius: 10px;
     width: 400px;
 
+    .tutorial-links {
+      margin-bottom: 20px;
+      text-align: center;
+
+      a {
+        display: block;
+        margin-bottom: 10px;
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
     .header {
       margin-bottom: 20px;
       font-size: 18px;
