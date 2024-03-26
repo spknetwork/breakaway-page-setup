@@ -8,13 +8,14 @@ import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { CommunityList } from "../components/communities/CommunityList";
 import LoaderSK from "./LoaderSK";
 import { IoSearch } from "react-icons/io5";
+import CommunityListGrid from "../components/communities/CommunityListGrid";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOption, setSelectedOption] = useState('Breakaway communities');
-  const [gridView, setGridView] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('rank');
+  const [gridView, setGridView] = useState(true);
   const pinnedCommunitiesWebsties = {
     "hive-109272": "https://hiverally.com",
     "hive-115309": "https://digitalnetworkstate.media",
@@ -27,6 +28,10 @@ const Communities = () => {
   useEffect(() => {
     fetchCommunities();
   }, [searchQuery, selectedOption]);
+  
+  // const handleGrid = () => {
+  //   setGridView(!gridView)
+  // }
   
       
    const handleSelectChange = async (event) => {
@@ -89,6 +94,7 @@ const Communities = () => {
     // setSearchQuery= "";
   };
 
+
   return (
     <div className="communities-wrapper">
       <div className="hero-text">
@@ -109,22 +115,28 @@ const Communities = () => {
                 value={selectedOption}
                 onChange={handleSelectChange}
               >
+                <option value="rank">All Community</option>
                 <option value="Breakaway communities">
                   Breakaway communities
                 </option>
-                <option value="rank">Rank</option>
                 <option value="new">New</option>
                 <option value="subs">Members</option>
-              </select>
+              </select> 
+
+              <button onClick={()=>setGridView(!gridView)} className="grid-btn"> { gridView ? "Grid view" : "List view"}</button>
               
               <div className="search-wrap">
                 <input className="input" value={searchQuery} placeholder="Search community" type="text" onChange={handleCommunitySearch} /><IoSearch className="search-icon" />
               </div>
 
             </div>
-            <div className="community-box">
+            <div className={gridView ?"community-box " : "community-box-grid"}>
               {communityLists.map((c, i) => (
-                <CommunityList c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />
+                <>{gridView ?
+                <CommunityList c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} /> :
+                <CommunityListGrid c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />
+                  }
+                </>
               ))}
             </div>
           </div>
