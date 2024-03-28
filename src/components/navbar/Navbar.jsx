@@ -41,7 +41,7 @@ const Navbar = ({ toggleSidebar }) => {
           {" "}
           {isSmallScreen ? "Create" : "Create Community"}
         </Link>
-        <Link to="/docker-setup">Breakaway</Link>
+        <Link to="/docker-setup">Self-host</Link>
         <Link to="/about">About</Link>
 
         {!auth.isAuthenticated ? (
