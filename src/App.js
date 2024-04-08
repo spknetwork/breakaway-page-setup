@@ -73,8 +73,8 @@ function App() {
                 <Route path="/about" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/communities" element={<Communities />} />
-                <Route path="/community-setup" element={<PrivateRoute><Setup /></PrivateRoute>} />
-                <Route path="/community-create" element={<PrivateRoute> <CreateCommunity />{" "} </PrivateRoute>} />
+                <Route path="/community-setup" element={<Setup />} />
+                <Route path="/community-create" element={<CreateCommunity />} />
                 <Route path="/docker-setup" element={<DockerSetup />} />
                 <Route path="/profle-page" element={<Profilepage />} />
               </Routes>
