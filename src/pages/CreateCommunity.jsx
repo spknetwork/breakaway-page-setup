@@ -6,7 +6,11 @@ import {
   getPrivateKeys,
   genCommuninityName,
 } from "../helpers/community";
-import { createHiveCommunity, getCommunity } from "../api/hive";
+import {
+  createHiveCommunity,
+  getCommunity,
+  listAllSubscriptions,
+} from "../api/hive";
 import { useSelector } from "react-redux";
 import Loader from "../components/loader/Loader";
 import { Link } from "react-router-dom";
@@ -21,9 +25,11 @@ const CreateCommunity = () => {
   const [creatingUser, setCreatingUser] = useState("");
   const [communityName, setCommunityName] = useState("");
   const [communityPassword, setCommunityPassword] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const [communityKeys, setCommunityKeys] = useState({});
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userAdminListCommunities, setUserAminListCommunities] = useState([]);
 
   const { userData } = useSelector((state) => state.user);
 
@@ -41,6 +47,18 @@ const CreateCommunity = () => {
       handleInfo();
     }
   }, [step, communityName]);
+  async function fetchCurrentAdminUser(user) {
+    console.log(user);
+    let result = await listAllSubscriptions(user);
+    if (result && result.length > 0) {
+      setUserAminListCommunities(result);
+      console.log("result");
+      console.log(result);
+    }
+  }
+  useEffect(() => {
+    fetchCurrentAdminUser(creatingUser);
+  }, [creatingUser]);
 
   const handleInfo = async () => {
     try {
@@ -186,13 +204,23 @@ const CreateCommunity = () => {
     element.click();
     setIsDownloaded(true);
   };
+  const handleSelectChange = async (event) => {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
 
+    setSelectedOption(selectedValue);
+  };
   return (
     <div className="create-community">
       <div className="create-community-container">
         {isLoading && <Loader />}
         <div className="header">
           <h2>Create Hive Community</h2>
+          <span className="">
+            You can set up a platform for an existing community or create a new
+            one. If the community already exists you can select it below and
+            proceed to self-host, else you can create a new one.
+          </span>
         </div>
         {error && <span className="error-message">{error}</span>}
         {message && step === 2 && (
@@ -206,35 +234,59 @@ const CreateCommunity = () => {
               </span>
             </div>
             <div className="form-wrapper">
-              <>
-                <input
-                  type="text"
-                  value={creatingUser}
-                  placeholder="Admin Hive username"
-                  onChange={(e) => setCreatingUser(e.target.value)}
-                />
+              <input
+                type="text"
+                value={creatingUser}
+                placeholder="Admin Hive username"
+                onChange={(e) => setCreatingUser(e.target.value)}
+              />
+              <select
+                name="communitiesList"
+                id="communitiesList"
+                value={selectedOption}
+                onChange={handleSelectChange}
+              >
+                <option value="">Select existing community</option>
 
-                <input
-                  type="text"
-                  value={communityTitle}
-                  placeholder="Community title"
-                  onChange={(e) => setCommunityTitle(e.target.value)}
-                />
-                <textarea
-                  rows={minRows}
-                  value={aboutCommunity}
-                  scrollHeight
-                  onChange={handleAboutChange}
-                  placeholder="Community description"
-                  type="text"
-                />
-              </>
-              <>
-                <button onClick={() => handleCommuntiyInfo()}>Continue</button>
+                {userAdminListCommunities.map((community) => (
+                  <option value={community[0]}>{community[1]}</option>
+                ))}
+                {/* <option value="new">New</option>
+                  <option value="Breakaway communities">
+                    Breakaway communities
+                  </option>
+                  <option value="rank">Rank</option>
+                  <option value="subs">Members</option> */}
+              </select>
+              {!selectedOption && (
+                <>
+                  <input
+                    type="text"
+                    value={communityTitle}
+                    placeholder="Community title"
+                    onChange={(e) => setCommunityTitle(e.target.value)}
+                  />
+                  <textarea
+                    rows={minRows}
+                    value={aboutCommunity}
+                    scrollHeight
+                    onChange={handleAboutChange}
+                    placeholder="Community description"
+                    type="text"
+                  />
+                  <button onClick={() => handleCommuntiyInfo()}>
+                    Continue
+                  </button>
+                </>
+              )}
+
+              {selectedOption && (
                 <span className="">
-                  Already have a community? <a href="">click to login</a>
+                  It seems that you want to create a platform for an existing
+                  community, would you like to proceed to setting up the
+                  website? <a href="">Click to self-host</a>
                 </span>
-              </>
+              )}
             </div>
           </>
         )}
