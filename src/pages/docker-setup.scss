@@ -1,132 +1,128 @@
 @import "../mixins.scss";
-.docker-main-wrap{
+.docker-main-wrap {
   padding: 10px 30px;
   @include respond(phone) {
-      padding: 0%; 
+    padding: 0%;
   }
 }
-.hero-text-wrap{
+.hero-text-wrap {
   display: flex;
   justify-content: center;
+
   flex-direction: column;
   text-align: center;
-  h1{
-      margin-bottom: 10px;
+  h1 {
+    margin-bottom: 10px;
   }
-  p{
-      color: grey;
-      margin-bottom: 30px;
-
+  p {
+    color: grey;
+    margin-bottom: 30px;
   }
-  
 }
-.header{
+.header {
   text-align: center;
   font-size: 18px;
   color: rgb(94, 94, 195);
   margin-bottom: 20px;
 }
-.success-message{
+.success-message {
   text-align: center;
   color: green;
 }
-.docker-wrap{
+.docker-wrap {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
   @include respond(phone) {
-      display: flex;
-      flex-direction: column;
-      
-    }
+    display: flex;
+    flex-direction: column;
+  }
 }
-.forms-wrapper{
+.forms-wrapper {
   width: 50%;
   @include respond(phone) {
-      width: 100%; 
+    width: 100%;
   }
 }
 
-
-.instruction-Wrap{
+.instruction-Wrap {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
   @include respond(phone) {
-      display: flex;
-      flex-direction: column;
-      
-    }
+    display: flex;
+    flex-direction: column;
+  }
 }
-.input-with-tooltip{
+.input-with-tooltip {
   margin-bottom: 10px;
-  input{
+  input {
     padding: 10px 20px;
-    border-radius: 7px;  
-    width: 100% ;
+    border-radius: 7px;
+    width: 100%;
     outline: none;
   }
 }
-.top-text-wrap{
+.top-text-wrap {
   display: flex;
   gap: 4px;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   font-size: 16px;
   color: grey;
-  .tooltiptext{
-      font-size: 4px;
-      color: grey;
+  .tooltiptext {
+    font-size: 4px;
+    color: grey;
   }
 }
 .add-btn {
   padding: 10px 20px;
-      cursor: pointer;
-      color: #007bff;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+  cursor: pointer;
+  color: #007bff;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 
-      &:hover {
-        background-color: rgba(0, 123, 255, 0.8);
-      }
-}
-
-.doc-box{
-  width: 50%;
-  @include respond(phone) {
-      width: 100%; 
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.8);
   }
 }
-.download-wrap{
+
+.doc-box {
+  width: 50%;
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+.download-wrap {
   margin: 10px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.step-info{
+.step-info {
   display: flex;
   justify-content: space-between;
 }
-.copy-button, .download-button {
-      padding: 10px 20px;
-      cursor: pointer;
-      color: #007bff;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+.copy-button,
+.download-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #007bff;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 
-      &:hover {
-        background-color: rgba(0, 123, 255, 0.8);
-      }
-  
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+  }
 }
 .docker-compose-config {
   margin-top: 20px;
@@ -146,34 +142,32 @@
   }
 }
 
-.instruction-Wrap{
+.instruction-Wrap {
   padding: 20px 10px;
   border: 1px solid grey;
   border-radius: 10px;
 }
-.instruct{
-  h2{
+.instruct {
+  h2 {
+    margin-bottom: 3px;
+  }
+  p {
+    margin-bottom: 3px;
+  }
+  ul {
+    color: grey;
+    li {
       margin-bottom: 3px;
+    }
   }
-  p{
-      margin-bottom: 3px;
-  }
-  ul{
-      
-      color: grey;
-      li{
-          margin-bottom: 3px;
-          
-      }
-  }
-  h4{
-      color: #fff;
-      margin-bottom: 4px;
+  h4 {
+    color: #fff;
+    margin-bottom: 4px;
   }
 }
-.doc-compose{
+.doc-compose {
   width: 50%;
   @include respond(phone) {
-      width: 100%; 
+    width: 100%;
   }
 }
