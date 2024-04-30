@@ -3,7 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
-import 'animate.css';
+import "animate.css";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 export default function DockerSetup() {
@@ -131,7 +131,7 @@ export default function DockerSetup() {
       (entry, index) => `${index !== 0 ? "  " : ""}${
         entry.containerName || `container${index}`
       }:
-    image: pspc/ecency-boilerplate:legacy
+    image: igormuba/ecency-boilerplate:1.0.3
     container_name: ${entry.containerName || `container${index}`}
     ports:
       - "${entry.port}:3000"

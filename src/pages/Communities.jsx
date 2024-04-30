@@ -14,8 +14,10 @@ const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOption, setSelectedOption] = useState('rank');
-  const [gridView, setGridView] = useState(true);
+
+  const [selectedOption, setSelectedOption] = useState("Breakaway communities");
+  const [gridView, setGridView] = useState(false);
+
   const pinnedCommunitiesWebsties = {
     "hive-109272": "https://hiverally.com",
     "hive-115309": "https://digitalnetworkstate.media",
@@ -28,29 +30,41 @@ const Communities = () => {
   useEffect(() => {
     fetchCommunities();
   }, [searchQuery, selectedOption]);
-  
+
   // const handleGrid = () => {
   //   setGridView(!gridView)
   // }
-  
-      
-   const handleSelectChange = async (event) => {
+
+  const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
-  
-    if (selectedValue === 'Breakaway communities') {
-      const filteredCommunities = communityLists.filter((c) => pinnedCommunities.includes(c.name));
+
+    if (selectedValue === "Breakaway communities") {
+      const filteredCommunities = communityLists.filter((c) =>
+        pinnedCommunities.includes(c.name)
+      );
       setCommunityLists(filteredCommunities);
     } else {
-      await getCommunities("", 100, searchQuery || null,  event.target.value, "");
+      await getCommunities(
+        "",
+        100,
+        searchQuery || null,
+        event.target.value,
+        ""
+      );
     }
   };
-      
 
   const fetchCommunities = async () => {
     setLoading(true);
     try {
-      const communities = await getCommunities("", 100, searchQuery || null,  "rank", "");
+      const communities = await getCommunities(
+        "",
+        100,
+        searchQuery || null,
+        "rank",
+        ""
+      );
 
       const pinnedCommunitiesData = await Promise.all(
         pinnedCommunities.map(async (communityId) => {
@@ -71,12 +85,24 @@ const Communities = () => {
         })
       );
 
-      const mergedCommunities = (!searchQuery
-        ? [...pinnedCommunitiesData, ...communities]
-        : [...communities]) || []
+      const mergedCommunities =
+        (!searchQuery
+          ? [
+              ...pinnedCommunitiesData,
+              ...communities.filter(
+                (community) =>
+                  !pinnedCommunitiesData.some(
+                    (pinnedCommunity) => pinnedCommunity.name === community.name
+                  )
+              ),
+            ]
+          : [...communities]) || [];
 
-       if (selectedOption === 'Breakaway communities') {
-        const filteredCommunities = mergedCommunities.filter((c) => pinnedCommunities.includes(c.name));
+      if (selectedOption === "Breakaway communities") {
+        const filteredCommunities = mergedCommunities.filter((c) =>
+          pinnedCommunities.includes(c.name)
+        );
+
         setCommunityLists(filteredCommunities);
       } else {
         setCommunityLists(mergedCommunities);
@@ -93,7 +119,6 @@ const Communities = () => {
     setSearchQuery(e.target.value);
     // setSearchQuery= "";
   };
-
 
   return (
     <div className="communities-wrapper">
@@ -121,19 +146,45 @@ const Communities = () => {
                 </option>
                 <option value="new">New</option>
                 <option value="subs">Members</option>
-              </select> 
+              </select>
 
-              <button onClick={()=>setGridView(!gridView)} className="grid-btn"> { gridView ? "List view" : "Grid view"}</button>
-              
+              <button
+                onClick={() => setGridView(!gridView)}
+                className="grid-btn"
+              >
+                {" "}
+                {gridView ? "Grid view" : "List view"}
+              </button>
+
+
+
               <div className="search-wrap">
-                <input className="input" value={searchQuery} placeholder="Search community" type="text" onChange={handleCommunitySearch} /><IoSearch className="search-icon" />
+                <input
+                  className="input"
+                  value={searchQuery}
+                  placeholder="Search community"
+                  type="text"
+                  onChange={handleCommunitySearch}
+                />
+                <IoSearch className="search-icon" />
               </div>
-
             </div>
-            <div className={gridView ? "community-box-grid" :  "community-box "}>
+            <div className={gridView ? "community-box " : "community-box-grid"}>
               {communityLists.map((c, i) => (
-                <>{gridView ? <CommunityListGrid c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />:
-                <CommunityList c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />}
+                <>
+                  {gridView ? (
+                    <CommunityList
+                      c={c}
+                      key={i}
+                      pinnedCommunitiesWebsties={pinnedCommunitiesWebsties}
+                    />
+                  ) : (
+                    <CommunityListGrid
+                      c={c}
+                      key={i}
+                      pinnedCommunitiesWebsties={pinnedCommunitiesWebsties}
+                    />
+                  )}
                 </>
               ))}
             </div>
@@ -143,7 +194,7 @@ const Communities = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Communities;
