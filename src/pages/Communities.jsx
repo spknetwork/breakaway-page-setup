@@ -123,19 +123,17 @@ const Communities = () => {
                 <option value="subs">Members</option>
               </select> 
 
-              <button onClick={()=>setGridView(!gridView)} className="grid-btn"> { gridView ? "Grid view" : "List view"}</button>
+              <button onClick={()=>setGridView(!gridView)} className="grid-btn"> { gridView ? "List view" : "Grid view"}</button>
               
               <div className="search-wrap">
                 <input className="input" value={searchQuery} placeholder="Search community" type="text" onChange={handleCommunitySearch} /><IoSearch className="search-icon" />
               </div>
 
             </div>
-            <div className={gridView ?"community-box " : "community-box-grid"}>
+            <div className={gridView ? "community-box-grid" :  "community-box "}>
               {communityLists.map((c, i) => (
-                <>{gridView ?
-                <CommunityList c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} /> :
-                <CommunityListGrid c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />
-                  }
+                <>{gridView ? <CommunityListGrid c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />:
+                <CommunityList c={c} key={i} pinnedCommunitiesWebsties={pinnedCommunitiesWebsties} />}
                 </>
               ))}
             </div>

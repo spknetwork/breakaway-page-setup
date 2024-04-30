@@ -69,7 +69,7 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
                   </button>
                 ) : (
                   <Link to="/docker-setup" className="start">
-                    <h3 className="start-com-wrap glo-btnc">Start community</h3>
+                    <h3 className="start-com-wrap glo-btnc">Launch Community</h3>
                   </Link>
                 )}
               </div>

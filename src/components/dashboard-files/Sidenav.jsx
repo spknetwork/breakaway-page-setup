@@ -25,7 +25,7 @@ export default function Sidenav() {
           <ul>
           <Link to="/" className="link"><div className="li-wrap"><span><GoVersions  size={20}/></span> <li >Overview</li></div></Link>
           <Link to="/" className="link"><div className="li-wrap"><span><SiCompilerexplorer size={20} /></span><li>explore</li></div></Link>
-          <Link to="/community-create" className="link"><div className="li-wrap"><span><CgCommunity size={20} /></span><li>Create Community</li></div></Link>
+          <Link to="/community-create" className="link"><div className="li-wrap"><span><CgCommunity size={20} /></span><li>Self Host</li></div></Link>
           <Link to="/docker-setup" className="link"><div className="li-wrap"><span><PiSlideshowBold size={20}/></span><li>Breakaway</li></div></Link>
           
             

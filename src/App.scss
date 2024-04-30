@@ -29,6 +29,12 @@
   @include respond(phone) {
     display: none;
   }
+  @include respond(tab) {
+    display: none;
+  }
+  // @include respond(desktop) {
+  //   display: block;
+  // }
 }
 
 .main-container{
@@ -65,6 +71,9 @@
   height: 100vh;
   overflow-y: hidden !important;
   @include respond(phone) {
+    display: none;
+  }
+  @include respond(tab) {
     display: none;
   }
 }

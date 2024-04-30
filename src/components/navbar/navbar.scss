@@ -108,13 +108,16 @@
     position: fixed;
     left: 0px;
     top: 0px;
-    width: 60%;
+    width: 80%;
     height: 100%;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
     color: white;
     @include respond(desktop) {
       display: none;
+    }
+    @include respond(tab) {
+      width: 30%;
     }
 
 

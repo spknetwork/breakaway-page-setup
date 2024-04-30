@@ -53,7 +53,7 @@ const Navbar = ({ toggleSidebar }) => {
         <ul className="links">
             <Link className="lists-1"  to="/"><li className="">Home</li></Link>
             <Link className="lists-1" to="/communities"><li className="">Explore </li></Link>
-            <Link className="lists-1" to="/community-create"><li className="">Create Community</li></Link>
+            <Link className="lists-1" to="/community-create"><li className="">Self Host</li></Link>
             <Link className="lists-1" to="/about"><li>About</li></Link>
             
         </ul>

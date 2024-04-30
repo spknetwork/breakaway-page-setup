@@ -18,6 +18,7 @@ import Sidenav from "./components/dashboard-files/Sidenav";
 import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
 import Profilepage from "./pages/Profilepage";
+import LoaderSK from "./pages/LoaderSK";
 
 function App() {
   const { userData } = useSelector((state) => state.user);
@@ -77,6 +78,7 @@ function App() {
                 <Route path="/community-create" element={<PrivateRoute> <CreateCommunity />{" "} </PrivateRoute>} />
                 <Route path="/docker-setup" element={<DockerSetup />} />
                 <Route path="/profle-page" element={<Profilepage />} />
+                <Route path="/loader" element={<LoaderSK />} />
               </Routes>
             </div>
             {shouldRenderSideBar && (

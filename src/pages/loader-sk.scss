@@ -20,7 +20,14 @@
     
 }
 .loadersk{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  // gap: 20px;
     overflow-y: scroll;
+    @include respond(phone) {
+      grid-template-columns: auto;
+    }
 }
 .spk-main{
     display: flex;
@@ -35,6 +42,7 @@
 }
 .wrap-skeleton{
     display: flex;
+    flex-direction: column;
     gap: 15px;
     @include respond(phone) {
         display: flex;
@@ -44,8 +52,9 @@
       }
 }
 .sk-img{
-    width: 200px;
-    height: 150px;
+    // width: 200px;
+    width: 350px ;
+    height: 250px;
     border-radius: 10px;
     @include respond(phone) {
         width: 310px ;
@@ -60,7 +69,7 @@
     width: 200px;
     height: 18px;
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
     @include respond(phone) {
         width: 100px;
         margin-bottom: 9px;
@@ -68,28 +77,28 @@
 }
 
 .about-sk-1{
-    width: 700px;
+    width: 300px;
     height: 15px;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     @include respond(phone) {
         width: 300px;
       }
 }
 .about-sk-2{
-    width: 500px;
+    width: 200px;
     height: 15px;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     @include respond(phone) {
         width: 250px;
       }
 }
 .about-sk-3{
-    width: 300px;
+    width: 150px;
     height: 15px;
     border-radius: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     @include respond(phone) {
         width: 120px;
         margin-bottom: 20px;
@@ -130,10 +139,10 @@
     @include respond(tab) {
         display: none;
       }
-      @include respond(desktop) {
-        display: none;
+      // @include respond(desktop) {
+      //   display: none;
         
-      }
+      // }
 }
 .last-btn{
     width: 80px;
