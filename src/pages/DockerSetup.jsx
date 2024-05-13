@@ -519,7 +519,7 @@ networks:
                 </li>
                 <li>
                   Once DNS propagation is complete, your domain should now point
-                  to the specified IP address.
+                  to the specified IP address
                 </li>
               </ul>
             </div>
