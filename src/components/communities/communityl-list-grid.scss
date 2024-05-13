@@ -1,17 +1,24 @@
+@import "../../mixins.scss";
 .box-container-grid{
     width: fit-content;
 }
 .box-grid{
     padding: 0px 10px;
+    padding-top: 3px;
     width: 350px;
     gap: 10px;
     background-color: #0b1126;
     margin-bottom: 10px;
     border-radius: 10px;
+
+    @include respond(phone) {
+        width: 100%;
+      }
 }
 .box-wrap-left-grid{
     display: flex;
     flex-direction: column;
+    
 }
 .img-cover-grid{
     width: 100%;
@@ -20,6 +27,10 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    
     // background-size: ;
     
 }
@@ -32,9 +43,12 @@
 .title-grid{
     color: #fff;
     font-size: 22px;
-    margin-bottom: 7px;
+    margin-bottom: 7px ;
     font-weight: 800;
     list-style: none;
+    @include respond(phone) {
+        margin-top: 10px;
+      }
 }
 .about-grid{
     width: fit-content;
@@ -42,6 +56,6 @@
     margin-bottom: 3px;
     color: grey;
     font-size: 14.4px;
-    line-height: 1;
+    line-height: 1.1;
 
 }

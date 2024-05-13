@@ -1,9 +1,39 @@
 @import "../mixins.scss";
+*{
+  list-style-type: none;
+}
 .docker-main-wrap {
-  padding: 10px 30px;
+  // padding: 10px 30px;
+  padding: 10px 200px;
   @include respond(phone) {
     padding: 0%;
   }
+  @include respond(tab) {
+    padding: 10px 50px;
+  }
+}
+.tutorial-links{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  h2{
+    color: grey;
+    margin-top: 20px;
+    @include respond(phone) {
+      font-size: 23px;
+      text-align: center;
+    }
+  }
+  a{
+    color: rgb(94, 94, 195);;
+    
+  }
+
+}
+.tuto-link{
+  text-align: right;
 }
 .hero-text-wrap {
   display: flex;
@@ -13,6 +43,10 @@
   text-align: center;
   h1 {
     margin-bottom: 10px;
+    @include respond(phone) {
+      padding-top: 70px;
+      font-size: 28px;
+    }
   }
   p {
     color: grey;
@@ -21,8 +55,8 @@
 }
 .header {
   text-align: center;
-  font-size: 18px;
-  color: rgb(94, 94, 195);
+  font-size: 22px;
+  color: #fff;
   margin-bottom: 20px;
 }
 .success-message {
@@ -43,17 +77,10 @@
   @include respond(phone) {
     width: 100%;
   }
+ 
 }
 
-.instruction-Wrap {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  @include respond(phone) {
-    display: flex;
-    flex-direction: column;
-  }
-}
+
 .input-with-tooltip {
   margin-bottom: 10px;
   input {
@@ -143,21 +170,42 @@
 }
 
 .instruction-Wrap {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 15px;
   padding: 20px 10px;
   border: 1px solid grey;
   border-radius: 10px;
+  @include respond(phone) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.instru-left-wrap{
+  // width: fit-content;
+  padding-left: 10px;
+}
+.instru-right-wrap{
+  // width: fit-content;
+  
 }
 .instruct {
+
   h2 {
     margin-bottom: 3px;
   }
   p {
     margin-bottom: 3px;
+    line-height: 1.1;
   }
   ul {
     color: grey;
+    list-style-type: square;
     li {
       margin-bottom: 3px;
+      list-style-type: square;
+      line-height: 1.6;
     }
   }
   h4 {
@@ -165,6 +213,8 @@
     margin-bottom: 4px;
   }
 }
+
+
 .doc-compose {
   width: 50%;
   @include respond(phone) {

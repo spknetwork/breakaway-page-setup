@@ -1,0 +1,86 @@
+@import "../../mixins.scss";
+.point-container {
+  min-height: 70vh;
+  margin-top: 50px;
+}
+.point-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include respond(phone) {
+    flex-direction: column;
+    gap: 30px;
+  }
+  @include respond(tab) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+.point-left {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  img {
+    width: 450px;
+    z-index: 3;
+    animation-name: alltuchtopdown;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    @include respond(phone) {
+      width: 300px;
+    }
+  }
+}
+.point-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 40px;
+    }
+  h1 {
+    font-size: 50px;
+    @include respond(phone) {
+      font-size: 28px;
+      text-align: center;
+    }
+    @include respond(tab) {
+      font-size: 28px;
+      text-align: center;
+    }
+  }
+  p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: grey;
+    @include respond(phone) {
+      text-align: center;
+      line-height: 1.3;
+    }
+      @include respond(tab) {
+        text-align: center;
+      }
+    
+  }
+
+.hero-btc-img {
+  position: absolute;
+  left: 0;
+  top: 60%;
+  z-index: 3;
+  animation-name: alltuchtopdown;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+//   .hero-safe-img{
+//     position: absolute;
+//     top: 60%;
+//     right:1%;
+//     animation-name: leftToRight;
+//     animation-duration: 8s;
+//     animation-iteration-count: infinite;
+//     animation-timing-function: linear
+//   }

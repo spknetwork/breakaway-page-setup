@@ -21,7 +21,7 @@ export default function Sidenav() {
       </div>
       <div className="list-wrap">
         <div className="first-wrap ">
-            <h4>Dashboard</h4>
+            {/* <h4>Dashboard</h4> */}
           <ul>
           <Link to="/" className="link"><div className="li-wrap"><span><GoVersions  size={20}/></span> <li >Overview</li></div></Link>
           <Link to="/" className="link"><div className="li-wrap"><span><SiCompilerexplorer size={20} /></span><li>explore</li></div></Link>
@@ -31,7 +31,7 @@ export default function Sidenav() {
             
           </ul>
         </div>
-        <div className=" account-wrap">
+        {/* <div className=" account-wrap">
             <h4>Account</h4>
             <ul>
             <Link to="/profle-page" className="link"><div className="li-wrap"><span><CgProfile size={20} /></span><li>Profile</li></div></Link>
@@ -39,11 +39,11 @@ export default function Sidenav() {
             <div className="li-wrap"><span><TiPointOfInterest /></span><li>Breakaway Point</li></div>
             <div className="li-wrap"><span><MdOutlineSupportAgent size={20} /></span><li>Help&Support</li></div>
             </ul>
-        </div>
-        <div className="dark-mode-wrap">
+        </div> */}
+        {/* <div className="dark-mode-wrap">
             <div className="light"><span><MdLightMode /></span>light</div>
             <div className="dark"><span><MdDarkMode /></span>Dark</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

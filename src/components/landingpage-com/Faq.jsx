@@ -10,32 +10,32 @@ export default function Faq() {
         {
           title: "What is Breakaway community?",
           text:
-            "Lorem ipsum dolor sit amett consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus."
+            "A tokenised content community connected to a Web3 decentralised infrastructure on SPK Network"
         },
         {
           title: "How to create account?",
           text:
-            "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus."
+            "You only need 5 step to create a community. kindly check out the step on landing page"
         },
         {
           title: "Do i need to write any code?",
           text:
-            "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+            "You dont need to write code or even be web developer create community, juist follow the 5 step in creating accound then ytou are done. "
         },
         {
             title: "Community Point",
             text:
-              "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+              "Users would earn points for every action, Points would be accumulated over a period of time."
           },
           {
-            title: "Do i need to write any code?",
+            title: "Who Can Create Community?",
             text:
-              "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+              "Any hive user can create community and the is no fee required"
           },
           {
-            title: "Do i need to write any code?",
+            title: "Fee To Create Community?",
             text:
-              "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
+              "0% fee to create community."
           }
 
       ];
@@ -45,7 +45,7 @@ export default function Faq() {
          <h2>Frequently Asked Questions</h2>
     {data.map((el, i) => (
       <AccordionItem title={el.title} CurOpen={CurOpen} OnOpen={setCurOpen}  num={i} key={el.title}>
-        text={el.text}
+        {el.text}
         </AccordionItem>   
     ))}
   </div>
@@ -62,7 +62,7 @@ function AccordionItem({ num, title, CurOpen, OnOpen, children }) {
     }
   
     return (
-      <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
+      <div className={`item  ${isOpen ? "open light-bgt" : ""}`} onClick={handleToggle}>
         {/* <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p> */}
         <div className="title-wrap">
         <p className="titles">{title}</p>
