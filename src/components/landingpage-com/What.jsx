@@ -1,7 +1,5 @@
 import React from 'react'
 import "./what.scss"
-import 'animate.css';
-import { motion } from "framer-motion"
 import fadeIn from '../../variants';
 import { MdIntegrationInstructions } from "react-icons/md";
 

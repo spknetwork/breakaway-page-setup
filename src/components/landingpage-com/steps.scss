@@ -1,0 +1,54 @@
+@import "../../mixins.scss";
+.step-container{
+    min-height: 100vh;
+    @include respond(tab) {
+        min-height: 50vh;
+      }
+}
+.header-step{
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 32px;
+}
+.step-wrap-1{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+}
+.bom{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+    border-radius: 7px;
+    h2{
+        margin-bottom: 8px;
+    }
+    h3{
+        margin-bottom: 8px;
+    }
+    p{
+
+    }
+
+
+    
+}
+.step-wrap-2{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+
+}
+// .cla{
+//     background-color: yellow;
+//     padding: 200px;
+// }

@@ -14,6 +14,8 @@ import { setUser } from "./redux/userSlice";
 import { useDispatch } from "react-redux";
 import { getAccount } from "./api/hive";
 import "./App.scss";
+import Aos from 'aos'
+import "aos/dist/aos.css"
 import Sidenav from "./components/dashboard-files/Sidenav";
 import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
@@ -23,7 +25,12 @@ import LoaderSK from "./pages/LoaderSK";
 function App() {
   const { userData } = useSelector((state) => state.user);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    Aos.init( {duration:1000});
+  },[])
 
   useEffect(() => {
     getUserAccount();
@@ -57,7 +64,6 @@ function App() {
       <div className="container">
         {shouldRenderSideBar && (
           <div className="side-nav-wrap">
-            {" "}
             <Sidenav />
           </div>
         )}

@@ -1,8 +1,11 @@
 @import "../../mixins.scss";
 .hero-section{
-  height: 80vh;
+  min-height: 85vh;
   @include respond(phone) {
-    height: 50vh;
+    min-height: 60vh;
+  }
+  @include respond(tab) {
+    min-height: 60vh;
   }
 }
 .hero-wrap{
@@ -35,6 +38,10 @@
         margin-bottom: 20px;
         text-align: center;
       }
+      @include respond(tab) {
+        line-height: 1.3;
+        font-size: 28px;
+      }
   
     }
     .btn-hero{
@@ -64,6 +71,10 @@
         display: none;
         
       }
+      @include respond(tab) {
+        display: none;
+        
+      }
 
   }
   .carousel{
@@ -72,18 +83,18 @@
   .carousel-wrap{
     display: flex;
     align-items: center;
-    padding-left: 1rem/* 16px */;
-    padding-right: 1rem/* 16px */;
+    padding: 20px 50px;
     margin-left: 0.75rem/* 12px */;
     border-radius: 0.375rem/* 6px */;
     gap: 15px;
-    border: 1px solid grey;
+    // border: 1px solid grey;
     border-radius: 10px;
   
    
   }
   .caro-img{
     width: 70px;
+    border-radius: 20px;
   }
 
-  
+ 

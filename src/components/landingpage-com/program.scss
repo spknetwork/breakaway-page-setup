@@ -1,0 +1,59 @@
+@import "../../mixins.scss";
+.program-wrap{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    padding: 20px;
+    margin: 40px 0px;
+    @include respond(phone) {
+        display: flex;
+        flex-direction: column-reverse;
+        // align-items: start;
+      }
+      
+    
+
+    img{
+        width: 15vw;
+        margin-bottom: 20px;
+        @include respond(phone) {
+            width: 50vw;
+          }
+          @include respond(tab) {
+            width: 40vw;
+        
+          }
+    }
+}
+.pro-text{
+    margin: 0px 100px;
+    text-align: center;
+    @include respond(phone) {
+        margin: 0px 0px;
+      }
+    h2{
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 7px;
+        @include respond(tab) {
+            font-size: 45px;
+        
+          }
+    }
+    p{
+        margin-bottom: 10px;
+        color: grey;
+        @include respond(phone) {
+            line-height: 1.6;
+        
+    }
+    @include respond(tab) {
+           font-size: 16px; 
+           color: grey;
+           line-height: 1.7;
+        
+    }
+    }
+}

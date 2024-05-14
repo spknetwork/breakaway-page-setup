@@ -66,14 +66,14 @@ export default function Navmain() {
       <h3>Dashboard</h3>
       <div className="wrap-left">
        
-        <div className="nav-profile-wrap " >
+        {/* <div className="nav-profile-wrap " >
          <img src={`https://images.hive.blog/u/${userData?.name}/avatar`} alt="" />
          <h3>{truncateUserName(userNames)}</h3>
-        </div >
+        </div > */}
         <div className="icon-wrap">
-         <IoNotifications size={25} />
-         <TbWorld size={25} />
-         <Link to="/" ><BiLogOut size={25} onClick={() => dispatch(logoutAndClear())} /></Link>
+         {/* <IoNotifications size={25} />
+         <TbWorld size={25} /> */}
+         <Link to="/" className="log-out-wrap" ><BiLogOut size={22} color="white" onClick={() => dispatch(logoutAndClear())} /> <h3>Log out</h3></Link>
         </div>
         
       </div>
@@ -99,7 +99,7 @@ export default function Navmain() {
             
           </ul>
         </div>
-        <div className=" account-wrap">
+        {/* <div className=" account-wrap">
             <h4>Account</h4>
             <ul>
             <Link to="/profle-page" className="link" onClick={()=> setNav(!nav)}><div className="li-wrap"><span><CgProfile size={20} /></span><li>Profile</li></div></Link>
@@ -108,11 +108,11 @@ export default function Navmain() {
             <div className="li-wrap"><span><MdOutlineSupportAgent size={20} /></span><li>Help&Support</li></div>
             <Link to="/" className="li-wraps" onClick={() => dispatch(logoutAndClear())} ><BiLogOut size={20}  /><span>Logout</span></Link>
             </ul>
-        </div>
-        <div className="dark-mode-wrap">
+        </div> */}
+        {/* <div className="dark-mode-wrap">
             <div className="light"><span><MdLightMode /></span>light</div>
             <div className="dark"><span><MdDarkMode /></span>Dark</div>
-        </div>
+        </div> */}
       </div>
     </div>
 

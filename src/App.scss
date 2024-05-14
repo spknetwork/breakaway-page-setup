@@ -22,7 +22,7 @@
   scroll-behavior: smooth; 
 }
 .side-nav-wrap{
-  position: sticky;
+  // position: fixed;
   background-color: #0b1126;
   width: 17%;
   height: 100vh;
@@ -38,7 +38,7 @@
 }
 
 .main-container{
-  width: 100%;
+  width: 100% ;
   // overflow-y: hidden;
   @include respond(phone) {
     padding: 0px 20px; 
@@ -59,12 +59,14 @@
 
 .app-container {
   flex: 1;
+  width: 100%;
   margin: 0px 10px;
   @include respond(phone) {
     margin: 0px;
   }
 }
 .update-wrap{
+  background-color: green;
   padding-top: 100px;
   padding-right: 12px;
   width: 20%;
@@ -78,3 +80,9 @@
   }
 }
 
+.double-color{
+  background: linear-gradient(180deg, #fff 0, #93b2c8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
