@@ -1,12 +1,12 @@
 body {
   margin: 0;
-  // font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #03091f;
   color: #fff !important;
 }
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .code{
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -48,52 +48,5 @@ body {
    transition: all 0.5s ease-in-out;
    &:hover{
     background-image: linear-gradient(to left, #4968ea, #46aef2);
-  }
-}
-.light-bg{
-  background: linear-gradient(127deg,hsla(0,0%,100%,.16) 17.35%,hsla(0,0%,85%,.04) 76.2%);
-  box-shadow: 0 4px 4px -1px rgba(0,0,0,.05);
-  // background-color: yellow;
-}
-.light-bgt{
-  background: linear-gradient(320deg,hsla(0,0%,100%,.16) 17.35%,hsla(0,0%,85%,.04) 76.2%);
-  box-shadow: 0 4px 4px -1px rgba(0,0,0,.05)
-}
-.light-bgs{
-  background: linear-gradient(1deg,hsla(0,0%,100%,.16) 17.35%,hsla(0,0%,85%,.04) 76.2%);
-  box-shadow: 0 4px 4px -1px rgba(0,0,0,.05)
-}
-.up-down-animation{
-  animation-name: alltuchtopdown;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes alltuchtopdown {
-0% {
-    transform: rotateX(0deg) translateY(0)
-}
-
-50% {
-    transform: rotateX(0deg) translateY(-20px)
-}
-
-to {
-    transform: rotateX(0deg) translateY(0)
-}
-}
-
-@keyframes leftToRight {
-  0% {
-      transform: rotateX(0deg) translateX(0)
-  }
-
-  50% {
-      transform: rotateX(0deg) translateX(50px)
-  }
-
-  to {
-      transform: rotateX(0deg) translateX(0)
   }
 }

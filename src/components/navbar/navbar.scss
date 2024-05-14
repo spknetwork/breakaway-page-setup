@@ -132,18 +132,11 @@
       padding: 1rem /* 16px */;
       // text-transform: uppercase;
       color: white;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      // background-color: yellow;
-
     }
     li {
       padding: 16px 0px/* 16px */;
       border-bottom-width: 1px;
       list-style: none;
-      font-size: 20px;
     }
   }
   .breakaway-wrap{
@@ -174,15 +167,6 @@
     &:hover{
       color: aqua;
       font-size: 12;
-    }
-  }
-  .host-btn{
-    padding: 10px 30px;
-    border-radius: 12px;
-    background-color: #007bff;
-    color: #fff;
-    @include respond(phone) {
-      display: none;
     }
   }
   .btn-side{

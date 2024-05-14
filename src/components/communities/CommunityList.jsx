@@ -7,7 +7,7 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
   return (
     <div className="box-container ">
       <div className="box">
-        <div className="box-wrap-left">
+        <div className="box-wrap-left ">
           <div className="img-cover">
             <img
               className="pro-img"

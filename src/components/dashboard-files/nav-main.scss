@@ -8,8 +8,6 @@
     background: #03091f;
     padding: 10px 10px;
     border-bottom: 1px grey;
-    // position: fixed;
-    // top: 0px;
     h3{
       @include respond(phone) {
         display: none;
@@ -29,10 +27,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-}
-.log-out-wrap{
-  display: flex; align-items: center;
-  color: #fff;
 }
 .nav-profile-wrap{
   display: flex;
@@ -103,7 +97,6 @@
           margin-left: 12px;
           display: flex;
           align-items: center;
-          margin-bottom: 15px;
           &:hover{
               color: #fff;
           }
@@ -111,7 +104,6 @@
               text-decoration: none; 
               margin-bottom: 7px; 
               padding: 10px;
-              font-size: 18px;
           }
       } 
       
@@ -146,7 +138,6 @@
 }
 .li-wraps{
   margin-left: 12px;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 10px;

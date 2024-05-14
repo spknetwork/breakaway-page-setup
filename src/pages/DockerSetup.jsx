@@ -3,7 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
-
+import "animate.css";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 export default function DockerSetup() {
@@ -186,47 +186,11 @@ networks:
     <div className="docker-main-wrap">
       <div className="hero-text-wrap">
         <h1>Become an owner of your own Web3 enabled platform</h1>
-        {/* <p>
+        <p>
           The first step is setting up a docker container by entering your
           community, server and URL details below
-        </p> */}
+        </p>
       </div>
-      <div className="tutorial-links">
-          <h2 >Breakaway docker setup tutorials:</h2>
-          <br />
-          <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank">
-            Funding a namecheap account - Part 1 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank">
-            Acquiring a web domain - Part 2 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank">
-            Acquiring a Linux web server - Part 3 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank">
-            SSH info and accessing the server - Part 4 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank">
-            Docker install and configure - Part 5 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank">
-            Running the community on the server - Part 6 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank">
-            Pointing your domain URL to server - Part 7 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank">
-            Cloudflare SSL and DDoS protection - Part 8 of 8
-          </a>
-        </div>
-      
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>
         <div className="docker-wrap">

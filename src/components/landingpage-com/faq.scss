@@ -24,36 +24,29 @@
     @include respond(phone) {
         width: 100%;
       }
-      @include respond(tab) {
-        width: 100%;
-      }
   }
   
   .item {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    padding: 22px 20px;
+    padding: 12px 0px;
+    padding-right: 20px;
     cursor: pointer;
-    background: #0b1126;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
     grid-template-columns: auto 1fr auto;
+    
     align-items: center;
-    border-radius: 7px;
-    margin-bottom: 10px; 
-    margin-right: 10px;
   }
   .title-wrap{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   
  
   
-  .titles {
-    font-size: 21px !important;
+  .title {
+    font-size: 24px !important;
     font-weight: 500;
     @include respond(phone) {
         font-size: 18px;
@@ -61,7 +54,6 @@
   }
   
   .content-box {
-    padding-top: 10px;
     grid-column: 2 / -1;
     // padding-bottom: 16px;
     line-height: 1.6;
@@ -81,8 +73,6 @@
   /* OPEN STATE */
   .open {
     border-top: 4px solid grey;
-    background: linear-gradient(1deg,hsla(0,0%,100%,.16) 17.35%,hsla(0,0%,85%,.04) 76.2%);
-    box-shadow: 0 4px 4px -1px rgba(0,0,0,.05);
   }
   
   .open .number,

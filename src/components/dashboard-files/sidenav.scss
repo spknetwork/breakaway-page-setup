@@ -1,13 +1,9 @@
 @import "../../mixins.scss";
 .sidenavmian-wrap{
     height: 100%;
-    // position: fixed;
-    overflow-y: hidden !important;
     position: fixed;
+    overflow-y: hidden !important;
     top: 0px;
-    // background-color: red;
-    // width: inherit;
-
 }
 .logo-wrap{
     img{

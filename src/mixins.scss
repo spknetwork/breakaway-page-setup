@@ -23,6 +23,12 @@
          @content;   
         }   
     }
+  //   @if $breakpoint == desktop {
+  //     @media screen and (min-width: 901px) {
+  //       @content;  
+  //     }
+      
+  // }
 
     @if $breakpoint == desktop {
         @media screen and (min-width: 1024px) {
