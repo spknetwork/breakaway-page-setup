@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./communityl-list-grid.scss";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
@@ -11,12 +11,12 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
       <div className="box-container-grid ">
         <div className="box-grid">
           <div className="box-wrap-left-grid ">
-            <div className="img-cover-grid  " style={{backgroundImage:`url(https://images.hive.blog/u/${c.name}/avatar)`}}>
-              {/* <img
+            <div className="img-cover-grid  " >
+              <img
                 className="pro-img-grid"
                 src={`https://images.hive.blog/u/${c.name}/avatar`}
                 alt=""
-              /> */}
+              />
             </div>
             <div className="box-left">
               <Link className="title-grid" to={`/community/hive-${c.id}`}>

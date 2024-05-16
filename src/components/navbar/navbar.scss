@@ -86,7 +86,7 @@
   .links {
     display: flex;
     list-style: none;
-    gap: 10px;
+    gap: 30px;
     @include respond(phone) {
       display: none;
     }
