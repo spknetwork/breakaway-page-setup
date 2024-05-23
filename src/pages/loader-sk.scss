@@ -1,0 +1,159 @@
+@import "../mixins.scss";
+.sk-bg{
+    // background-color: #fff;
+    // background: linear-gradient(90deg, rgba(128,128,128,1) 20%, rgba(128,128,128,1) 47%);
+    
+
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: placeholdershimer 1.5s infinite;
+}
+
+
+@keyframes placeholdershimer {
+    0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    
+}
+.loadersk{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  // gap: 20px;
+    overflow-y: scroll;
+    @include respond(phone) {
+      grid-template-columns: auto;
+    }
+}
+.spk-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+
+}
+.wrap-skeleton{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    @include respond(phone) {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+      }
+}
+.sk-img{
+    // width: 200px;
+    width: 350px ;
+    height: 250px;
+    border-radius: 10px;
+    @include respond(phone) {
+        width: 310px ;
+        height: 150px;
+        margin-bottom:4px;
+      }
+}
+
+
+.title-sk{
+    background-color: aqua;
+    width: 200px;
+    height: 18px;
+    border-radius: 20px;
+    margin-bottom: 7px;
+    @include respond(phone) {
+        width: 100px;
+        margin-bottom: 9px;
+      }
+}
+
+.about-sk-1{
+    width: 300px;
+    height: 15px;
+    border-radius: 20px;
+    margin-bottom: 7px;
+    @include respond(phone) {
+        width: 300px;
+      }
+}
+.about-sk-2{
+    width: 200px;
+    height: 15px;
+    border-radius: 20px;
+    margin-bottom: 7px;
+    @include respond(phone) {
+        width: 250px;
+      }
+}
+.about-sk-3{
+    width: 150px;
+    height: 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    @include respond(phone) {
+        width: 120px;
+        margin-bottom: 20px;
+      }
+}
+
+
+.info-wrap{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    @include respond(phone) {
+        margin-bottom: 15px;
+      }
+
+
+}
+.spans-wrap{
+    display: flex;
+    gap: 10px;
+}
+.info-sk{
+    width: 40px;
+    height: 18px;
+    border-radius: 7px;
+    @include respond(phone) {
+        width: 25px;
+        margin-bottom: 15px;
+      }
+}
+
+.vist-btn-phone{
+    width: 80px;
+    height: 18px;
+    border-radius: 7px;
+    background-color: blue;
+
+    @include respond(tab) {
+        display: none;
+      }
+      // @include respond(desktop) {
+      //   display: none;
+        
+      // }
+}
+.last-btn{
+    width: 80px;
+    height: 18px;
+    border-radius: 7px;
+
+    // @include respond(tab) {
+    //     display: none;
+    //   }
+      @include respond(phone) {
+        display: none;
+        
+      }
+}

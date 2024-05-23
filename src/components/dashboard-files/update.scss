@@ -1,0 +1,31 @@
+.update-container{
+    height: 100%;
+    position: fixed;
+    overflow-y: hidden !important;
+    // display: none;
+    background-color: #ffff00;
+}
+.box-1{
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 30px;
+    background-color: #0b1126;
+    h2{
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+    p{
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: grey;
+        line-height: 1.3em;   
+    }
+    button{
+        border-radius: 7px;
+        padding: 8px 15px;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+}

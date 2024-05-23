@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { getCommunities, subscribe, getCommunity } from "../api/hive";
 import "./communities.scss";
 import Loader from "../components/loader/Loader";
-import { gridIcon, listView } from "../icons/svg";
+import { HiUsers } from "react-icons/hi";
+import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
+import { CommunityList } from "../components/communities/CommunityList";
+import LoaderSK from "./LoaderSK";
+import { IoSearch } from "react-icons/io5";
+import CommunityListGrid from "../components/communities/CommunityListGrid";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
@@ -25,6 +30,10 @@ const Communities = () => {
   useEffect(() => {
     fetchCommunities();
   }, [searchQuery, selectedOption]);
+
+  // const handleGrid = () => {
+  //   setGridView(!gridView)
+  // }
 
   const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
@@ -93,6 +102,7 @@ const Communities = () => {
         const filteredCommunities = mergedCommunities.filter((c) =>
           pinnedCommunities.includes(c.name)
         );
+
         setCommunityLists(filteredCommunities);
       } else {
         setCommunityLists(mergedCommunities);
@@ -107,117 +117,82 @@ const Communities = () => {
 
   const handleCommunitySearch = (e) => {
     setSearchQuery(e.target.value);
+    // setSearchQuery= "";
   };
 
   return (
-    <div className="communities setup">
-      <div className="community-header">
+    <div className="communities-wrapper">
+      <div className="hero-text">
         <h1>Tokenized Breakaway Communities</h1>
       </div>
-      <div className="search-container">
-        <input
-          className="communities-search"
-          value={searchQuery}
-          type="text"
-          placeholder="Search community"
-          onChange={handleCommunitySearch}
-        />
-      </div>
-      {loading ? (
-        <div className="communities-container">
-          <Loader />
-        </div>
-      ) : communityLists.length > 0 ? (
-        <div className="communities-container">
-          <div className="view">
-            <span>{gridView ? listView : gridIcon}</span>
-            <h3 onClick={() => setGridView(!gridView)}>
-              {gridView ? "List view" : "Grid view"}
-            </h3>
+      <div className="community-section">
+        {loading ? (
+          <div className="communities-container">
+            <LoaderSK />
           </div>
-          <div className="community">
+        ) : communityLists.length > 0 ? (
+          <div className="community-wrap">
             <div className="select-communities">
               <select
+                className="select"
                 name="communities"
                 id="communities"
                 value={selectedOption}
                 onChange={handleSelectChange}
               >
-                <option value="new">New</option>
+                <option value="rank">All Community</option>
                 <option value="Breakaway communities">
                   Breakaway communities
                 </option>
-                <option value="rank">Rank</option>
+                <option value="new">New</option>
                 <option value="subs">Members</option>
               </select>
+
+              <button
+                onClick={() => setGridView(!gridView)}
+                className="grid-btn"
+              >
+                {" "}
+                {gridView ? "Grid view" : "List view"}
+              </button>
+
+
+
+              <div className="search-wrap">
+                <input
+                  className="input"
+                  value={searchQuery}
+                  placeholder="Search community"
+                  type="text"
+                  onChange={handleCommunitySearch}
+                />
+                <IoSearch className="search-icon" />
+              </div>
             </div>
-            <div className="community-main">
+            <div className={gridView ? "community-box " : "community-box-grid"}>
               {communityLists.map((c, i) => (
-                <div
-                  className={`${
-                    gridView
-                      ? "community-wrapper-grid"
-                      : "community-wrapper-list"
-                  }
-                    community-wrapper${c.isPinned ? " pinned-community" : ""}
-                    `}
-                  key={i}
-                >
-                  <div className="left grid-top">
-                    <div className="top">
-                      <img
-                        src={`https://images.hive.blog/u/${c.name}/avatar`}
-                        alt=""
-                      />
-                      <Link to={`/community/hive-${c.id}`}>{c.title}</Link>
-                    </div>
-                    <div className="bottom">
-                      <span className="about">{c.about}</span>
-                      <div className="community-info">
-                        <span>{c.subscribers} members</span>
-                        <span>|</span>
-                        <span>{c.num_pending} Posts</span>
-                        <span>|</span>
-                        <span>{c.num_authors} posters</span>
-                      </div>
-                      <div className="admins-wrapper">
-                        <span>Admin:</span>
-                        <div className="admins">
-                          {c?.admins?.map((admin, i) => (
-                            <div key={i} className="each-admin">
-                              <span className="admin">@{admin}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="right">
-                    {c.isPinned ? (
-                      <button
-                        onClick={() =>
-                          window.open(
-                            `${pinnedCommunitiesWebsties[c.name]}`,
-                            "_blank"
-                          )
-                        }
-                      >
-                        Visit platform
-                      </button>
-                    ) : (
-                      <Link to="/docker-setup">
-                        Start your platform for this community
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                <>
+                  {gridView ? (
+                    <CommunityList
+                      c={c}
+                      key={i}
+                      pinnedCommunitiesWebsties={pinnedCommunitiesWebsties}
+                    />
+                  ) : (
+                    <CommunityListGrid
+                      c={c}
+                      key={i}
+                      pinnedCommunitiesWebsties={pinnedCommunitiesWebsties}
+                    />
+                  )}
+                </>
               ))}
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="communities-container">No community found</div>
-      )}
+        ) : (
+          <div className="communities-container">No community found</div>
+        )}
+      </div>
     </div>
   );
 };

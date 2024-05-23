@@ -2,48 +2,87 @@
   margin: 0px;
   padding: 0px;
   font-family: 'Roboto', sans-serif;
+  // overflow-x: hidden !important;
+  box-sizing: border-box !important;
 }
 
 *::-webkit-scrollbar {
   display: none;
 }
-
-.container {
-  display: flex;
-  overflow: hidden;
-  height: calc(100vh - 85px);
-  scroll-behavior: smooth;
-
-  .sidebar-container {
-    flex: 0 0 250px; 
-    position: sticky;
-    top: 0px;
-    padding: 20px; 
-    border-right: 1px solid #d5d4d5;
-    box-shadow: 0px 0px 10px #d5d4d5;
-    overflow-y: auto; 
-  }
-
-  .app-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-  }
-}
-
+@import "./mixins.scss";
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-a {
-  text-decoration: none;
-  margin-right: 20px;
-  color: #333;
-  font-weight: bold;
-  transition: color 0.3s;
-
-  &:hover {
-    color: #007bff;
+.container {
+  overflow-x: hidden !important;
+  display: flex;
+  height: 100vh;
+  scroll-behavior: smooth; 
+}
+.side-nav-wrap{
+  // position: fixed;
+  background-color: #0b1126;
+  width: 17%;
+  height: 100vh;
+  @include respond(phone) {
+    display: none;
   }
+  @include respond(tab) {
+    display: none;
+  }
+  // @include respond(desktop) {
+  //   display: block;
+  // }
+}
+
+.main-container{
+  width: 100% ;
+  // overflow-y: hidden;
+  @include respond(phone) {
+    padding: 0px 20px; 
+  }
+}
+
+// .top-wrap{
+//   // position: sticky;
+//   // overflow-y: hidden;
+  // top: 0px;
+// }
+
+.main-box-wrap{
+  display: flex;
+  width: 100%;
+  overflow-y: hidden !important;
+}
+
+.app-container {
+  flex: 1;
+  width: 100%;
+  margin: 0px 10px;
+  @include respond(phone) {
+    margin: 0px;
+  }
+}
+.update-wrap{
+  background-color: green;
+  padding-top: 100px;
+  padding-right: 12px;
+  width: 20%;
+  height: 100vh;
+  overflow-y: hidden !important;
+  @include respond(phone) {
+    display: none;
+  }
+  @include respond(tab) {
+    display: none;
+  }
+}
+
+.double-color{
+  background: linear-gradient(180deg, #fff 0, #93b2c8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

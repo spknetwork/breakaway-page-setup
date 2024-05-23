@@ -1,192 +1,223 @@
-.docker-setup {
+@import "../mixins.scss";
+*{
+  list-style-type: none;
+}
+.docker-main-wrap {
+  // padding: 10px 30px;
+  padding: 10px 200px;
+  @include respond(phone) {
+    padding: 0%;
+  }
+  @include respond(tab) {
+    padding: 10px 50px;
+  }
+}
+.tutorial-links{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  h2{
+    color: grey;
+    margin-top: 20px;
+    @include respond(phone) {
+      font-size: 23px;
+      text-align: center;
+    }
+  }
+  a{
+    color: rgb(94, 94, 195);;
+    
+  }
+
+}
+.tuto-link{
+  text-align: right;
+}
+.hero-text-wrap {
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+    @include respond(phone) {
+      padding-top: 70px;
+      font-size: 28px;
+    }
+  }
+  p {
+    color: grey;
+    margin-bottom: 30px;
+  }
+}
+.header {
+  text-align: center;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.success-message {
+  text-align: center;
+  color: green;
+}
+.docker-wrap {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  @include respond(phone) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.forms-wrapper {
+  width: 50%;
+  @include respond(phone) {
+    width: 100%;
+  }
+ 
+}
+
+
+.input-with-tooltip {
+  margin-bottom: 10px;
+  input {
+    padding: 10px 20px;
+    border-radius: 7px;
+    width: 100%;
+    outline: none;
+  }
+}
+.top-text-wrap {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: grey;
+  .tooltiptext {
+    font-size: 4px;
+    color: grey;
+  }
+}
+.add-btn {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #007bff;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+  }
+}
+
+.doc-box {
+  width: 50%;
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+.download-wrap {
+  margin: 10px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.step-info {
+  display: flex;
+  justify-content: space-between;
+}
+.copy-button,
+.download-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #007bff;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 
-  .docker-setup-container {
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.8);
+  }
+}
+.docker-compose-config {
+  margin-top: 20px;
+  border: 5px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+
+  pre {
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+.instruction-Wrap {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 15px;
+  padding: 20px 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  @include respond(phone) {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
+  }
+}
 
-    .tutorial-links {
-      margin-bottom: 20px;
-      text-align: center;
+.instru-left-wrap{
+  // width: fit-content;
+  padding-left: 10px;
+}
+.instru-right-wrap{
+  // width: fit-content;
+  
+}
+.instruct {
 
-      a {
-        display: block;
-        margin-bottom: 10px;
-        color: #007bff;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+  h2 {
+    margin-bottom: 3px;
+  }
+  p {
+    margin-bottom: 3px;
+    line-height: 1.1;
+  }
+  ul {
+    color: grey;
+    list-style-type: square;
+    li {
+      margin-bottom: 3px;
+      list-style-type: square;
+      line-height: 1.6;
     }
+  }
+  h4 {
+    color: #fff;
+    margin-bottom: 4px;
+  }
+}
 
-    .header {
-      margin-bottom: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
 
-    .form-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .input-with-tooltip {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-
-        .input-container {
-          position: relative;
-          width: 100%;
-
-          input {
-            padding: 12px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            border-bottom: 1px solid gray;
-            width: 100%;
-            text-align: center;
-          }
-        }
-
-        .tooltip-icon {
-          margin-left: 10px;
-          cursor: pointer;
-          color: #888;
-        }
-
-        .tooltip {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 200px;
-          padding: 8px;
-          background-color: #fff;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          z-index: 1;
-          display: none;
-        }
-
-        &:hover .tooltip {
-          display: block;
-        }
-      }
-
-      input {
-        padding: 12px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        border-bottom: 1px solid gray;
-        width: 100%;
-        text-align: center;
-      }
-
-      button {
-        padding: 12px;
-        cursor: pointer;
-        background-color: transparent;
-        color: #007bff;
-        border: none;
-        font-weight: bold;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: rgba(0, 123, 255, 0.1);
-          color: #007bff;
-        }
-      }
-
-      .copy-button,
-      .download-button {
-        padding: 10px 20px;
-        cursor: pointer;
-        color: #007bff;
-        border: none;
-        background-color: #007bff;
-        color: white;
-        border-radius: 5px;
-        font-weight: bold;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: rgba(0, 123, 255, 0.8);
-        }
-      }
-    }
-
-    .docker-compose-config {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: #f9f9f9;
-      border-radius: 5px;
-
-      pre {
-        font-size: 14px;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        max-height: 300px;
-        overflow-y: auto;
-        border: none;
-        border-radius: 5px;
-      }
-    }
-
-    .instructions {
-      margin-top: 20px;
-      text-align: left;
-
-      p {
-        margin-bottom: 10px;
-      }
-
-      a {
-        color: #007bff;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .copy-button {
-      padding: 10px 20px;
-      cursor: pointer;
-      color: #007bff;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: rgba(0, 123, 255, 0.8);
-      }
-    }
-    .warning-message {
-      position: absolute;
-      bottom: -20px;
-      left: 0;
-      color: red;
-      font-size: 14px;
-    }
+.doc-compose {
+  width: 50%;
+  @include respond(phone) {
+    width: 100%;
   }
 }
