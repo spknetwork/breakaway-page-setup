@@ -191,7 +191,7 @@ networks:
           community, server and URL details below
         </p> */}
       </div>
-      <div className="tutorial-links">
+      {/* <div className="tutorial-links">
           <h2 >Breakaway docker setup tutorials:</h2>
           <br />
           <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank">
@@ -225,7 +225,48 @@ networks:
           <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank">
             Cloudflare SSL and DDoS protection - Part 8 of 8
           </a>
+      </div> */}
+      <div className="tutorials">
+        <h2>Watch tutorials on how to set up your platform</h2>
+        <div className="tut-iframe">
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 2</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>    
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
+          <div className="video-wrap">
+            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+            <span>Tutorial 1</span>
+          </div>
         </div>
+      </div>
       
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>

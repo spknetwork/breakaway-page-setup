@@ -35,6 +35,24 @@
 .tuto-link{
   text-align: right;
 }
+.tutorials{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .tut-iframe {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+    .video-wrap {
+      width: calc((100% - 70px) / 3); 
+      height: 150px;
+      margin-bottom: 30px;
+      box-sizing: border-box;
+    }
+  }
+}
 .hero-text-wrap {
   display: flex;
   justify-content: center;
