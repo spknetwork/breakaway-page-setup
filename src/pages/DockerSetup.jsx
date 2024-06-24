@@ -127,11 +127,28 @@ export default function DockerSetup() {
       return;
     }
 
+    // const composeEntries = containerEntries.map(
+    //   (entry, index) => `${index !== 0 ? "  " : ""}${
+    //     entry.containerName || `container${index}`
+    //   }:
+    // image: igormuba/ecency-boilerplate:1.0.3
+    // container_name: ${entry.containerName || `container${index}`}
+    // ports:
+    //   - "${entry.port}:3000"
+    // environment:
+    //   - USE_PRIVATE=1
+    //   - HIVE_ID=${entry.HIVE_ID}
+    //   - TAGS=${entry.TAGS}
+    // networks:
+    //   - my_network
+    // restart: always`
+    // );
+
     const composeEntries = containerEntries.map(
       (entry, index) => `${index !== 0 ? "  " : ""}${
         entry.containerName || `container${index}`
       }:
-    image: igormuba/ecency-boilerplate:1.0.3
+    image: adesojisouljaay/breakaway-community:latest
     container_name: ${entry.containerName || `container${index}`}
     ports:
       - "${entry.port}:3000"
@@ -144,7 +161,39 @@ export default function DockerSetup() {
     restart: always`
     );
 
-    const nginxEnvVars = containerEntries
+//     const nginxEnvVars = containerEntries
+//       .map(
+//         (entry, index) =>
+//           `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
+//             entry.containerName || `container${index}`
+//           }:3000`
+//       )
+//       .join("\n");
+
+//     const nginxEnvVarsFormatted = nginxEnvVars
+//       ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
+//       : "";
+
+//     const composeConfig = `version: '3'
+// services:
+//   ${composeEntries.join("\n")}
+//   nginx:
+//     image: igormuba/nginx-to-docker:latest
+//     ports:
+//       - "80:80"
+//     environment:
+// ${nginxEnvVarsFormatted}    networks:
+//       - my_network
+//     restart: always
+// networks:
+//   my_network:
+//     driver: bridge`;
+
+//     setSuccessMessage("Docker Compose configuration generated.");
+//     setDockerComposeConfig(composeConfig);
+//   };
+
+const nginxEnvVars = containerEntries
       .map(
         (entry, index) =>
           `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
@@ -161,7 +210,7 @@ export default function DockerSetup() {
 services:
   ${composeEntries.join("\n")}
   nginx:
-    image: igormuba/nginx-to-docker:latest
+    image: adesojisouljaay/nginx:latest
     ports:
       - "80:80"
     environment:
@@ -229,42 +278,42 @@ networks:
       <div className="tutorials">
         <h2>Watch tutorials on how to set up your platform</h2>
         <div className="tut-iframe">
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 2</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>    
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
-          <div className="video-wrap">
-            <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
-            <span>Tutorial 1</span>
-          </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 2</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>    
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
+            <div className="video-wrap">
+              <iframe width="350" height="150" src="https://3speak.tv/embed?v=igormuba/ijobvotk" frameborder="0" allowfullscreen></iframe>
+              <span>Tutorial 1</span>
+            </div>
         </div>
       </div>
       
