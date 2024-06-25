@@ -45,12 +45,12 @@ const Navbar = ({ toggleSidebar }) => {
         <Link className="lists-1" to="/community-create">
           <li className="">Create Community</li>
         </Link>
-        <Link className="lists-1" to="/about">
+        {/* <Link className="lists-1" to="/about">
           <li>About</li>
-        </Link>
+        </Link> */}
       </ul>
       <Link className="lists-1" to="/docker-setup">
-          <button className="host-btn">Self Host</button>
+          <button className="host-btn">Launch Your Platform</button>
         </Link>
 
       <div className="toggle" onClick={handleNav}>
