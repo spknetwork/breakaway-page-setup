@@ -18,6 +18,7 @@
 }
 .logo{
   width: 45px;
+  cursor: pointer;
   @include respond(desktop) {
     display: none;
   }
@@ -89,6 +90,7 @@
 
 .list-wrap{
   padding: 10px;
+  cursor: pointer;
 }
 .first-wrap{
   color: grey;
