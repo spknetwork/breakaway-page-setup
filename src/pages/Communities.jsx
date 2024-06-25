@@ -21,11 +21,13 @@ const Communities = () => {
   const pinnedCommunitiesWebsties = {
     "hive-109272": "https://hiverally.com",
     "hive-115309": "https://digitalnetworkstate.media",
-    "hive-140169": "https://hivevibes.co",
-  };
-
+    "hive-140169": "https://hivevibes.com",
+    "hive-125987": "https://rosarito.community",
+    "hive-106130": "https://spendhbd.com",
+    "hive-110011": "https://aliento.blog"
+  }
   //test
-  const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169"];
+  const pinnedCommunities = ["hive-109272", "hive-115309", "hive-140169", "hive-125987", "hive-106130", "hive-110011"];
 
   useEffect(() => {
     fetchCommunities();
