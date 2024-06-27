@@ -1,39 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.scss";
-import { useSelector } from "react-redux";
-import spkLogo from "../../assets/spk-logo-white.svg";
+import spkLogo from "../../assets/white-nobackground.png";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
-const Navbar = ({ toggleSidebar }) => {
-  const [nav, setNav] = useState(true);
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  const { auth } = useSelector((state) => state);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 768);
-    };
-
-    // Initial check on component mount
-    handleResize();
-
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  <div className="toggle" onClick={handleNav}>
-    {!nav ? <AiOutlineClose /> : <AiOutlineMenu size={20} />}
-  </div>;
+const Navbar = ({ handleNav, nav , setNav }) => {
+  
 
   return (
     <nav className="navbar">
@@ -50,7 +22,7 @@ const Navbar = ({ toggleSidebar }) => {
         </Link>
       </ul>
       <Link className="lists-1" to="/docker-setup">
-          <button className="host-btn">Self Host</button>
+          <button className="host-btn">Launch Your Platform</button>
         </Link>
 
       <div className="toggle" onClick={handleNav}>
@@ -77,7 +49,7 @@ const Navbar = ({ toggleSidebar }) => {
             <li>About</li>
           </Link>
           <Link className="lists" to="/docker-setup" onClick={() => setNav(!nav)}>
-            <li>Self Host</li>
+            <li>Launch Your Platform</li>
           </Link>
           
         </ul>
