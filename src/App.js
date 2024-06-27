@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/navbar/Navbar";
 import CreateCommunity from "./pages/CreateCommunity";
-import Login from "./pages/Login";
 import Communities from "./pages/Communities";
 import DockerSetup from "./pages/DockerSetup";
 import { useSelector } from "react-redux";
@@ -16,7 +15,6 @@ import "aos/dist/aos.css"
 import Sidenav from "./components/dashboard-files/Sidenav";
 import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
-import Profilepage from "./pages/Profilepage";
 import LoaderSK from "./pages/LoaderSK";
 
 function App() {
@@ -75,12 +73,9 @@ function App() {
               <Routes>
                 <Route path="/" element={<Communities />} />
                 <Route path="/about" element={<LandingPage />} />
-                <Route path="/login" element={<Login />} />
                 <Route path="/communities" element={<Communities />} />
                 <Route path="/community-create" element={<CreateCommunity />} />
                 <Route path="/docker-setup" element={<DockerSetup />} />
-                <Route path="/profle-page" element={<Profilepage />} />
-                <Route path="/loader" element={<LoaderSK />} />
               </Routes>
             </div>
             {shouldRenderSideBar && (
