@@ -4,12 +4,6 @@ import Logo  from "../../assets/spk-logo-white.svg";
 import { GoVersions } from "react-icons/go";
 import { SiCompilerexplorer } from "react-icons/si";
 import { CgCommunity } from "react-icons/cg";
-import { TiPointOfInterest } from "react-icons/ti";
-import { CgProfile } from "react-icons/cg";
-import { FaWallet } from "react-icons/fa";
-import { MdOutlineSupportAgent } from "react-icons/md";
-import { MdLightMode } from "react-icons/md";
-import { MdDarkMode } from "react-icons/md";
 import { PiSlideshowBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 

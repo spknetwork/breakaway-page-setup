@@ -15,7 +15,6 @@ import "aos/dist/aos.css"
 import Sidenav from "./components/dashboard-files/Sidenav";
 import Navmain from "./components/dashboard-files/Navmain";
 import Update from "./components/dashboard-files/Update";
-import LoaderSK from "./pages/LoaderSK";
 
 function App() {
   const { userData } = useSelector((state) => state.user);
