@@ -4,7 +4,6 @@ import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
 
-
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 export default function DockerSetup() {
   const [containerEntries, setContainerEntries] = useState([]);
@@ -357,7 +356,7 @@ networks:
             </button>
           </div>
           <div className="doc-box animate__animated animate__fadeIn">
-            {dockerComposeConfig && (
+            {dockerComposeConfig ? (
               <div>
                 <div className="step-info">
                   <div className="info">Docker Compose Configuration:</div>
@@ -388,6 +387,22 @@ networks:
                   </a>
                 </div>
               </div>
+            ) : (
+              <>
+              <div className="docker-compose-config-demo">
+                <div className="config-action-buttons-demo">
+                  <button disabled className="copy-button animate__animated animate__pulse">
+                    <FaCopy /> Copy to Clipboard
+                  </button>
+                  <div className="demo-docker">
+                    <h4>Generate your docker-compose.yml file by filling the setup form</h4>
+                  </div>
+                </div>
+              </div>
+              <div className="download-wrap-demo">
+              <div disabled className="download-button-demo">Download as docker-compose.yml</div>
+              </div>
+            </>
             )}
           </div>
         </div>
