@@ -191,45 +191,41 @@ networks:
         </p> */}
       </div>
       <div className="tutorial-links">
-        <h2>Breakaway docker setup tutorials:</h2>
-        <br />
-        <a
-          className="tuto-link"
-          href="https://3speak.tv/watch?v=igormuba/ijobvotk"
-          target="_blank"
-        >
-          Funding a namecheap account - Part 1 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank">
-          Acquiring a web domain - Part 2 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank">
-          Acquiring a Linux web server - Part 3 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank">
-          SSH info and accessing the server - Part 4 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank">
-          Docker install and configure - Part 5 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank">
-          Running the community on the server - Part 6 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank">
-          Pointing your domain URL to server - Part 7 of 8
-        </a>
-        <br />
-        <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank">
-          Cloudflare SSL and DDoS protection - Part 8 of 8
-        </a>
-      </div>
-
+          <h2 >Breakaway docker setup tutorials:</h2>
+          <br />
+          <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank" rel="noopener noreferrer">
+            Funding a namecheap account - Part 1 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank" rel="noopener noreferrer">
+            Acquiring a web domain - Part 2 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank" rel="noopener noreferrer">
+            Acquiring a Linux web server - Part 3 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank" rel="noopener noreferrer">
+            SSH info and accessing the server - Part 4 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank" rel="noopener noreferrer">
+            Docker install and configure - Part 5 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank" rel="noopener noreferrer">
+            Running the community on the server - Part 6 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank" rel="noopener noreferrer">
+            Pointing your domain URL to server - Part 7 of 8
+          </a>
+          <br />
+          <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank" rel="noopener noreferrer">
+            Cloudflare SSL and DDoS protection - Part 8 of 8
+          </a>
+        </div>
+      
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>
         <div className="docker-wrap">
@@ -447,13 +443,13 @@ networks:
               <ul>
                 <li>
                   You can download and read more about Docker from{" "}
-                  <a href="https://www.docker.com/get-started/" target="_blank">
+                  <a href="https://www.docker.com/get-started/" target="_blank" rel="noopener noreferrer">
                     here
                   </a>
                 </li>
                 <li>
                   You can download and read more about Docker Compose from{" "}
-                  <a href="https://docs.docker.com/compose/" target="_blank">
+                  <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">
                     here
                   </a>
                 </li>

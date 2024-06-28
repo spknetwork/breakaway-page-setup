@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { copyIcon, downloadSvg, leftArrowSvg } from "../icons/svg";
+import { copyIcon, downloadSvg } from "../icons/svg";
 import keychainLogo from "../assets/keychain.png";
 import {
   generatePassword,
@@ -11,7 +11,6 @@ import {
   getCommunity,
   listAllSubscriptions,
 } from "../api/hive";
-import { useSelector } from "react-redux";
 import Loader from "../components/loader/Loader";
 import { Link } from "react-router-dom";
 import "./create-community.scss";
@@ -30,8 +29,6 @@ const CreateCommunity = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userAdminListCommunities, setUserAminListCommunities] = useState([]);
-
-  const { userData } = useSelector((state) => state.user);
 
   const namePattern = "^hive-[1]\\d{4,6}$";
 
