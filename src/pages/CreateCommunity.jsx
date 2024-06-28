@@ -201,12 +201,6 @@ const CreateCommunity = () => {
     element.click();
     setIsDownloaded(true);
   };
-  const handleSelectChange = async (event) => {
-    const selectedValue = event.target.value;
-    console.log(selectedValue);
-
-    setSelectedOption(selectedValue);
-  };
   return (
     <div className="create-community">
       <div className="create-community-container">
@@ -237,24 +231,6 @@ const CreateCommunity = () => {
                 placeholder="Admin Hive username"
                 onChange={(e) => setCreatingUser(e.target.value)}
               />
-              <select
-                name="communitiesList"
-                id="communitiesList"
-                value={selectedOption}
-                onChange={handleSelectChange}
-              >
-                <option value="">Select existing community</option>
-
-                {userAdminListCommunities.map((community) => (
-                  <option value={community[0]}>{community[1]}</option>
-                ))}
-                {/* <option value="new">New</option>
-                  <option value="Breakaway communities">
-                    Breakaway communities
-                  </option>
-                  <option value="rank">Rank</option>
-                  <option value="subs">Members</option> */}
-              </select>
               {!selectedOption && (
                 <>
                   <input
@@ -275,14 +251,6 @@ const CreateCommunity = () => {
                     Continue
                   </button>
                 </>
-              )}
-
-              {selectedOption && (
-                <span className="">
-                  It seems that you want to create a platform for an existing
-                  community, would you like to proceed to setting up the
-                  website? <a href="">Click to self-host</a>
-                </span>
               )}
             </div>
           </>
