@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getCommunities, subscribe, getCommunity } from "../api/hive";
+import { getCommunities, getCommunity } from "../api/hive";
 import "./communities.scss";
-import Loader from "../components/loader/Loader";
-import { HiUsers } from "react-icons/hi";
-import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { CommunityList } from "../components/communities/CommunityList";
 import LoaderSK from "./LoaderSK";
 import { IoSearch } from "react-icons/io5";
