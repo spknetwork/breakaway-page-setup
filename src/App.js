@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       {<Navbar  nav={nav} setNav={setNav} handleNav={handleNav} />}
-      <div className="container"  onClick={()=>{ bodyToggle() ; console.log(nav)}}>
+      <div className="container"  onClick={()=>{ bodyToggle() }}>
         <Routes>
           <Route path="/" element={<Communities />} />
           <Route path="/about" element={<LandingPage />} />
