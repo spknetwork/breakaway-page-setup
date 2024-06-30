@@ -130,7 +130,7 @@ export default function DockerSetup() {
       (entry, index) => `${index !== 0 ? "  " : ""}${
         entry.containerName || `container${index}`
       }:
-    image: igormuba/ecency-boilerplate:1.0.3
+    image: adesojisouljaay/breakaway-community:v1.0
     container_name: ${entry.containerName || `container${index}`}
     ports:
       - "${entry.port}:3000"
@@ -156,17 +156,20 @@ export default function DockerSetup() {
       ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
       : "";
 
-    const composeConfig = `version: '3'
+      const composeConfig = `version: '3'
 services:
   ${composeEntries.join("\n")}
   nginx:
-    image: igormuba/nginx-to-docker:latest
+    image: nginx:latest  # Oficial Nginx image
+    container_name: nginx
     ports:
       - "80:80"
-    environment:
-${nginxEnvVarsFormatted}    networks:
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Mount Nginx configuration
+    networks:
       - my_network
     restart: always
+
 networks:
   my_network:
     driver: bridge`;
