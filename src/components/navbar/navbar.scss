@@ -1,4 +1,5 @@
 @import "../../mixins.scss";
+@import "../../variables.scss";
 
 .navbar {
   justify-content: space-between;
@@ -7,10 +8,14 @@
   max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0px 16px;
+  padding: 10px 16px;
 
   .logos, .logo {
-    width: 120px;
+    width: 70px;
+  }
+  .logo-android-nav{
+    padding-top: 15px;
+    padding-left: 15px;
   }
   .btn-search-wrap {
     display: flex;
@@ -103,6 +108,8 @@
     top: 0px;
     width: 80%;
     height: 100%;
+    background-color: #0000007f;
+    backdrop-filter: blur(10px);
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
     color: white;
@@ -171,10 +178,11 @@
   .host-btn {
     padding: 10px 30px;
     border-radius: 12px;
-    background-color: #007bff;
+    background: var(--mixed-color);
+    transition: background-position 0.5s ease-in-out 0s;
     color: #fff;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     @include respond(phone) {
       display: none;
     }

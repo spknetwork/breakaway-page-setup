@@ -207,11 +207,11 @@ const CreateCommunity = () => {
         {isLoading && <Loader />}
         <div className="header">
           <h2>Create Hive Community</h2>
-          <span className="">
+          {/* <span className="">
             You can set up a platform for an existing community or create a new
             one. If the community already exists you can select it below and
             proceed to self-host, else you can create a new one.
-          </span>
+          </span> */}
         </div>
         {error && <span className="error-message">{error}</span>}
         {message && step === 2 && (
@@ -260,43 +260,47 @@ const CreateCommunity = () => {
             <div className="step-info">
               <p className="info">Confirm the informmation below</p>
             </div>
-            <div className="operation-info">
-              <span>Creator: @{creatingUser}</span>
-              <span>Creation fee: 3 Hive</span>
-            </div>
+
             <div className="form-wrapper">
               <>
-                <div className="community-input">
-                  <div className="community-name">
-                    <span>Community name:</span>
+                <div className="community-input-add">
+                  <div className="operation-info">
+                    <span>Creator: @{creatingUser}</span>
+                    <span>Creation fee: 3 Hive</span>
                   </div>
-                  <input
-                    type="text"
-                    value={communityName}
-                    onChange={(e) => setCommunityName(e.target.value)}
-                  />
+                  <div className="community-input community-input-addn">
+                    <div className="community-name">
+                      <span>Community name:</span>
+                    </div>
+                    <input
+                      type="text"
+                      value={communityName}
+                      onChange={(e) => setCommunityName(e.target.value)}
+                    />
+                  </div>
                 </div>
-                <span className="warning">
-                  Make sure you copy and save you password securely before you
-                  proceed.{" "}
+                <span className="warnings">
+                Copy save your password securely before proceeding.{" "}
                 </span>
-                <div className="password-input">
-                  <div className="community-password">
-                    <span>Password:</span>
+                <div className="password-sec-wrap">
+                  <div className="password-input">
+                    <div className="community-password">
+                      <span>Password:</span>
+                    </div>
+                    <input type="text" value={communityPassword} readOnly />
+                    <span onClick={() => copyToClipboard(communityPassword)}>
+                      {copyIcon}
+                    </span>
                   </div>
-                  <input type="text" value={communityPassword} readOnly />
-                  <span onClick={() => copyToClipboard(communityPassword)}>
-                    {copyIcon}
-                  </span>
+                  <button
+                    disabled={error}
+                    style={{ cursor: error ? "not-allowed" : "pointer" }}
+                    className="download-keys"
+                    onClick={downloadKeys}
+                  >
+                    Download keys{downloadSvg}
+                  </button>
                 </div>
-                <button
-                  disabled={error}
-                  style={{ cursor: error ? "not-allowed" : "pointer" }}
-                  className="download-keys"
-                  onClick={downloadKeys}
-                >
-                  Download keys{downloadSvg}
-                </button>
               </>
               <>
                 <button
