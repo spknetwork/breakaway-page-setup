@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./navbar.scss";
-import spkLogo from "../../assets/white-nobackground.png";
+import spkLogo from "../../assets/white-nobackground_new.png";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
@@ -28,8 +28,8 @@ const Navbar = ({ handleNav, nav , setNav }) => {
       <div className="toggle" onClick={handleNav}>
         {!nav ? <AiOutlineClose /> : <AiOutlineMenu size={20} />}
       </div>
-      <div className={!nav ? "side-nav bg-light" : "side-nav-else"}>
-        <img src={spkLogo} className="logo" alt="" />
+      <div className={!nav ? "side-nav " : "side-nav-else"}>
+        <img src={spkLogo} className="logo logo-android-nav" alt="" />
         <ul >
           <Link
             className="lists"
