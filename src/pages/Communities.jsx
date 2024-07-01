@@ -93,11 +93,7 @@ const Communities = () => {
         <h1>Tokenized Breakaway Communities</h1>
       </div>
       <div className="community-section">
-        {loading ? (
-          <div className="communities-container">
-            <LoaderSK />
-          </div>
-        ) : communityLists.length > 0 ? (
+       
           <div className="community-wrap">
             <div className="select-communities">
               <select
@@ -131,9 +127,15 @@ const Communities = () => {
                 <IoSearch className="search-icon" />
               </div>
             </div>
-            <div className={gridView ? "community-box " : "community-box-grid"}>
+            </div>
+            {loading ? (
+          <div className="communities-container">
+            <LoaderSK />
+          </div>
+        ) : communityLists.length > 0 ? (
+        <div className={gridView ? "community-box " : "community-box-grid"}>
               {communityLists.map((c, i) => (
-                <>
+                <React.Fragment key={c.id} >
                   {gridView ? (
                     <CommunityList
                       c={c}
@@ -153,10 +155,10 @@ const Communities = () => {
                       }, {})}
                     />
                   )}
-                </>
+                </React.Fragment>
               ))}
             </div>
-          </div>
+          
         ) : (
           <div className="communities-container">No community found</div>
         )}
