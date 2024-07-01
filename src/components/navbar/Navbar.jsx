@@ -45,9 +45,9 @@ const Navbar = ({ handleNav, nav , setNav }) => {
           >
             <li className="">Create Community</li>
           </Link>
-          <Link className="lists" to="/about" onClick={() => setNav(!nav)}>
+          {/* <Link className="lists" to="/about" onClick={() => setNav(!nav)}>
             <li>About</li>
-          </Link>
+          </Link> */}
           <Link className="lists" to="/docker-setup" onClick={() => setNav(!nav)}>
             <li>Launch Your Platform</li>
           </Link>
