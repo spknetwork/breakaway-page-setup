@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
+import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 export default function DockerSetup() {
@@ -14,6 +15,29 @@ export default function DockerSetup() {
   const [domain, setDomain] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [dockerComposeConfig, setDockerComposeConfig] = useState("");
+  const [tutorial, setTutorial] = useState(true)
+  const videos = [
+    { id: 1, title: 'Funding a namecheap account - Part 1 of 8', src: 'https://3speak.tv/embed?v=igormuba/ijobvotk' },
+    { id: 2, title: 'Acquiring a web domain - Part 2 of 8', src: 'https://3speak.tv/embed?v=igormuba/ontqfcod' },
+    { id: 3, title: 'Acquiring a Linux web server - Part 3 of 8', src: 'https://3speak.tv/embed?v=igormuba/jcxvwexp' },
+    { id: 4, title: 'SSH info and accessing the server - Part 4 of 8', src: 'https://3speak.tv/embed?v=igormuba/hlufqeae' },
+    { id: 5, title: 'Docker install and configure - Part 5 of 8', src: 'https://3speak.tv/embed?v=igormuba/jfkjqoff' },
+    { id: 6, title: 'Running the community on the server - Part 6 of 8', src: 'https://3speak.tv/embed?v=igormuba/seebjgok' },
+    { id: 7, title: 'Pointing your domain URL to server - Part 7 of 8', src: 'https://3speak.tv/embed?v=igormuba/ptxfnvuz' },
+    { id: 8, title: 'Cloudflare SSL and DDoS protection - Part 8 of 8', src: 'https://3speak.tv/embed?v=igormuba/vnrbyhdf' }
+  ];
+  const handleFullscreen = () => {
+    const iframe = document.getElementById('videoFrame');
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+    } else if (iframe.mozRequestFullScreen) { // Firefox
+      iframe.mozRequestFullScreen();
+    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) { // IE/Edge
+      iframe.msRequestFullscreen();
+    }
+  };
   const [showTooltip, setShowTooltip] = useState({
     containerName: false,
     port: false,
@@ -126,6 +150,23 @@ export default function DockerSetup() {
       return;
     }
 
+    // const composeEntries = containerEntries.map(
+    //   (entry, index) => `${index !== 0 ? "  " : ""}${
+    //     entry.containerName || `container${index}`
+    //   }:
+    // image: igormuba/ecency-boilerplate:1.0.3
+    // container_name: ${entry.containerName || `container${index}`}
+    // ports:
+    //   - "${entry.port}:3000"
+    // environment:
+    //   - USE_PRIVATE=1
+    //   - HIVE_ID=${entry.HIVE_ID}
+    //   - TAGS=${entry.TAGS}
+    // networks:
+    //   - my_network
+    // restart: always`
+    // );
+
     const composeEntries = containerEntries.map(
       (entry, index) => `${index !== 0 ? "  " : ""}${
         entry.containerName || `container${index}`
@@ -143,7 +184,39 @@ export default function DockerSetup() {
     restart: always`
     );
 
-    const nginxEnvVars = containerEntries
+//     const nginxEnvVars = containerEntries
+//       .map(
+//         (entry, index) =>
+//           `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
+//             entry.containerName || `container${index}`
+//           }:3000`
+//       )
+//       .join("\n");
+
+//     const nginxEnvVarsFormatted = nginxEnvVars
+//       ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
+//       : "";
+
+//     const composeConfig = `version: '3'
+// services:
+//   ${composeEntries.join("\n")}
+//   nginx:
+//     image: igormuba/nginx-to-docker:latest
+//     ports:
+//       - "80:80"
+//     environment:
+// ${nginxEnvVarsFormatted}    networks:
+//       - my_network
+//     restart: always
+// networks:
+//   my_network:
+//     driver: bridge`;
+
+//     setSuccessMessage("Docker Compose configuration generated.");
+//     setDockerComposeConfig(composeConfig);
+//   };
+
+const nginxEnvVars = containerEntries
       .map(
         (entry, index) =>
           `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
@@ -160,12 +233,12 @@ export default function DockerSetup() {
 services:
   ${composeEntries.join("\n")}
   nginx:
-    image: nginx:latest  # Oficial Nginx image
+    image: nginx:latest
     container_name: nginx
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Mount Nginx configuration
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - my_network
     restart: always
@@ -193,7 +266,7 @@ networks:
           community, server and URL details below
         </p> */}
       </div>
-      <div className="tutorial-links">
+      {/* <div className="tutorial-links">
           <h2 >Breakaway docker setup tutorials:</h2>
           <br />
           <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank" rel="noopener noreferrer">
@@ -227,7 +300,34 @@ networks:
           <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank" rel="noopener noreferrer">
             Cloudflare SSL and DDoS protection - Part 8 of 8
           </a>
+      </div> */}
+      <div className="tutorials">
+        <div className="video-dropdown" onClick={() => setTutorial(!tutorial)}>
+        <h2 >
+          Watch tutorials on how to set up your platform
+        </h2>
+        {tutorial ? <IoIosArrowDropdown size={35} /> : <IoIosArrowDropup size={35} /> }
         </div>
+        {!tutorial && (
+          <div className="tut-iframe">
+            {videos.map((video) => (
+              <div className="video-wrap" key={video.id}>
+                <iframe className="video-iframe"
+                  id={`videoFrame-${video.id}`}
+                  // width="560"
+                  // height="315"
+                  src={video.src}
+                  frameBorder="0"
+                  allowFullScreen
+                  onClick={() => handleFullscreen(`videoFrame-${video.id}`)}
+                  onTouchEnd={handleFullscreen}
+                ></iframe>
+                <p className="video-title">{video.title}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>
