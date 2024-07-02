@@ -4,6 +4,7 @@
   font-family: 'Roboto', sans-serif;
   // overflow-x: hidden !important;
   box-sizing: border-box !important;
+  border: none;
 }
 
 *::-webkit-scrollbar {
@@ -17,44 +18,12 @@
 
 .container {
   overflow-x: hidden !important;
-  display: flex;
+  // display: flex;
   height: 100vh;
   scroll-behavior: smooth; 
-}
-.side-nav-wrap{
-  // position: fixed;
-  background-color: #0b1126;
-  width: 17%;
-  height: 100vh;
   @include respond(phone) {
-    display: none;
+    padding: 0px 15px; 
   }
-  @include respond(tab) {
-    display: none;
-  }
-  // @include respond(desktop) {
-  //   display: block;
-  // }
-}
-
-.main-container{
-  width: 100% ;
-  // overflow-y: hidden;
-  @include respond(phone) {
-    padding: 0px 20px; 
-  }
-}
-
-// .top-wrap{
-//   // position: sticky;
-//   // overflow-y: hidden;
-  // top: 0px;
-// }
-
-.main-box-wrap{
-  display: flex;
-  width: 100%;
-  overflow-y: hidden !important;
 }
 
 .app-container {
@@ -65,20 +34,7 @@
     margin: 0px;
   }
 }
-.update-wrap{
-  background-color: green;
-  padding-top: 100px;
-  padding-right: 12px;
-  width: 20%;
-  height: 100vh;
-  overflow-y: hidden !important;
-  @include respond(phone) {
-    display: none;
-  }
-  @include respond(tab) {
-    display: none;
-  }
-}
+
 
 .double-color{
   background: linear-gradient(180deg, #fff 0, #93b2c8 100%);

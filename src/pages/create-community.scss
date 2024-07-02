@@ -1,7 +1,11 @@
+@import "../variables.scss";
+
 .create-community {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
   
     .create-community-container {
       display: flex;
@@ -11,6 +15,11 @@
       padding: 30px;
       border-radius: 10px;
       width: 400px;
+      background-color: var(--dark-blue-color);
+      box-shadow: var(--box-shadow);
+
+      
+      
   
       .header {
         margin-bottom: 20px;
@@ -50,17 +59,13 @@
       .step-info{
         margin: 15px 0;
         .info{
-            font-size: 16px;
+            font-size: 14px;
             font: bold;
-            color: rgb(239, 124, 37);
+            color: var(--light-purple);
         }
       }
 
-      .operation-info{
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-      }
+      
   
       .form-wrapper {
         display: flex;
@@ -73,17 +78,19 @@
             border-bottom: 1px solid gray;
             outline: none;
             font-size: 14px;
+            color: var(--text-white);
+            background-color: var(--bg-input);
           }
 
-          .warning{
-              font-size: 16px;
+          .warnings{
+              font-size: 14px;
               font: bold;
-              color: rgb(239, 124, 37);
+              color: var(--light-purple);
         }
 
           .password-input, .community-input{
             display: flex;
-            position: relative;
+            // position: relative;
             align-items: center;
             width: 100%;
             input{
@@ -163,7 +170,42 @@
     gap: 5px;
     align-self: center;
     border-radius: 50%;
+    margin-top: 15px;
     .svg{
       width: 30px;
     }
   }
+.community-input-add{
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-input);
+  padding: 10px 0px;
+  border-radius: 16px ;
+  border: 1px solid rgba(71, 66, 118, 0.4);
+  .operation-info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px 5px;
+    font-size: 14px;
+    color: var(--light-purple);
+  }
+}
+.community-input-addn{
+  // display: flex;
+  // flex-direction: column;
+  // background: var(--bg-input);
+  padding: 10px 5px;
+  border-radius: 16px 16px 0px 0px ;
+  border:  1px   solid rgba(71, 66, 118, 0.4);
+  border-bottom: 0px;
+}
+.password-sec-wrap{
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-input);
+  padding: 10px 5px;
+  border-radius: 16px ;
+  border: 1px solid rgba(71, 66, 118, 0.4);
+
+}

@@ -5,14 +5,24 @@
 .box-grid{
     padding: 0px 10px;
     padding-top: 3px;
-    width: 350px;
+    width: 265px;
+    height: 425px;
     gap: 10px;
-    background-color: #0b1126;
+    // background-color: #0b1126;
+    background: rgb(14, 10, 49);
     margin-bottom: 10px;
     border-radius: 10px;
+    overflow-wrap: break-word;
+    @include respond(tab) {
+        width: 320px;
+        height: 505px;
+        margin-bottom: 0px;
+      }
+
 
     @include respond(phone) {
         width: 100%;
+        height: 100%;
       }
 }
 .box-wrap-left-grid{
@@ -41,7 +51,7 @@
     object-fit: cover;
 }
 .title-grid{
-    color: #fff;
+    color: gray;
     font-size: 22px;
     margin-bottom: 7px ;
     font-weight: 800;
@@ -54,8 +64,12 @@
     width: fit-content;
     font-size: 15px;
     margin-bottom: 3px;
-    color: grey;
+    color: #fff;
     font-size: 14.4px;
-    line-height: 1.1;
+    // line-height: 1.1;
+    @include respond(phone) {
+        font-size: 16px;
+        line-height: 1.1;
+      }
 
 }
