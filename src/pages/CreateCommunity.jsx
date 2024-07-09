@@ -10,14 +10,19 @@ import {
   createHiveCommunity,
   getCommunity,
   listAllSubscriptions,
+  setUserRole,
+  updateCommunity,
+  createCommunityWithCredit
 } from "../api/hive";
 import Loader from "../components/loader/Loader";
 import { Link } from "react-router-dom";
+import { RoleModal } from "../components/user-role-modal/Modal";
 import "./create-community.scss";
 
 const CreateCommunity = () => {
   const [communityTitle, setCommunityTitle] = useState("");
   const [aboutCommunity, setAboutCommunity] = useState("");
+  const [communityDescription, setCommunityDescription] = useState("");
   const [message, setMessage] = useState("");
   const [step, setStep] = useState(1);
   const [error, setError] = useState(false);
@@ -29,6 +34,10 @@ const CreateCommunity = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userAdminListCommunities, setUserAminListCommunities] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [communityMod, setCommunityMod] = useState("")
+  const [role, setRole] = useState("admin")
+
 
   const namePattern = "^hive-[1]\\d{4,6}$";
 
@@ -44,17 +53,17 @@ const CreateCommunity = () => {
       handleInfo();
     }
   }, [step, communityName]);
-  async function fetchCurrentAdminUser(user) {
-    console.log(user);
+
+  const fetchCurrentAdminUser = async (user) => {
     let result = await listAllSubscriptions(user);
     if (result && result.length > 0) {
       setUserAminListCommunities(result);
-      console.log("result");
-      console.log(result);
     }
   }
+
   useEffect(() => {
-    fetchCurrentAdminUser(creatingUser);
+    //this is causng uneccessary logs, should be checked and handled properly
+    // fetchCurrentAdminUser(creatingUser);
   }, [creatingUser]);
 
   const handleInfo = async () => {
@@ -76,7 +85,7 @@ const CreateCommunity = () => {
     setStep(2);
   };
 
-  const handleAboutChange = (event) => {
+  const handleDescriptionChange = (event) => {
     const textareaLineHeight = 24;
     const previousRows = event.target.rows;
     event.target.rows = minRows;
@@ -94,7 +103,7 @@ const CreateCommunity = () => {
       event.target.scrollTop = event.target.scrollHeight;
     }
 
-    setAboutCommunity(event.target.value);
+    setCommunityDescription(event.target.value);
   };
 
   const createCommunityKc = async () => {
@@ -111,6 +120,40 @@ const CreateCommunity = () => {
         communityKeys
       );
       if (response.success === true) {
+        setError("");
+        setStep(4);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      if (error.success === false) {
+        setStep(4);
+        setIsLoading(false);
+        setError(error.message);
+        console.log(error);
+      }
+    }
+  };
+
+  const createCommunityWithCreditKc = async () => {
+    setIsLoading(true);
+    if (!isDownloaded) {
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await createCommunityWithCredit(
+        communityName,
+        communityKeys,
+        creatingUser
+      );
+      console.log(response)
+      if (response.success === true) {
+       const updateComm = await updateCommunityInfo();
+        console.log(updateComm)
+       if (updateComm.success === true) {
+        console.log("true", updateComm)
+         await updateUserRole()
+       }
         setError("");
         setStep(4);
         setIsLoading(false);
@@ -201,17 +244,50 @@ const CreateCommunity = () => {
     element.click();
     setIsDownloaded(true);
   };
+
+  const updateCommunityInfo = async () => {
+    try {
+      const res = await updateCommunity(communityName, communityName, {
+        title: communityTitle,
+        about: aboutCommunity,
+        lang: "en",
+        description: communityDescription,
+        flag_text: "",
+        is_nsfw: false
+      });
+      console.log("Transaction Confirmation:", res);
+      return res;
+    } catch (error) {
+      console.error("Error updating community:", error);
+      throw error;
+    }
+  };
+  
+  const updateUserRole = async () => {
+
+     setUserRole(
+      communityName, 
+      communityName, 
+      communityMod ? 
+      communityMod : creatingUser, 
+      role).then(
+      transactionConfirmation => {
+      console.log(transactionConfirmation);
+    }).catch(error => {
+      console.error(error);
+    });
+  }
+
+  const openModal = () => setModalIsOpen(true);
+
+  const closeModal = () => setModalIsOpen(false);
+
   return (
     <div className="create-community">
       <div className="create-community-container">
         {isLoading && <Loader />}
         <div className="header">
           <h2>Create Hive Community</h2>
-          {/* <span className="">
-            You can set up a platform for an existing community or create a new
-            one. If the community already exists you can select it below and
-            proceed to self-host, else you can create a new one.
-          </span> */}
         </div>
         {error && <span className="error-message">{error}</span>}
         {message && step === 2 && (
@@ -239,11 +315,17 @@ const CreateCommunity = () => {
                     placeholder="Community title"
                     onChange={(e) => setCommunityTitle(e.target.value)}
                   />
+                  <input
+                    type="text"
+                    value={aboutCommunity}
+                    placeholder="About community"
+                    onChange={(e) => setAboutCommunity(e.target.value)}
+                  />
                   <textarea
                     rows={minRows}
-                    value={aboutCommunity}
+                    value={communityDescription}
                     scrollHeight
-                    onChange={handleAboutChange}
+                    onChange={handleDescriptionChange}
                     placeholder="Community description"
                     type="text"
                   />
@@ -266,11 +348,11 @@ const CreateCommunity = () => {
                 <div className="community-input-add">
                   <div className="operation-info">
                     <span>Creator: @{creatingUser}</span>
-                    <span>Creation fee: 3 Hive</span>
+                    <span>Creation fee: 3 Hive/ One account token</span>
                   </div>
                   <div className="community-input community-input-addn">
                     <div className="community-name">
-                      <span>Community name:</span>
+                      <span>Community Id:</span>
                     </div>
                     <input
                       type="text"
@@ -317,34 +399,25 @@ const CreateCommunity = () => {
         {step === 3 && (
           <>
             <div className="step-info">
-              <span className="info">
-                Choose transaction sign/broadcast method
-              </span>
             </div>
             <div className="form-wrapper">
-              <>
-                <input
-                  type="text"
-                  placeholder="Active key"
-                  onChange={(e) => setCommunityTitle(e.target.value)}
-                />
-              </>
-              <>
-                <button onClick={() => handleCommuntiyInfo()}>
-                  Create community
-                </button>
-                <h3>Create community with</h3>
-                <img
-                  style={{ cursor: !isDownloaded ? "not-allowed" : "pointer" }}
-                  disabled={!isDownloaded}
+              <button className="btn-create" onClick={createCommunityKc}>
+              <img
                   className="keychain-img"
                   src={keychainLogo}
-                  alt=""
-                  onClick={() => {
-                    createCommunityKc();
-                  }}
+                  alt="kychain"
                 />
-              </>
+                With 3hive
+              </button>
+              <div>-------- OR --------</div>
+              <button className="btn-create" onClick={createCommunityWithCreditKc}>
+              <img
+                  className="keychain-img"
+                  src={keychainLogo}
+                  alt="kychain"
+                />
+                With account token
+              </button>
             </div>
           </>
         )}
@@ -355,11 +428,12 @@ const CreateCommunity = () => {
                 <h2>Congratulations🎉✅</h2>
                 <h3>You have successfully created community {communityName}</h3>
                 <hr />
-                <h3>Would you like to setup it up on your own server?</h3>
+                <button onClick={openModal}>Set user role</button>
+                <hr />
               </div>
               <div>
                 <Link to="/docker-setup">
-                  <button>Setup self hosted website</button>
+                    Setup self hosted website
                 </Link>
               </div>
             </div>
@@ -385,6 +459,16 @@ const CreateCommunity = () => {
           </>
         )}
       </div>
+      <RoleModal
+      isOpen={modalIsOpen}
+      onClose={closeModal}
+      updateUserRole={updateUserRole}
+      communityName={communityName}
+      setCommunityMod={setCommunityMod}
+      communityMod={communityMod}
+      role={role}
+      setRole={setRole}
+      />
     </div>
   );
 };

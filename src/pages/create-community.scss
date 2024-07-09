@@ -130,6 +130,19 @@
             background-color: #0056b3;
           }
         }
+
+        .btn-create{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+        }
+        
+        .keychain-img{
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
       }
 
       .community-success{
