@@ -1,18 +1,21 @@
 @import "../../mixins.scss";
+@import "../../variables.scss";
+
 .box-container-grid{
-    width: fit-content;
+    width: 100%;
 }
 .box-grid{
     padding: 0px 10px;
     padding-top: 3px;
     width: 265px;
-    height: 425px;
+    height: 385px;
     gap: 10px;
     // background-color: #0b1126;
     background: rgb(14, 10, 49);
     margin-bottom: 10px;
     border-radius: 10px;
     overflow-wrap: break-word;
+    text-overflow: ellipsis;
     @include respond(tab) {
         width: 320px;
         height: 505px;
@@ -39,6 +42,7 @@
     background-position: center;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
     
     
     // background-size: ;
@@ -50,9 +54,20 @@
     border-radius: 10px;
     object-fit: cover;
 }
+.bac{
+    // font-size: 18px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    width: 90px;
+    // background: var(--mixed-color);
+    position: absolute;
+    right: 5px;
+}
+
+
 .title-grid{
     color: gray;
-    font-size: 22px;
+    font-size: 18px;
     margin-bottom: 7px ;
     font-weight: 800;
     list-style: none;

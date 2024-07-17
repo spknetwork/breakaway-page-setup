@@ -1,0 +1,82 @@
+@import "../../mixins.scss";
+@import "../../variables.scss";
+.platform-container{
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 70px auto;
+  @include respond(phone) {
+    display: none;
+  }
+  
+}
+.platform-hero-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.platform-wrap{
+    display: flex;
+    gap: 15px;
+    background-color: rgb(14 10 49 );
+}
+.platform-btn-wrap{
+    
+    
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+.platform-btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #19163b87;
+    padding: 31px 10px;
+    border-radius: 15px;
+    border: solid 1px #47427666;
+    gap: .75rem;
+    &:hover {
+        background-color: #19163b40;
+      }
+    img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        
+    }
+    
+}
+.platform-text-wrap{
+    h1{
+        font-size: 22px;
+    }
+    p{
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+}
+.platform-image{
+    width: 75%;
+    img{
+        width: 100%;
+        border-radius: 15px;
+    }
+    a{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding-top: 10px;
+    }
+    button{
+        padding: 10px 30px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        background: var(--mixed-color);
+    }
+}

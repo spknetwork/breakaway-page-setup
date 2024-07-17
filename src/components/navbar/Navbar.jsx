@@ -17,9 +17,9 @@ const Navbar = ({ handleNav, nav , setNav }) => {
         <Link className="lists-1" to="/community-create">
           <li className="">Create Community</li>
         </Link>
-        {/* <Link className="lists-1" to="/about">
+        <Link className="lists-1" to="/about">
           <li>About</li>
-        </Link> */}
+        </Link>
       </ul>
       <Link className="lists-1" to="/docker-setup">
           <button className="host-btn">Launch Your Platform</button>
@@ -45,9 +45,9 @@ const Navbar = ({ handleNav, nav , setNav }) => {
           >
             <li className="">Create Community</li>
           </Link>
-          {/* <Link className="lists" to="/about" onClick={() => setNav(!nav)}>
+          <Link className="lists" to="/about" onClick={() => setNav(!nav)}>
             <li>About</li>
-          </Link> */}
+          </Link>
           <Link className="lists" to="/docker-setup" onClick={() => setNav(!nav)}>
             <li>Launch Your Platform</li>
           </Link>

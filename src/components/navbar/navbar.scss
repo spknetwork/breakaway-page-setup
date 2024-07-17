@@ -2,17 +2,19 @@
 @import "../../variables.scss";
 
 .navbar {
-  justify-content: space-between;
-  display: flex;
   align-items: center;
-  max-width: 1240px;
+  background: linear-gradient(52.21deg, #19163b 46.97%, #4c09a2 156.47%);
+  background: var(--background-color);
+  display: flex;
+  justify-content: space-between;
   margin-left: auto;
   margin-right: auto;
+  max-width: 1240px;
   padding: 10px 16px;
+  position: -webkit-sticky;
   position: sticky;
-  z-index: 10;
   top: 0;
-  background: var(--background-color) ;
+  z-index: 10;
 
   .logos, .logo {
     width: 70px;

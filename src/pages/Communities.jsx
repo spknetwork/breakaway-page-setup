@@ -104,9 +104,9 @@ const Communities = () => {
                 onChange={handleSelectChange}
               >
                 <option value="rank">All Community</option>
-                <option value="Breakaway communities">Breakaway communities</option>
-                <option value="new">New</option>
-                <option value="subs">Members</option>
+                <option value="Breakaway communities">Breakaway communities </option>
+                {/* <option value="new">New</option>
+                <option value="subs">Members</option> */}
               </select>
 
               <button
@@ -146,7 +146,7 @@ const Communities = () => {
                       }, {})}
                     />
                   ) : (
-                    <CommunityListGrid
+                    <CommunityListGrid 
                       c={c}
                       key={i}
                       pinnedCommunitiesWebsties={dockerSetups.reduce((acc, setup) => {

@@ -11,31 +11,37 @@ import leo from "../../assets/Leo.png";
 import life from "../../assets/lifestyle.png";
 import chain from "../../assets/chain-art.jfif";
 import { Link } from "react-router-dom";
-// import TrackVisibility from "react-on-screen";
-// import { MdIntegrationInstructions } from "react-icons/md";
+import wave from "../../assets/wave.svg"
+import rally1 from "../../assets/rally.png";
+import spendhbd from "../../assets/spendhbd.png";
+import aliento from "../../assets/aliento.png";
+import Rosarito from "../../assets/Rosarito.png";
+import sucre from "../../assets/Hive-sucre.jpg";
+import Vibes from "../../assets/vibes.jpg";
 
 export default function Hero() {
-  // <TrackVisibility>
-  //  {({ isVisible }) => isVisible && <>} </TrackVisibility>
+ 
 
   return (
     <div>
       <header className="hero-section">
+        <img className="wave" src={wave} alt="" />
         <div className="hero-wrap">
           <h1 className=" double-color">
             Breakaway Community
           </h1>
           <p className="">
-            A tokenised content community connected to a Web3 decentralised
-            infrastructure on SPK Network{" "}
+
+          Provide a seamless way for individuals and groups to create their own tokenised community social frontend platforms on the Hive blockchain.
+            {/* A tokenised content community connected to a Web3 decentralised */}
+            {/* infrastructure on SPK Network */}
+            {/* Breakaway communities (BAC's) are an innovative concept that originated from the SPK Network, aiming to provide a seamless way for individuals and groups to create their own tokenised community social frontend platforms on the Hive blockchain.{" "} */}
           </p>
-          {/* < motion.button variants={fadeIn('up', 0.5)} initial='hidden' whileInView={'show'} viewport={{ once: false, amount: 0.7 }} className="btn-hero glo-btnc">create your community</> */}
-          {/* < motion.button variants={fadeIn('up', 0.5)} initial='hidden' whileInView={'show'} viewport={{ once: false, amount: 0.7 }} className="glo-btnc phone-text-btn">create community</> */}
-          <Link to="/docker-setup"> <button className="animate__animated animate__fadeInUp btn-hero glo-btnc">
-          Launch your own self hosted web3 platform
+          <Link to="/docker-setup"> <button className=" btn-hero glo-btnc">
+          Launch Your Platform
           </button></Link>
-          <Link to="/docker-setup"> <button className="animate__animated animate__fadeInUp glo-btnc phone-text-btn">
-            create community
+          <Link to="/docker-setup"> <button className=" glo-btnc phone-text-btn">
+            Create Your Community
           </button></Link>
         </div>
 
@@ -44,44 +50,44 @@ export default function Hero() {
             <img
               className="caro-img"
               style={{ width: "80px" }}
-              src={speak}
+              src={rally1}
               alt=""
             />{" "}
-            <span>3speak</span>
+            <span>Rally</span>
           </div>
           <div className=" carousel-wrap light-bg">
-            <img className="caro-img" src={chain} alt="" />{" "}
-            <span>Chain-art</span>
+            <img className="caro-img" src={spendhbd} alt="" />{" "}
+            <span>Spendhbd</span>
           </div>
           <div className=" carousel-wrap light-bg">
             <img className="caro-img" src={leo} alt="" /> <span>Leo</span>
           </div>
           <div className=" carousel-wrap light-bg">
-            <img className="caro-img" src={life} alt="" />{" "}
-            <span>Lifestyle</span>
+            <img className="caro-img" src={aliento} alt="" />{" "}
+            <span>Aliento</span>
           </div>
           <div className="carousel-wrap light-bg">
             <img
               className="caro-img"
               style={{ width: "80px" }}
-              src={speak}
+              src={Rosarito}
               alt=""
             />{" "}
-            <span>3speak</span>
+            <span>Rosarito</span>
           </div>
           <div className=" carousel-wrap light-bg">
-            <img className="caro-img" src={deep} alt="" />{" "}
-            <span>deep-dive</span>
+            <img className="caro-img" src={Vibes} alt="" />{" "}
+            <span>Vibes</span>
           </div>
           <div className="carousel-wrap light-bg">
-            <img className="caro-img" src={Gem} alt="" /> <span>Gem</span>
+            <img className="caro-img" src={sucre} alt="" /> <span>Hive Sucre</span>
           </div>
           <div className="carousel-wrap light-bg">
-            <img className="caro-img" src={leo} alt="" /> <span>leo</span>
+            <img className="caro-img" src={rally1} alt="" /> <span>Rally</span>
           </div>
           <div className="carousel-wrap light-bg">
-            <img className="caro-img" src={life} alt="" />{" "}
-            <span>Lifestyle</span>
+            <img className="caro-img" src={spendhbd} alt="" />{" "}
+            <span>Spendhbd</span>
           </div>
         </Marquee>
       </header>

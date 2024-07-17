@@ -1,8 +1,7 @@
 *{
   margin: 0px;
   padding: 0px;
-  font-family: 'Roboto', sans-serif;
-  // overflow-x: hidden !important;
+  font-family: system-ui, sans-serif;
   box-sizing: border-box !important;
   border: none;
 }
@@ -17,10 +16,9 @@
 }
 
 .container {
-  overflow-x: hidden !important;
-  // display: flex;
-  height: 100vh;
-  scroll-behavior: smooth; 
+ height: 100vh;
+ overflow-x: hidden !important;
+ scroll-behavior: smooth;
   @include respond(phone) {
     padding: 0px 15px; 
   }

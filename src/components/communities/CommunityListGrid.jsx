@@ -4,25 +4,54 @@ import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import rally from '../../assets/rally-new-1.png'
+import { RiH1 } from "react-icons/ri";
+import { useState, useEffect} from "react";
+import Logo from "../../assets/white-nobackground_new.png"
+
 
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
+  console.log(c)
+  const [hasDomain, setHasDomain] = useState(false);
+
+  useEffect(() => {
+    checkDomainValue();
+  }, []);
+
+  function checkDomainValue() {
+    if(c.domain);
+    setHasDomain(true);
+
+  }
+
+  
   const formatSubscribers = (num) => {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + 'k';
     }
     return num;
   };
+  function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  }
+
+  const text = truncateText(c.about, 30)
   const formattedSubscribers = formatSubscribers(c.subscribers);
 
   return (
     <div className="cap">
-      {/* { communityLists?.map( (c, i) => ( */}
+
       <div className="box-container-grid ">
         <div className="box-grid">
           <div className="box-wrap-left-grid ">
             <div className="img-cover-grid  " >
+            {c.isPinned && <img className="bac" src={Logo} alt="" />}
+
               <img
                 className="pro-img-grid"
+                // src={ `https://images.hive.blog/u/${c.name}/avatar`}
                 src={c.name === "hive-109272" ? rally :  `https://images.hive.blog/u/${c.name}/avatar`}
                 alt=""
               />
@@ -31,11 +60,11 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
               <Link className="title-grid" to={`/community/hive-${c.id}`}>
                 {c.title}
               </Link>
-              <span className="about-grid">{c.about}</span>
+              <span className="about-grid">{text}</span>
               <div className="admins-wrapper">
                 <span>Admin:</span>
                 <div className="admins">
-                  {c?.admins?.map((admin, i) => (
+                  {c?.admins?.slice(0, 2).map((admin, i) => (
                     <div key={i} className="each-admin">
                       <span className="admin">@{admin}</span>
                     </div>
@@ -89,7 +118,6 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
           </div>
         </div>
       </div>
-      {/* ))} */}
     </div>
   );
 }

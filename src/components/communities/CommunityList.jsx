@@ -2,6 +2,8 @@ import React from "react";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/white-nobackground_new.png"
+
 
 export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
   return (
@@ -9,6 +11,7 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
       <div className="box">
         <div className="box-wrap-left">
           <div className="img-cover">
+          {c.isPinned && <img className="bac-list" src={Logo} alt="" />}
             <img
               className="pro-img"
               src={`https://images.hive.blog/u/${c.name}/avatar`}
@@ -89,7 +92,7 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
             </button>
           ) : (
             <Link to="/docker-setup" className="start-com-wrap glo-btnc">
-              Start your community
+              Launch Bac Platform
             </Link>
           )}
         </div>
