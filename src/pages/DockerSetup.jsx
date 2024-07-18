@@ -4,6 +4,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCopy, FaQuestionCircle } from "react-icons/fa";
 import "./docker-setup.scss";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+import { getCommunityDetails } from "../api/hive";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
 export default function DockerSetup() {
@@ -119,19 +120,29 @@ export default function DockerSetup() {
     setContainerName(value);
   };
 
-  const validateHiveId = (value) => {
+  const validateHiveId = async (e) => {
+    const value = e.target.value;
+    setHiveId(value);
+  
+    const communityIsValid = await getCommunityDetails(value);
+    console.log(communityIsValid);
+    if (!communityIsValid) return;
+  
     const isHiveIdUsed = containerEntries.some(
       (entry) => entry.HIVE_ID === value
     );
+  
     if (isHiveIdUsed) {
-      setFieldWarnings({
-        ...fieldWarnings,
+      setFieldWarnings((prevWarnings) => ({
+        ...prevWarnings,
         HIVE_ID: "Hive community ID is already in use.",
-      });
+      }));
     } else {
-      setFieldWarnings({ ...fieldWarnings, HIVE_ID: "" });
+      setFieldWarnings((prevWarnings) => ({
+        ...prevWarnings,
+        HIVE_ID: "",
+      }));
     }
-    setHiveId(value);
   };
 
   const validateDomain = (value) => {
@@ -407,7 +418,7 @@ networks:
                 type="text"
                 placeholder="Hive community ID"
                 value={HIVE_ID}
-                onChange={(e) => validateHiveId(e.target.value)}
+                onChange={validateHiveId}
               />
               {fieldWarnings.HIVE_ID && (
                 <div className="warning-message">{fieldWarnings.HIVE_ID}</div>
