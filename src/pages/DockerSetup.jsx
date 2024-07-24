@@ -261,46 +261,7 @@ networks:
     <div className="docker-main-wrap">
       <div className="hero-text-wrap">
         <h1>Become an owner of your own Web3 enabled platform</h1>
-        {/* <p>
-          The first step is setting up a docker container by entering your
-          community, server and URL details below
-        </p> */}
       </div>
-      {/* <div className="tutorial-links">
-          <h2 >Breakaway docker setup tutorials:</h2>
-          <br />
-          <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank" rel="noopener noreferrer">
-            Funding a namecheap account - Part 1 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank" rel="noopener noreferrer">
-            Acquiring a web domain - Part 2 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank" rel="noopener noreferrer">
-            Acquiring a Linux web server - Part 3 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank" rel="noopener noreferrer">
-            SSH info and accessing the server - Part 4 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank" rel="noopener noreferrer">
-            Docker install and configure - Part 5 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank" rel="noopener noreferrer">
-            Running the community on the server - Part 6 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank" rel="noopener noreferrer">
-            Pointing your domain URL to server - Part 7 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank" rel="noopener noreferrer">
-            Cloudflare SSL and DDoS protection - Part 8 of 8
-          </a>
-      </div> */}
       <div className="tutorials">
         <div className="video-dropdown" onClick={() => setTutorial(!tutorial)}>
         <h2 >
@@ -371,7 +332,7 @@ networks:
                 <FaQuestionCircle
                   className="tooltip-icon"
                   onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -395,8 +356,8 @@ networks:
               <div className="top-text-wrap">
                 <FaQuestionCircle
                   className="tooltip-icon"
-                  onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onClick={() => handleTooltipToggle("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -417,8 +378,8 @@ networks:
               <div className="top-text-wrap">
                 <FaQuestionCircle
                   className="tooltip-icon"
-                  onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onClick={() => handleTooltipToggle("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -437,8 +398,8 @@ networks:
                 <FaQuestionCircle
                   className="tooltip-icon"
                   onClick={() => handleTooltipToggle("domain")}
-                  onMouseEnter={() => handleTooltipShow("domain")}
-                  onMouseLeave={() => handleTooltipHide("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}                  
                 />
                 {showTooltip.domain && (
                   <Tooltip text="The domain is the website for this specific domain" />

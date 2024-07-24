@@ -21,7 +21,7 @@ function App() {
       <div className="container"  onClick={()=>{ bodyToggle() }}>
         <Routes>
           <Route path="/" element={<Communities />} />
-          <Route path="/about" element={<LandingPage />} />
+          {/* <Route path="/about" element={<LandingPage />} /> */}
           <Route path="/communities" element={<Communities />} />
           <Route path="/community-create" element={<CreateCommunity />} />
           <Route path="/docker-setup" element={<DockerSetup />} />

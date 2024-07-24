@@ -18,7 +18,7 @@ function Platformsm() {
         {
           logo : spendhbd,
           title : "SpendHBD",
-          img: 'https://files.peakd.com/file/peakd-hive/spknetwork/23uQLRe8eNSu7XMayMhTnVXPd7b7FrJqsdnSNxtMNSpzuAe3xM23qA538U8RrDX4GyhVi.png',
+          img: ' https://files.peakd.com/file/peakd-hive/spknetwork/23uQLRe8eNSu7XMayMhTnVXPd7b7FrJqsdnSNxtMNSpzuAe3xM23qA538U8RrDX4GyhVi.png',
           link: "https://spendhbd.com/",
           about: "Find a local business that accepts HBD or Bitcoin Lightning"
         },
@@ -48,20 +48,6 @@ function Platformsm() {
                 <img src={data.img} alt="" />
             </div>))}
         </div>
-        {/* <div className="platformsm-box-wrap">
-            <img src={logo} alt="" />
-            <h3>pasljrdpifr-eiwoseaooaserg asreowvn </h3>
-            <h4>eni rfrioriv r30i0oc 03o0on0 fc0in03ifn0inf0 f3fi0fi0i03 3i0io0i0if 0iifn00</h4>
-            {images.map((data) => (<div className="plat-wrap">
-                <img src={data.logo} alt="" />
-                <div className="platformsm-text-wrap">
-                    <h3>{data.title}</h3>
-                    <p>{data.about}</p>
-                </div>
-            </div>))}
-
-        </div> */}
-
 
     </div>
   )

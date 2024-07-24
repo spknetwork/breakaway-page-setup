@@ -117,6 +117,7 @@
         
     }
     @include respond(phone) {
+        height: 80vh;
         display: flex;
         flex-direction: column;
     }
@@ -127,6 +128,22 @@
 // }
 .box{
     background: #0b1126;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    border: 3px black;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    padding: 10px 4px;
+    @include respond(phone) {
+        border-radius: 10px;
+    }
+}
+.box-bac{
+    // background: #0b1126;
+    background: rgb(74, 39, 128);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -283,7 +300,7 @@
     font-weight: 800;
     color: rgb(194, 201, 212);
     @include respond(phone) {
-        font-weight: 200;
+        font-weight: 600;
       }
 }
 .btn-wrap{
@@ -307,6 +324,7 @@
     font-size: 13px ;
     color: #fff;
     display: flex;
+    gap: 2px;
     @include respond(phone) {
         display: none;  
       }

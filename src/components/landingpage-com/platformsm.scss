@@ -13,12 +13,26 @@
         text-align: center;
     }
 }
-.platformsm-box{
-    margin: 20px 0px;
+.platformsm-box {
+    margin: 20px;
     display: flex;
     flex-direction: column;
-    a{
-        align-items: center;
-        color: #fff;
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer;
+    
+    a {
+      padding: 7px 20px;
+      border-radius: 6px;
+      background: var(--mixed-color);
+      color: #fff;
+      margin-bottom: 10px;
+      text-align: center; 
+      width: fit-content; 
     }
-}
+  
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }

@@ -79,11 +79,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
 }
 .key-box-2{
     width:450px;
-    height: 290px;
+    height: 340px;
     background-color: rgb(14 10 49);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     margin-bottom: 40px;
+    @include respond(phone) {
+        width:100%;
+        height: fit-content;
+       
+      } 
 }

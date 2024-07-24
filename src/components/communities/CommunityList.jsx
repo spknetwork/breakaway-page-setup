@@ -2,13 +2,13 @@ import React from "react";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/white-nobackground_new.png"
+import Logo from "../../assets/overlay_bac.jpg"
 
 
 export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
   return (
     <div className="box-container ">
-      <div className="box">
+      <div className={c.isPinned ? "box-bac" :"box"}>
         <div className="box-wrap-left">
           <div className="img-cover">
           {c.isPinned && <img className="bac-list" src={Logo} alt="" />}

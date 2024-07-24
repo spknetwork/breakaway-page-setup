@@ -3,7 +3,7 @@ import "./landing-page.scss";
 import Hero from "../components/landingpage-com/Hero.jsx";
 import Aos from 'aos'
 import "aos/dist/aos.css"
-import Member from "../components/landingpage-com/Member.jsx";
+// import Member from "../components/landingpage-com/Member.jsx";
 // import Program from "../components/landingpage-com/Program.jsx";
 import Point from "../components/landingpage-com/Point.jsx";
 import Platform from "../components/landingpage-com/Platform.jsx";
@@ -21,9 +21,9 @@ const LandingPage = () => {
       <Hero />
       <Point />
       <Key />
-      <Member />
       <Platform />
       <Platformsm />
+      {/* <Member /> */}
       <Bac />
     </div>
   );

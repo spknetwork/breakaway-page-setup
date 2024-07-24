@@ -21,7 +21,7 @@
 .platform-wrap{
     display: flex;
     gap: 15px;
-    background-color: rgb(14 10 49 );
+    // background-color: rgb(14 10 49 );
 }
 .platform-btn-wrap{
     
@@ -35,6 +35,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #19163b87;
+    cursor: pointer;
     padding: 31px 10px;
     border-radius: 15px;
     border: solid 1px #47427666;
@@ -71,6 +72,7 @@
         justify-content: center;
         text-align: center;
         padding-top: 10px;
+        cursor: pointer;
     }
     button{
         padding: 10px 30px;
@@ -78,5 +80,6 @@
         font-size: 16px;
         font-weight: bold;
         background: var(--mixed-color);
+        cursor: pointer;
     }
 }

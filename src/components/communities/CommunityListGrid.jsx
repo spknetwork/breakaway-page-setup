@@ -1,4 +1,3 @@
-
 import "./communityl-list-grid.scss";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
@@ -6,11 +5,10 @@ import { Link } from "react-router-dom";
 import rally from '../../assets/rally-new-1.png'
 import { RiH1 } from "react-icons/ri";
 import { useState, useEffect} from "react";
-import Logo from "../../assets/white-nobackground_new.png"
+import Logo from "../../assets/overlay_bac.jpg"
 
 
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
-  console.log(c)
   const [hasDomain, setHasDomain] = useState(false);
 
   useEffect(() => {
@@ -44,10 +42,10 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
     <div className="cap">
 
       <div className="box-container-grid ">
-        <div className="box-grid">
+        <div className={c.isPinned ? "box-grid-bac": "box-grid"}>
           <div className="box-wrap-left-grid ">
             <div className="img-cover-grid  " >
-            {c.isPinned && <img className="bac" src={Logo} alt="" />}
+             {c.isPinned && <img className="bac" src={Logo} alt="" />}
 
               <img
                 className="pro-img-grid"
@@ -56,8 +54,8 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
                 alt=""
               />
             </div>
-            <div className="box-left">
-              <Link className="title-grid" to={`/community/hive-${c.id}`}>
+            <div className="box-left-grid">
+              <Link className={c.isPinned ? "title-grid-bac" :"title-grid"} to={`/community/hive-${c.id}`}>
                 {c.title}
               </Link>
               <span className="about-grid">{text}</span>
@@ -71,7 +69,7 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
                   ))}
                 </div>
               </div>
-              <div className="community-info">
+              <div className="community-info-grid">
                 <div className="info-left">
                   <div className="center-items">
                     <span className="info-num">{formattedSubscribers}</span>{" "}

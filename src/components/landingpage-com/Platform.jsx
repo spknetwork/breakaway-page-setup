@@ -13,11 +13,12 @@ function Platform() {
       link: "https://hiverally.com/"
     },
     {
-      img: 'https://files.peakd.com/file/peakd-hive/spknetwork/23wzZ4tHJfZN1vBPqnptKze7kiGkxFk13t7D3vgomnDmpQeyBTD8jgM1cj6F8hytBkkE3.png',
+      img: 'https://files.peakd.com/file/peakd-hive/spknetwork/23uQLRe8eNSu7XMayMhTnVXPd7b7FrJqsdnSNxtMNSpzuAe3xM23qA538U8RrDX4GyhVi.png',
       link: "https://hiverally.com/"
     },
     {
-      img: 'https://files.peakd.com/file/peakd-hive/spknetwork/23uQLRe8eNSu7XMayMhTnVXPd7b7FrJqsdnSNxtMNSpzuAe3xM23qA538U8RrDX4GyhVi.png',
+      
+      img: 'https://files.peakd.com/file/peakd-hive/spknetwork/23wzZ4tHJfZN1vBPqnptKze7kiGkxFk13t7D3vgomnDmpQeyBTD8jgM1cj6F8hytBkkE3.png',
       link: "https://hiverally.com/"
     },
     {
@@ -77,7 +78,7 @@ function Platform() {
         </div>
         <div className="platform-image">
           {imageToShow && <img src={imageToShow} alt="Selected" />}
-          <a href={images[activeButton].link} target="_blank" rel="noopener noreferrer">
+          <a href={images[activeButton].link} className='visit-btn' target="_blank" rel="noopener noreferrer">
             <button>Visit</button>
           </a>
         </div>

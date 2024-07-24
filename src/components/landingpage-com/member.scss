@@ -59,7 +59,7 @@
 }
 .member-right{
     img{
-        width: 30vw;
+        width: 15vw;
         @include respond(phone) {
             width: 60vw;
         }
