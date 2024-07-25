@@ -16,7 +16,12 @@ export default function DockerSetup() {
   const [domain, setDomain] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [dockerComposeConfig, setDockerComposeConfig] = useState("");
-  const [tutorial, setTutorial] = useState(true)
+  const [tutorial, setTutorial] = useState(true);
+  const [idError, setIdError] = useState("");
+  const [domainError, setDomianError] = useState("");
+  const [containerError, setContainerError] = useState("");
+  const [tagError, setTagError] = useState("");
+
   const videos = [
     { id: 1, title: 'Funding a namecheap account - Part 1 of 8', src: 'https://3speak.tv/embed?v=igormuba/ijobvotk' },
     { id: 2, title: 'Acquiring a web domain - Part 2 of 8', src: 'https://3speak.tv/embed?v=igormuba/ontqfcod' },
@@ -27,6 +32,7 @@ export default function DockerSetup() {
     { id: 7, title: 'Pointing your domain URL to server - Part 7 of 8', src: 'https://3speak.tv/embed?v=igormuba/ptxfnvuz' },
     { id: 8, title: 'Cloudflare SSL and DDoS protection - Part 8 of 8', src: 'https://3speak.tv/embed?v=igormuba/vnrbyhdf' }
   ];
+
   const handleFullscreen = () => {
     const iframe = document.getElementById('videoFrame');
     if (iframe.requestFullscreen) {
@@ -39,6 +45,7 @@ export default function DockerSetup() {
       iframe.msRequestFullscreen();
     }
   };
+  
   const [showTooltip, setShowTooltip] = useState({
     containerName: false,
     port: false,
@@ -46,6 +53,7 @@ export default function DockerSetup() {
     TAGS: false,
     domain: false,
   });
+
   const [fieldWarnings, setFieldWarnings] = useState({
     containerName: "",
     port: "",
@@ -53,25 +61,69 @@ export default function DockerSetup() {
     TAGS: "",
     domain: "",
   });
+
   const handleTooltipToggle = (field) => {
     setShowTooltip((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
     }));
   };
+
   const handleTooltipShow = (field) => {
     setShowTooltip((prevState) => ({
       ...prevState,
       [field]: true,
     }));
   };
+
   const handleTooltipHide = (field) => {
     setShowTooltip((prevState) => ({
       ...prevState,
       [field]: false,
     }));
   };
-  const handleAddContainer = () => {
+
+  const handleAddContainer = async () => {
+    const communityIsValid = await getCommunityDetails(HIVE_ID);
+    console.log(communityIsValid);
+    const domainIsValid = await handleDomainValidation();
+    console.log(domainIsValid)
+    handleDomainValidation()
+    if (!communityIsValid) {
+      setIdError("Invalid hive community id")
+      return;
+    } else {
+      setIdError("");
+    }
+
+    if(!domain) {
+      setDomianError("Please provide domain name");
+      return;
+    } else {
+      setDomianError("")
+    }
+    if (domainIsValid?.WhoisRecord?.parseCode === 0) {
+      setDomianError("You have entered an invalid domain")
+      console.log("invalid domain");
+      return;
+    } else {
+      setDomianError("")
+    }
+
+    if (!containerName) {
+      setContainerError("Please provide container name");
+      return;
+    } else {
+      setContainerError("")
+    }
+
+    if (!TAGS) {
+      setTagError("Please provide tag/tags")
+      return;
+    } else {
+      setTagError("")
+    }
+
     if (Object.values(fieldWarnings).some((warning) => warning !== "")) {
       setSuccessMessage("Resolve field warnings before adding the container.");
       return;
@@ -124,10 +176,6 @@ export default function DockerSetup() {
     const value = e.target.value;
     setHiveId(value);
   
-    const communityIsValid = await getCommunityDetails(value);
-    console.log(communityIsValid);
-    if (!communityIsValid) return;
-  
     const isHiveIdUsed = containerEntries.some(
       (entry) => entry.HIVE_ID === value
     );
@@ -155,45 +203,28 @@ export default function DockerSetup() {
     }
   }, [containerEntries]);
 
-  const handleGenerateCompose = () => {
-    if (containerEntries.length === 0) {
-      setSuccessMessage("Add at least one container entry.");
-      return;
-    }
+//   const handleGenerateCompose = () => {
+//     if (containerEntries.length === 0) {
+//       setSuccessMessage("Add at least one container entry.");
+//       return;
+//     }
 
-    // const composeEntries = containerEntries.map(
-    //   (entry, index) => `${index !== 0 ? "  " : ""}${
-    //     entry.containerName || `container${index}`
-    //   }:
-    // image: igormuba/ecency-boilerplate:1.0.3
-    // container_name: ${entry.containerName || `container${index}`}
-    // ports:
-    //   - "${entry.port}:3000"
-    // environment:
-    //   - USE_PRIVATE=1
-    //   - HIVE_ID=${entry.HIVE_ID}
-    //   - TAGS=${entry.TAGS}
-    // networks:
-    //   - my_network
-    // restart: always`
-    // );
-
-    const composeEntries = containerEntries.map(
-      (entry, index) => `${index !== 0 ? "  " : ""}${
-        entry.containerName || `container${index}`
-      }:
-    image: adesojisouljaay/breakaway-community:v1.0
-    container_name: ${entry.containerName || `container${index}`}
-    ports:
-      - "${entry.port}:3000"
-    environment:
-      - USE_PRIVATE=1
-      - HIVE_ID=${entry.HIVE_ID}
-      - TAGS=${entry.TAGS}
-    networks:
-      - my_network
-    restart: always`
-    );
+//     const composeEntries = containerEntries.map(
+//       (entry, index) => `${index !== 0 ? "  " : ""}${
+//         entry.containerName || `container${index}`
+//       }:
+//     image: adesojisouljaay/breakaway-community:v1.0
+//     container_name: ${entry.containerName || `container${index}`}
+//     ports:
+//       - "${entry.port}:3000"
+//     environment:
+//       - USE_PRIVATE=1
+//       - HIVE_ID=${entry.HIVE_ID}
+//       - TAGS=${entry.TAGS}
+//     networks:
+//       - my_network
+//     restart: always`
+//     );
 
 //     const nginxEnvVars = containerEntries
 //       .map(
@@ -212,7 +243,7 @@ export default function DockerSetup() {
 // services:
 //   ${composeEntries.join("\n")}
 //   nginx:
-//     image: igormuba/nginx-to-docker:latest
+//     image: adesojisouljaay/nginx-to-docker:v1.0
 //     ports:
 //       - "80:80"
 //     environment:
@@ -227,40 +258,70 @@ export default function DockerSetup() {
 //     setDockerComposeConfig(composeConfig);
 //   };
 
-const nginxEnvVars = containerEntries
-      .map(
-        (entry, index) =>
-          `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
-            entry.containerName || `container${index}`
-          }:3000`
-      )
-      .join("\n");
+const handleGenerateCompose = () => {
+  if (containerEntries.length === 0) {
+    setSuccessMessage("Add at least one container entry.");
+    return;
+  }
 
-    const nginxEnvVarsFormatted = nginxEnvVars
-      ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
-      : "";
-
-      const composeConfig = `version: '3'
-services:
-  ${composeEntries.join("\n")}
-  nginx:
-    image: nginx:latest
-    container_name: nginx
+  const composeEntries = containerEntries.map(
+    (entry, index) => `${index !== 0 ? "  " : ""}${
+      entry.containerName || `container${index}`
+    }:
+    image: adesojisouljaay/breakaway-community:v1.0
+    container_name: ${entry.containerName || `container${index}`}
     ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - "${entry.port}:3000"
+    environment:
+      - USE_PRIVATE=1
+      - HIVE_ID=${entry.HIVE_ID}
+      - TAGS=${entry.TAGS}
     networks:
       - my_network
-    restart: always
+    restart: always`
+  );
 
-networks:
-  my_network:
-    driver: bridge`;
+  const nginxEnvVars = containerEntries
+    .map(
+      (entry, index) =>
+        `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
+          entry.containerName || `container${index}`
+        }:3000`
+    )
+    .join("\n");
 
-    setSuccessMessage("Docker Compose configuration generated.");
-    setDockerComposeConfig(composeConfig);
-  };
+  const nginxEnvVarsFormatted = nginxEnvVars
+    ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
+    : "";
+
+  const composeConfig = `# Step 1: Create a directory and navigate into it
+    mkdir my-docker-setup
+    cd my-docker-setup
+
+    # Step 2: Create a docker-compose.yml file with the specified content
+    cat <<EOF > docker-compose.yml
+    version: '3'
+    services:
+      ${composeEntries.join("\n")}
+      nginx:
+        image: adesojisouljaay/nginx-to-docker:v1.0
+        ports:
+          - "80:80"
+        environment:
+    ${nginxEnvVarsFormatted}    networks:
+          - my_network
+        restart: always
+    networks:
+      my_network:
+        driver: bridge
+    EOF
+
+    # Step 3: Run docker-compose up -d
+    docker-compose up -d`;
+
+  setSuccessMessage("Docker Compose configuration generated.");
+  setDockerComposeConfig(composeConfig);
+};
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(dockerComposeConfig).then(() => {
@@ -268,50 +329,27 @@ networks:
     });
   };
 
+  const handleDomainValidation = async () => {
+    const apiKey = process.env.REACT_APP_WHOIS_API_KEY;
+    const url = `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${apiKey}&domainName=${domain}&outputFormat=JSON`;
+  
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching WHOIS data:', error);
+    }
+  };
+
   return (
     <div className="docker-main-wrap">
       <div className="hero-text-wrap">
         <h1>Become an owner of your own Web3 enabled platform</h1>
-        {/* <p>
-          The first step is setting up a docker container by entering your
-          community, server and URL details below
-        </p> */}
       </div>
-      {/* <div className="tutorial-links">
-          <h2 >Breakaway docker setup tutorials:</h2>
-          <br />
-          <a className="tuto-link" href="https://3speak.tv/watch?v=igormuba/ijobvotk" target="_blank" rel="noopener noreferrer">
-            Funding a namecheap account - Part 1 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ontqfcod" target="_blank" rel="noopener noreferrer">
-            Acquiring a web domain - Part 2 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jcxvwexp" target="_blank" rel="noopener noreferrer">
-            Acquiring a Linux web server - Part 3 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/hlufqeae" target="_blank" rel="noopener noreferrer">
-            SSH info and accessing the server - Part 4 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/jfkjqoff" target="_blank" rel="noopener noreferrer">
-            Docker install and configure - Part 5 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/seebjgok" target="_blank" rel="noopener noreferrer">
-            Running the community on the server - Part 6 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/ptxfnvuz" target="_blank" rel="noopener noreferrer">
-            Pointing your domain URL to server - Part 7 of 8
-          </a>
-          <br />
-          <a href="https://3speak.tv/watch?v=igormuba/vnrbyhdf" target="_blank" rel="noopener noreferrer">
-            Cloudflare SSL and DDoS protection - Part 8 of 8
-          </a>
-      </div> */}
       <div className="tutorials">
         <div className="video-dropdown" onClick={() => setTutorial(!tutorial)}>
         <h2 >
@@ -345,19 +383,29 @@ networks:
         <div className="docker-wrap">
           <div className="forms-wrapper">
             <div className="input-with-tooltip">
+              <div className="warning-wrapper">
+                {idError && <span className="warning">{idError}</span>}
+                {domainError && <span className="warning">{domainError}</span>}
+                {tagError && <span className="warning">{tagError}</span>}
+                {containerError && <span className="warning">{containerError}</span>}
+              </div>
               <div className="top-text-wrap">
-                <FaQuestionCircle
-                  className="tooltip-icon"
-                  onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
-                  onMouseLeave={() => handleTooltipHide("containerName")}
-                />
-                {showTooltip.containerName && (
-                  <Tooltip
+                <div>
+                  <FaQuestionCircle
+                    className="tooltip-icon"
+                    onClick={() => handleTooltipToggle("containerName")}
+                    onMouseEnter={() => handleTooltipShow("containerName")}
+                    onMouseLeave={() => handleTooltipHide("containerName")}
+                  />
+                  {showTooltip.containerName && (
+                    <Tooltip
                     className="tooltiptext"
                     text="Each container is a server"
-                  />
-                )}
+                    />
+                  )}
+                </div>
+              </div>
+              <div>
               </div>
               <input
                 type="text"
@@ -391,7 +439,7 @@ networks:
               </div>
               <div className="input-container">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Port (default: 3000)"
                   value={port}
                   onChange={(e) => validatePort(e.target.value)}

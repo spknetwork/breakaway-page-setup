@@ -187,6 +187,11 @@
     color: grey;
   }
 }
+.warning-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 .add-btn {
   padding: 10px 20px;
   cursor: pointer;
