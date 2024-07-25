@@ -387,8 +387,13 @@
 
 
 .doc-compose {
-  width: 50%;
+  width: 600px;
+  cursor: pointer;
   @include respond(phone) {
     width: 100%;
   }
+}
+
+.dock-comp-cli{
+  margin-top: 15px;
 }
