@@ -339,6 +339,7 @@
 
 .instruction-Wrap {
   display: flex;
+  justify-content: center;
   gap: 30px;
   margin-bottom: 15px;
   padding: 20px 10px;
@@ -360,6 +361,10 @@
   
 }
 .instruct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 
   h2 {
     margin-bottom: 3px;
@@ -387,7 +392,7 @@
 
 
 .doc-compose {
-  width: 600px;
+  width: 100%;
   cursor: pointer;
   @include respond(phone) {
     width: 100%;
@@ -395,5 +400,8 @@
 }
 
 .dock-comp-cli{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 15px;
 }

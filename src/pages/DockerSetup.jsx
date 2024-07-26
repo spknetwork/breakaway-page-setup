@@ -204,61 +204,6 @@ export default function DockerSetup() {
     }
   }, [containerEntries]);
 
-//   const handleGenerateCompose = () => {
-//     if (containerEntries.length === 0) {
-//       setSuccessMessage("Add at least one container entry.");
-//       return;
-//     }
-
-//     const composeEntries = containerEntries.map(
-//       (entry, index) => `${index !== 0 ? "  " : ""}${
-//         entry.containerName || `container${index}`
-//       }:
-//     image: adesojisouljaay/breakaway-community:v1.0
-//     container_name: ${entry.containerName || `container${index}`}
-//     ports:
-//       - "${entry.port}:3000"
-//     environment:
-//       - USE_PRIVATE=1
-//       - HIVE_ID=${entry.HIVE_ID}
-//       - TAGS=${entry.TAGS}
-//     networks:
-//       - my_network
-//     restart: always`
-//     );
-
-//     const nginxEnvVars = containerEntries
-//       .map(
-//         (entry, index) =>
-//           `      ${index !== 0 ? "" : ""}- TEST${index + 1}=${entry.domain}_${
-//             entry.containerName || `container${index}`
-//           }:3000`
-//       )
-//       .join("\n");
-
-//     const nginxEnvVarsFormatted = nginxEnvVars
-//       ? `${nginxEnvVars.replace(/^-/gm, "        -")}\n`
-//       : "";
-
-//     const composeConfig = `version: '3'
-// services:
-//   ${composeEntries.join("\n")}
-//   nginx:
-//     image: adesojisouljaay/nginx-to-docker:v1.0
-//     ports:
-//       - "80:80"
-//     environment:
-// ${nginxEnvVarsFormatted}    networks:
-//       - my_network
-//     restart: always
-// networks:
-//   my_network:
-//     driver: bridge`;
-
-//     setSuccessMessage("Docker Compose configuration generated.");
-//     setDockerComposeConfig(composeConfig);
-//   };
-
 const handleGenerateCompose = () => {
   if (containerEntries.length === 0) {
     setSuccessMessage("Add at least one container entry.");
@@ -400,6 +345,47 @@ docker-compose up -d`;
       
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>
+        <div className="instruct">
+          <h2>Accessing a VPS</h2>
+          <p style={{color: "green"}}>
+            To access your VPS, you'll need an SSH client. Here's how you
+            can connect:
+          </p>
+          <ul>
+            <li>
+              When you rent a VPS server you will receive authentication
+              details, such as user, password and IP
+            </li>
+
+            <li>Open your terminal or SSH client.</li>
+            <li>
+              Use the following command to connect to your VPS:{" "}
+              <code>ssh username@your_vps_ip</code>
+            </li>
+            <li>
+              If the VPS username is root and the IP is 127.0.0.1, as an
+              example, it will look like: <code>ssh root@127.0.0.1</code>
+            </li>
+            <li>Enter your password when prompted.</li>
+            <li>You should now be connected to your VPS.</li>
+          </ul>
+        </div>
+        <div className="dock-comp-cli">
+          <p>
+            To continue setting up your platform, you need a local
+            installation of docker inside the VPS, after you are inside the
+            VPS terminal
+          </p>
+          <p style={{color: "green"}}>Click below to copy docker and docker-compose installation commands and paste into your VPS</p>
+          <pre className="doc-compose" onClick={copyDockerDownload}>
+            <SyntaxHighlighter language="bash" style={a11yDark}>
+              {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
+            </SyntaxHighlighter>
+          </pre>
+        </div>
+        <div>
+          <p>Once docker and docker-compose installation is complete, fill the form below as accurately as possibly and copy the generated command and paste into your server</p>
+        </div>
         <div className="docker-wrap">
           <div className="forms-wrapper">
             <div className="input-with-tooltip">
@@ -589,8 +575,8 @@ docker-compose up -d`;
           </div>
         </div>
         <div className="instruction-Wrap">
-          <div className="instru-left-wrap">
-            <div className="instruct">
+          {/* <div className="instru-left-wrap"> */}
+            {/* <div className="instruct">
               <h2>Accessing a VPS</h2>
               <p style={{color: "green"}}>
                 To access your VPS, you'll need an SSH client. Here's how you
@@ -614,64 +600,45 @@ docker-compose up -d`;
                 <li>Enter your password when prompted.</li>
                 <li>You should now be connected to your VPS.</li>
               </ul>
-            </div>
-            <div className="instruct">
-              <h2>Running the Docker Compose</h2>
-              <p>
+            </div> */}
+            {/* <div className="instruct"> */}
+              {/* <h2>Running the Docker Compose</h2> */}
+              {/* <p>
                 To run this generated Docker Compose file, you need a local
                 installation of docker inside the VPS, after you are inside the
                 VPS terminal
-              </p>
-              <div className="dock-comp-cli">
+              </p> */}
+              {/* <div className="dock-comp-cli">
                 <p style={{color: "green"}}>Click below to copy docker and dockerinstallation commands</p>
-              <pre className="doc-compose" onClick={copyDockerDownload}>
-                <SyntaxHighlighter language="bash" style={a11yDark}>
-                  {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
-                </SyntaxHighlighter>
-              </pre>
-              </div>
-              <ul>
-                <li>
+                <pre className="doc-compose" onClick={copyDockerDownload}>
+                  <SyntaxHighlighter language="bash" style={a11yDark}>
+                    {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
+                  </SyntaxHighlighter>
+                </pre>
+              </div> */}
+              {/* <ul> */}
+                {/* <li>
                   You can download and read more about Docker from{" "}
                   <a href="https://www.docker.com/get-started/" target="_blank" rel="noopener noreferrer">
                     here
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   You can download and read more about Docker Compose from{" "}
                   <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">
                     here
                   </a>
-                </li>
-                {/* <li>
-                  Open a terminal or command prompt, depending on your operating
-                  system.
                 </li> */}
-                {/* <li>
-                  Navigate to the directory containing the generated{" "}
-                  <code>docker-compose.yml</code> file, possibly the Downloads
-                  folder, although it is recommended you move it somewhere else.
-                </li> */}
-                <p style={{color: "green"}}>Paste the generated docker-compose.yml into your server</p>
-                <button className="btn" style={{margin: "10px", width: "80%"}} onClick={handleCopyToClipboard}>click here to copy docker-compse.yml file again</button>
-                {/* <li>Run the following command to start the containers:</li> */}
-              </ul>
-              {/* <pre className="doc-compose">
-                <SyntaxHighlighter language="bash" style={a11yDark}>
-                  {`docker-compose up -d`}
-                </SyntaxHighlighter>
-              </pre> */}
-              <p>
+                {/* <p style={{color: "green"}}>Paste the generated docker-compose.yml into your server</p>
+                <button className="btn" style={{margin: "10px", width: "80%"}} onClick={handleCopyToClipboard}>click here to copy docker-compse.yml file again</button> */}
+              {/* </ul> */}
+              {/* <p>
                 This command will create a directory called "my-docker-setup", 
                 it will also create a docker-compose.yml file in the directory 
                 and start the containers defined in detached mode.
-              </p>
-              {/* <p>
-                This command will start the containers defined in the{" "}
-                <code>docker-compose.yml</code> file in detached mode.
               </p> */}
-            </div>
-          </div>
+            {/* </div> */}
+          {/* </div> */}
           <div className="instru-right-wrap">
             <div className="instruct">
               <h2>Pointing a Domain to an IP Using DNS Entries</h2>
