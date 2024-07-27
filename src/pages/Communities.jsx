@@ -12,7 +12,8 @@ const Communities = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [selectedOption, setSelectedOption] = useState("Breakaway communities");
+  // const [selectedOption, setSelectedOption] = useState("Breakaway communities");rank
+  const [selectedOption, setSelectedOption] = useState("rank")
   const [gridView, setGridView] = useState(false);
   const [dockerSetups, setDockerSetups] = useState([]);
   const [error, setError] = useState(null);
@@ -93,7 +94,6 @@ const Communities = () => {
         <h1>Tokenized Breakaway Communities</h1>
       </div>
       <div className="community-section">
-       
           <div className="community-wrap">
             <div className="select-communities">
               <select
@@ -104,9 +104,9 @@ const Communities = () => {
                 onChange={handleSelectChange}
               >
                 <option value="rank">All Community</option>
-                <option value="Breakaway communities">Breakaway communities</option>
-                <option value="new">New</option>
-                <option value="subs">Members</option>
+                <option value="Breakaway communities">Breakaway communities </option>
+                {/* <option value="new">New</option>
+                <option value="subs">Members</option> */}
               </select>
 
               <button
@@ -146,7 +146,7 @@ const Communities = () => {
                       }, {})}
                     />
                   ) : (
-                    <CommunityListGrid
+                    <CommunityListGrid 
                       c={c}
                       key={i}
                       pinnedCommunitiesWebsties={dockerSetups.reduce((acc, setup) => {

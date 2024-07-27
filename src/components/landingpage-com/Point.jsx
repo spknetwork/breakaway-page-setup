@@ -9,8 +9,8 @@ export default function Point() {
                 <img src={iphone} alt="" />
             </div>
             <div className="point-right animate__animated animate__fadeInUp">
-                <h1>Give your community members the best experience ever.</h1>
-                <p>If you are ready, you can proceed to create your own breakaway community. No coding knowledge is required.</p>
+                <h1>Breakaway communities</h1>
+                <p> Forked from the latest Ecency technology, offer a streamlined solution to quickly establish a personalized community frontend with a unique domain and customizable user interface.</p>
             </div>
             
         </div>
