@@ -383,7 +383,7 @@ docker-compose up -d`;
             </SyntaxHighlighter>
           </pre>
         </div>
-        <div>
+        <div className="docker-i-f-i">
           <p>Once docker and docker-compose installation is complete, fill the form below as accurately as possibly and copy the generated command and paste into your server</p>
         </div>
         <div className="docker-wrap">
