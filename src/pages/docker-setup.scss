@@ -3,25 +3,6 @@
   list-style-type: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .docker-main-wrap {
   // padding: 10px 30px;
   padding: 10px 200px;
@@ -166,7 +147,6 @@
  
 }
 
-
 .input-with-tooltip {
   margin-bottom: 10px;
   input {
@@ -186,6 +166,11 @@
     font-size: 4px;
     color: grey;
   }
+}
+.warning-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 .add-btn {
   padding: 10px 20px;
@@ -261,19 +246,6 @@
  
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .download-wrap {
   margin: 10px 0px;
   display: flex;
@@ -334,6 +306,7 @@
 
 .instruction-Wrap {
   display: flex;
+  justify-content: center;
   gap: 30px;
   margin-bottom: 15px;
   padding: 20px 10px;
@@ -355,6 +328,10 @@
   
 }
 .instruct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 
   h2 {
     margin-bottom: 3px;
@@ -366,6 +343,7 @@
     font-size: 16px;
   }
   ul {
+    padding:0 20px;
     color: grey;
     list-style-type: square;
     li {
@@ -382,8 +360,20 @@
 
 
 .doc-compose {
-  width: 50%;
+  width: 100%;
+  cursor: pointer;
   @include respond(phone) {
     width: 100%;
   }
+}
+
+.dock-comp-cli{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.docker-i-f-i{
+  text-align: center;
 }

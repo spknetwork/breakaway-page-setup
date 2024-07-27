@@ -183,6 +183,19 @@ export const getCommunities = (
   });
 };
 
+export const getCommunityDetails = async (communityId) => {
+  try {
+    const communityDetails = await client.call('bridge', 'get_community', {
+      name: communityId,
+    });
+
+    return communityDetails;
+  } catch (error) {
+    console.error('Error fetching community details:', error);
+    return null;
+  }
+}
+
 export const subscribe = async (username, community) => {
   const json = ["subscribe", { community }];
   const result = await broadcastPostingJSON(username, "community", json);
