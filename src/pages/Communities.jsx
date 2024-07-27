@@ -103,7 +103,7 @@ const Communities = () => {
                 value={selectedOption}
                 onChange={handleSelectChange}
               >
-                <option value="rank">All Community</option>
+                <option value="rank">All Communities</option>
                 <option value="Breakaway communities">Breakaway communities </option>
                 {/* <option value="new">New</option>
                 <option value="subs">Members</option> */}

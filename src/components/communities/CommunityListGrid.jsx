@@ -83,17 +83,17 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
                       <FaArrowUpRightDots size={14} />
                     </span>
                   </div>
-                  {/* <div className="center-items">
+                  <div className="center-items last-num">
                     <span className="info-num">{c.num_authors}</span>{" "}
                     <span className="info-icons">
                       <FaArrowUpShortWide size={14} />
                     </span>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="btn-vist-phone-grid">
                   {c.isPinned ? (
-                    <button
-                      className="btn glo-btnc"
+                    <h3
+                      className="start-com-wrap glo-btnc"
                       onClick={() =>
                         window.open(
                           `${pinnedCommunitiesWebsties[c.name]}`,
@@ -102,7 +102,7 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
                       }
                     >
                       Visit platform
-                    </button>
+                    </h3>
                   ) : (
                     <Link to="/docker-setup" className="start">
                       <h3 className="start-com-wrap glo-btnc">

@@ -125,6 +125,12 @@
       }
 
 }
+.last-num{
+    @include respond(phone) {
+        display: none; 
+    }
+
+}
 .box-left-grid{
     display: flex;
     flex-direction: column;
