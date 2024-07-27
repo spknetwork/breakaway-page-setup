@@ -1,0 +1,117 @@
+@import "../../mixins.scss";
+@import "../../variables.scss";
+.bac-contsainer{
+    background-color: rgb(35 32 74);
+    @include respond(phone) {
+        background-color: rgb(14, 10, 49);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
+      }
+    
+}
+.bac-wrap{
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 60px 0px;
+  @include respond(phone) {
+    flex-direction: column;
+  }
+}
+.bac-left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+    img{
+        width: 140px;
+        @include respond(phone) {
+            margin-bottom: 14px;
+          }
+        
+
+    }
+    h1{
+        font-size: 28px;
+        @include respond(phone) {
+            text-align: center;
+            margin-bottom: 14px;
+          }
+    }
+    span{
+        color: var(--light-purple);
+    }
+    br{
+        @include respond(phone) {
+            display: none;
+          }
+    }
+}
+.bac-right{
+    width: 50%;
+    @include respond(phone) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+    p{
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 10px;
+        @include respond(phone) {
+            color: grey;
+            margin-bottom: 14px;
+          }
+
+    }
+    button{
+        padding: 10px 30px;
+        border-radius: 12px;
+        cursor: pointer;
+        background: var(--mixed-color);
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+
+
+    }
+}
+.social-wrap{
+    display: flex;
+    gap: 20px;
+    a{
+      color: grey;
+    }
+    @include respond(phone) {
+        justify-content: center;
+      }
+}
+.floating-image-1 {
+  animation: floatUpDown 2s infinite alternate ease-in-out; /* Adjust animation duration and timing function */
+}
+.floating-image-2 {
+  animation: floatUpDown 3s infinite alternate ease-in-out; /* Adjust animation duration and timing function */
+}
+.floating-image-3 {
+  animation: floatUpDown 4s infinite alternate ease-in-out; /* Adjust animation duration and timing function */
+}
+.floating-image-4 {
+  animation: floatUpDown 5s infinite alternate ease-in-out; /* Adjust animation duration and timing function */
+}
+.floating-image-5 {
+  animation: floatUpDown 6s infinite alternate ease-in-out; /* Adjust animation duration and timing function */
+}
+
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px); /* Adjust the distance the image floats up */
+  }
+}

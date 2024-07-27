@@ -436,7 +436,7 @@ docker-compose up -d`;
                 <FaQuestionCircle
                   className="tooltip-icon"
                   onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -460,8 +460,8 @@ docker-compose up -d`;
               <div className="top-text-wrap">
                 <FaQuestionCircle
                   className="tooltip-icon"
-                  onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onClick={() => handleTooltipToggle("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -482,8 +482,8 @@ docker-compose up -d`;
               <div className="top-text-wrap">
                 <FaQuestionCircle
                   className="tooltip-icon"
-                  onClick={() => handleTooltipToggle("containerName")}
-                  onMouseEnter={() => handleTooltipShow("containerName")}
+                  // onClick={() => handleTooltipToggle("containerName")}
+                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
@@ -502,8 +502,8 @@ docker-compose up -d`;
                 <FaQuestionCircle
                   className="tooltip-icon"
                   onClick={() => handleTooltipToggle("domain")}
-                  onMouseEnter={() => handleTooltipShow("domain")}
-                  onMouseLeave={() => handleTooltipHide("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}                  
                 />
                 {showTooltip.domain && (
                   <Tooltip text="The domain is the website for this specific domain" />

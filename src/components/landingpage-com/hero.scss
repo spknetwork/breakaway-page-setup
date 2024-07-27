@@ -1,6 +1,7 @@
 @import "../../mixins.scss";
 .hero-section{
-  min-height: 85vh;
+  position: relative;
+  min-height: 90vh;
   @include respond(phone) {
     min-height: 60vh;
   }
@@ -8,11 +9,26 @@
     min-height: 60vh;
   }
 }
+.wave{
+  position: absolute;
+  background-size: cover;
+  width: 100%;
+  opacity: .45;
+  top: -20%;
+  z-index: 1;
+  @include respond(phone) {
+    top: 40%;
+  }
+
+
+}
 .hero-wrap{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    z-index: 3;
     h1{
       font-size: 60px;
       margin-bottom: 30px;
@@ -46,10 +62,11 @@
     }
     .btn-hero{
       padding: 13px 70px;
-      border-radius: 40px;
+      border-radius: 12px;
       font-size: 18px;
       font-weight: 900;
       margin-bottom: 40px;
+      cursor: pointer;
       @include respond(phone) {
         padding: 12px 50px;
         line-height: 1.8rem;
@@ -62,7 +79,7 @@
   }
   .phone-text-btn{
     padding: 10px 30px;
-      border-radius: 30px;
+      border-radius: 0.5rem;
       font-size: 18px;
       font-weight: 900;
       margin-bottom: 40px;
@@ -79,6 +96,10 @@
   }
   .carousel{
     display: flex;
+    a{
+      color: #fff;
+      cursor: pointer;
+    }
   }
   .carousel-wrap{
     display: flex;

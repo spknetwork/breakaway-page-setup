@@ -1,21 +1,48 @@
 @import "../../mixins.scss";
+@import "../../variables.scss";
+
 .box-container-grid{
-    width: fit-content;
+    width: 100%;
 }
 .box-grid{
     padding: 0px 10px;
     padding-top: 3px;
     width: 265px;
-    height: 425px;
+    height: 410px;
     gap: 10px;
     // background-color: #0b1126;
     background: rgb(14, 10, 49);
     margin-bottom: 10px;
     border-radius: 10px;
     overflow-wrap: break-word;
+    text-overflow: ellipsis;
     @include respond(tab) {
-        width: 320px;
+        width: 100%;
         height: 505px;
+        margin-bottom: 0px;
+      }
+
+
+    @include respond(phone) {
+        width: 100%;
+        height: 100%;
+      }
+}
+.box-grid-bac{
+    padding: 0px 10px;
+    padding-top: 3px;
+    width: 265px;
+    height: 410px;
+    gap: 10px;
+    // background-color: #0b1126;
+    background: rgb(74, 39, 128);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    @include respond(tab) {
+        width: 100%;
+        height: 400px;
         margin-bottom: 0px;
       }
 
@@ -39,6 +66,10 @@
     background-position: center;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
+    @include respond(tab) {
+        // margin-top: 10px;
+      }
     
     
     // background-size: ;
@@ -50,9 +81,30 @@
     border-radius: 10px;
     object-fit: cover;
 }
+.bac{
+    // font-size: 18px;
+    border-radius: 20px;
+    padding: 5px 15px;
+    width: 90px;
+    // background: var(--mixed-color);
+    position: absolute;
+    right: 5px;
+}
+
+
 .title-grid{
     color: gray;
-    font-size: 22px;
+    font-size: 18px;
+    margin-bottom: 7px ;
+    font-weight: 800;
+    list-style: none;
+    @include respond(phone) {
+        margin-top: 10px;
+      }
+}
+.title-grid-bac{
+    color: #fff;
+    font-size: 18px;
     margin-bottom: 7px ;
     font-weight: 800;
     list-style: none;
@@ -72,4 +124,36 @@
         line-height: 1.1;
       }
 
+}
+.box-left-grid{
+    display: flex;
+    flex-direction: column;
+    padding-top: 7px;
+    align-items: center;
+    @include respond(phone) {
+        padding: 0px 10px; 
+    }
+    @include respond(tab) {
+        align-items: center;
+    }
+}
+.community-info-grid{
+    display: flex;
+    margin: 7px 0px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    @include respond(tab) {
+        gap: 5px;
+        padding: 7px;
+       flex-direction: column;
+       align-items: center;
+      }
+      @include respond(phone) {
+        gap: 5px;
+        padding: 7px;
+        flex-direction: row;
+        align-items: center;
+      }
+    
 }

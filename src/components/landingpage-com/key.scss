@@ -1,0 +1,98 @@
+@import "../../mixins.scss";
+@import "../../variables.scss";
+.key-container{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 85vh;
+    margin: 70px auto;
+    @include respond(phone) {
+        margin: 20px auto;
+      }
+}
+.key-header-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    margin-bottom: 30px;
+    // font-weight: 600;
+    h1{
+        font-weight: 600;
+        @include respond(phone) {
+            text-align: center;
+            font-size: 22px;
+            
+          }
+    }
+    
+}
+.key-wrap{
+    display: flex;
+    gap: 25px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+}
+.key-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgb(14 10 49);
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    h1{
+        font-size: 22px;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    hr{
+        height: 1px;
+        background-color: grey;
+        margin-top: 7px;
+        margin-bottom: 12px;
+        margin-left: 5px;
+        margin-right: 5px;
+        
+    }
+    
+    ul{
+        list-style-type: disc !important;
+        color: grey;
+        line-height: 1.2;
+    }
+    li{
+        padding-bottom: 5px;
+    }
+    span{
+        font-weight: bold;
+        color: rgb(240 230 255 );
+        @include respond(phone) {
+            font-weight: 400;
+          }
+        
+    }
+}
+.key-box-sec-wrap{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    @include respond(phone) {
+        flex-direction: column;
+      }
+}
+.key-box-2{
+    width:450px;
+    height: 390px;
+    background-color: rgb(14 10 49);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    margin-bottom: 40px;
+    @include respond(phone) {
+        width:100%;
+        height: fit-content;
+       
+      } 
+}
