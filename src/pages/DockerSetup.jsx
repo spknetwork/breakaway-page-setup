@@ -348,7 +348,7 @@ docker-compose up -d`;
         <div className="instruct">
           <h2>Accessing a VPS</h2>
           <p style={{color: "green"}}>
-            To access your VPS, you'll need an SSH client. Here's how you
+            To access your VPS, you'll need a terminal or SSH client. Here's how you
             can connect:
           </p>
           <ul>
@@ -384,7 +384,7 @@ docker-compose up -d`;
           </pre>
         </div>
         <div className="docker-i-f-i">
-          <p>Once docker and docker-compose installation is complete, fill the form below as accurately as possibly and copy the generated command and paste into your server</p>
+          <p>Once docker and docker-compose installation is complete, fill the form below as accurately as possible then copy the generated command and paste into your server</p>
         </div>
         <div className="docker-wrap">
           <div className="forms-wrapper">
