@@ -1,4 +1,4 @@
-import { keychainBroadcast, addAccountTokeychain } from "../helpers/keychain";
+import { keychainBroadcast, addAccountTokeychain, keychainPostingJSON } from "../helpers/keychain";
 import { SERVERS } from "../constants/servers";
 
 import { Client, PrivateKey } from "@hiveio/dhive";
@@ -103,6 +103,70 @@ export const createHiveCommunity = async (username, communityName, keys) => {
   });
 };
 
+export const createCommunityWithCredit = async (username, keys, creator_account) => {
+  try {
+    const account = {
+      name: username,
+      ...keys,
+      active: false
+    };
+
+    console.log("acc", account);
+
+    let tokens = await client.database.getAccounts([creator_account]);
+    tokens = tokens[0]?.pending_claimed_accounts;
+
+    let fee = null;
+    let op_name = "create_claimed_account";
+
+    const owner = {
+      weight_threshold: 1,
+      account_auths: [],
+      key_auths: [[account.ownerPubkey, 1]]
+    };
+    const active = {
+      weight_threshold: 1,
+      account_auths: [],
+      key_auths: [[account.activePubkey, 1]]
+    };
+    const posting = {
+      weight_threshold: 1,
+      account_auths: [["ecency.app", 1]],
+      key_auths: [[account.postingPubkey, 1]]
+    };
+    const ops = [];
+    const params = {
+      creator: creator_account,
+      new_account_name: account.name,
+      owner,
+      active,
+      posting,
+      memo_key: account.memoPubkey,
+      json_metadata: "",
+      extensions: []
+    };
+
+    if (fee) params.fee = fee;
+    const operation = [op_name, params];
+    ops.push(operation);
+    
+    try {
+      const newAccount = await keychainBroadcast(creator_account, [operation], "Active");
+      await addAccountTokeychain(username, {
+        active: keys.active,
+        posting: keys.posting,
+        memo: keys.memo
+      });
+      return newAccount;
+    } catch (err) {
+      return err;
+    }
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
 export const getCommunities = (
   last = "",
   limit = 1000,
@@ -118,6 +182,19 @@ export const getCommunities = (
     observer: observer,
   });
 };
+
+export const getCommunityDetails = async (communityId) => {
+  try {
+    const communityDetails = await client.call('bridge', 'get_community', {
+      name: communityId,
+    });
+
+    return communityDetails;
+  } catch (error) {
+    console.error('Error fetching community details:', error);
+    return null;
+  }
+}
 
 export const subscribe = async (username, community) => {
   const json = ["subscribe", { community }];
@@ -145,11 +222,11 @@ export const broadcastPostingJSON = (username, id, json) => {
 export const updateCommunity = (username, community, props) => {
   const json = ["updateProps", { community, props }];
 
-  return broadcastPostingJSON(username, "community", json);
+  return keychainPostingJSON(username, "community", json);
 };
 
 export const setUserRole = (username, community, account, role) => {
   const json = ["setRole", { community, account, role }];
 
-  return broadcastPostingJSON(username, "community", json);
+  return keychainPostingJSON(username, "community", json);
 };

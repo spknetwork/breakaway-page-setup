@@ -1,0 +1,78 @@
+@import "../../mixins.scss";
+@import "../../variables.scss";
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .modal-top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      .close-modal{
+          font-size: 18px;
+          font-weight: 300;
+          cursor: pointer;
+      }
+    }
+
+    .role-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .community-info{
+            display: flex;
+            justify-content: center;
+            
+            input{
+                width: 80%;
+                padding: 10px;
+                border: none;
+                border-bottom: 1px solid gray;
+                outline: none;
+                font-size: 14px;
+                color: var(--text-white);
+                background-color: var(--bg-input);
+            }
+        }
+    }
+  }
+
+  .extra-info{
+    font-size: 14px;
+    font: bold;
+    color: var(--light-purple);
+  }
+
+  
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  
+  .modal-content form div {
+    margin-bottom: 10px;
+  }
+  
+  .modal-content button {
+    margin-top: 10px;
+  }
+  
