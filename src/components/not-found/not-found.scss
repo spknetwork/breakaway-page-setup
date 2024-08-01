@@ -1,0 +1,19 @@
+.not-found{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .not-found-link{
+        color: wheat;
+        font-size: 20px;
+        font-weight: 300;
+        font: bold;
+
+        &:hover{
+            color: white;
+        }
+    }
+}
