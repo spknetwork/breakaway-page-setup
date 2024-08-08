@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./single-community.scss";
 import { useParams } from 'react-router-dom';
 import { getDockerSetups } from '../api/breakaway';
@@ -7,8 +7,10 @@ import Logo from "../assets/lifestyle.png"
 export const SingleCommunity = () => {
     const params = useParams();
 
+    const [community, setCommunity] = useState({});
+
     useEffect(() => {
-        console.log(params);
+        console.log(params.id);
         getBreakawaycommunities();
     }, [])
 

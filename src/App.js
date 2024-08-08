@@ -27,7 +27,7 @@ function App() {
           <Route path="/communities" element={<Communities />} />
           <Route path="/community-create" element={<CreateCommunity />} />
           <Route path="/docker-setup" element={<DockerSetup />} />
-          <Route path="/community/:1d" element={<SingleCommunity />} />
+          <Route path="/community/:id" element={<SingleCommunity />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
