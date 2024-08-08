@@ -1,0 +1,79 @@
+.single-community{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    // align-items: center;
+    height: 100vh;
+
+    .left{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid rgb(71, 69, 65);
+
+        .left-wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 50px;
+            height: 100%;
+
+            .com-info{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+
+                .bacyy-list{
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                }
+            }
+
+            .admin-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+
+                .adminss{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+            }
+
+            .ba-platforms{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+            }
+        }
+    }
+    .right{
+        flex: 4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .right-wrapper{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            .top{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 15px;
+                border-bottom: 1px solid rgb(71, 69, 65);
+
+            }
+        }
+    }
+}
