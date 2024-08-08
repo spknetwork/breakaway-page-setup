@@ -11,8 +11,6 @@ const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // const [selectedOption, setSelectedOption] = useState("Breakaway communities");rank
   const [selectedOption, setSelectedOption] = useState("rank")
   const [gridView, setGridView] = useState(false);
   const [dockerSetups, setDockerSetups] = useState([]);
