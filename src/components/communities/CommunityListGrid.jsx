@@ -55,7 +55,7 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
               />
             </div>
             <div className="box-left-grid">
-              <Link className={c.isPinned ? "title-grid-bac" :"title-grid"} to={`/community/hive-${c.id}`}>
+              <Link className={c.isPinned ? "title-grid-bac" :"title-grid"} to={`/community/${c.name}`}>
                 {c.title}
               </Link>
               <span className="about-grid">{text}</span>
