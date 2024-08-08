@@ -14,6 +14,9 @@ export default function DockerSetup() {
   const [port, setPort] = useState("");
   const [HIVE_ID, setHiveId] = useState("");
   const [TAGS, setTags] = useState("");
+  const [tagsArray, setTagsArray] = useState([]);
+  const [author, setAuthor] = useState("");
+  const [authorsArray, setAuthorsArray] = useState([]);
   const [domain, setDomain] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [dockerComposeConfig, setDockerComposeConfig] = useState("");
@@ -134,7 +137,8 @@ export default function DockerSetup() {
         containerName,
         port: port || "3000",
         HIVE_ID,
-        TAGS,
+        tagsArray,
+        authorsArray,
         domain,
       };
 
@@ -143,6 +147,7 @@ export default function DockerSetup() {
       setPort("");
       setHiveId("");
       setTags("");
+      setTagsArray([])
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
@@ -204,66 +209,66 @@ export default function DockerSetup() {
     }
   }, [containerEntries]);
 
-const handleGenerateCompose = () => {
-  if (containerEntries.length === 0) {
-    setSuccessMessage("Add at least one container entry.");
-    return;
-  }
+  const handleGenerateCompose = () => {
+    if (containerEntries.length === 0) {
+      setSuccessMessage("Add at least one container entry.");
+      return;
+    }
 
-  const composeEntries = containerEntries.map(
-    (entry, index) => `${index !== 0 ? "  " : ""}${
-      entry.containerName || `container${index}`
-    }:
-    image: adesojisouljaay/breakaway-community:v1.0
-    container_name: ${entry.containerName || `container${index}`}
-    ports:
-      - "${entry.port}:3000"
-    environment:
-      - USE_PRIVATE=1
-      - HIVE_ID=${entry.HIVE_ID}
-      - TAGS=${entry.TAGS}
-    networks:
-      - my_network
-    restart: always`
-  );
+    const composeEntries = containerEntries.map(
+      (entry, index) => `${index !== 0 ? "  " : ""}${
+        entry.containerName || `container${index}`
+      }:
+      image: adesojisouljaay/breakaway-community:v1.0
+      container_name: ${entry.containerName || `container${index}`}
+      ports:
+        - "${entry.port}:3000"
+      environment:
+        - USE_PRIVATE=1
+        - HIVE_ID=${entry.HIVE_ID}
+        - TAGS=${entry.tagsArray}
+        - AUTHORS=${entry.authorsArray}
+      networks:
+        - my_network
+      restart: always`
+    );
 
-  const nginxEnvVars = containerEntries
-    .map(
-      (entry, index) =>
-        `- TEST${index + 1}=${entry.domain}_${entry.containerName || `container${index}`}:3000`
-    )
-    .join("\n        ");
+    const nginxEnvVars = containerEntries
+      .map(
+        (entry, index) =>
+          `- TEST${index + 1}=${entry.domain}_${entry.containerName || `container${index}`}:3000`
+      )
+      .join("\n        ");
 
-  const composeConfig = `# Step 1: Create a directory and navigate into it
-mkdir my-docker-setup
-cd my-docker-setup
+    const composeConfig = `# Step 1: Create a directory and navigate into it
+  mkdir my-docker-setup
+  cd my-docker-setup
 
-# Step 2: Create a docker-compose.yml file with the specified content
-cat <<EOF > docker-compose.yml
-version: '3'
-services:
-  ${composeEntries.join("\n  ")}
-  nginx:
-    image: adesojisouljaay/nginx-to-docker:v1.0
-    ports:
-      - "80:80"
-    environment:
-      ${nginxEnvVars}
-    networks:
-      - my_network
-    restart: always
-networks:
-  my_network:
-    driver: bridge
-EOF
+  # Step 2: Create a docker-compose.yml file with the specified content
+  cat <<EOF > docker-compose.yml
+  version: '3'
+  services:
+    ${composeEntries.join("\n  ")}
+    nginx:
+      image: adesojisouljaay/nginx-to-docker:v1.0
+      ports:
+        - "80:80"
+      environment:
+        ${nginxEnvVars}
+      networks:
+        - my_network
+      restart: always
+  networks:
+    my_network:
+      driver: bridge
+  EOF
 
-# Step 3: Run docker-compose up -d
-docker-compose up -d`;
+  # Step 3: Run docker-compose up -d
+  docker-compose up -d`;
 
-  setSuccessMessage("Docker Compose configuration generated.");
-  setDockerComposeConfig(composeConfig);
-};
-
+    setSuccessMessage("Docker Compose configuration generated.");
+    setDockerComposeConfig(composeConfig);
+  };
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(dockerComposeConfig).then(() => {
@@ -309,6 +314,34 @@ docker-compose up -d`;
       },
     });
   }
+
+  const handleKeyDown = (e) => {
+    if (e.key === ' ') {
+      e.preventDefault();
+      if (TAGS.trim()) {
+        setTagsArray([...tagsArray, TAGS.trim()]);
+        setTags('');
+      }
+    }
+  };
+
+  const handleRemoveTag = (index) => {
+    setTagsArray(tagsArray.filter((_, i) => i !== index));
+  };
+
+const handleKeyDownAuthor = (e) => {
+  if (e.key === ' ') {
+    e.preventDefault();
+    if (author.trim()) {
+      setAuthorsArray([...authorsArray, author.trim()]);
+      setAuthor('');
+    }
+  }
+};
+
+const handleRemoveAuthor = (index) => {
+  setAuthorsArray(authorsArray.filter((_, i) => i !== index));
+};
 
   return (
     <div className="docker-main-wrap">
@@ -482,21 +515,61 @@ docker-compose up -d`;
               <div className="top-text-wrap">
                 <FaQuestionCircle
                   className="tooltip-icon"
-                  // onClick={() => handleTooltipToggle("containerName")}
-                  // onMouseEnter={() => handleTooltipShow("containerName")}
                   onMouseLeave={() => handleTooltipHide("containerName")}
                 />
                 {showTooltip.containerName && (
                   <Tooltip text="Extra tags can be used to show extra content on the feed even if the tag was posted outside the community" />
                 )}
               </div>
-              <input
-                type="text"
-                placeholder="TAGS"
-                value={TAGS}
-                onChange={(e) => setTags(e.target.value)}
-              />
+                <input
+                  type="text"
+                  value={TAGS}
+                  onChange={(e) => setTags(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Enter a tags(comma separated)"
+                  />
+                  <div className="tag-container">
+                    {tagsArray?.map((tag, index) => (
+                        <div key={index} className="tag">
+                          <div>
+                            <span>{tag}</span>
+                            <span onClick={() => handleRemoveTag(index)} style={{ marginLeft: '8px', cursor: 'pointer' }}>x</span>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
             </div>
+
+            <div className="input-with-tooltip">
+              <div className="top-text-wrap">
+                <FaQuestionCircle
+                  className="tooltip-icon"
+                  onMouseLeave={() => handleTooltipHide("containerName")}
+                />
+                {showTooltip.containerName && (
+                  <Tooltip text="Add authors whose post/feed you would like to see" />
+                )}
+              </div>
+                <input
+                  type="text"
+                  id="author"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  onKeyDown={handleKeyDownAuthor}
+                  placeholder="Enter author"
+                  />
+                  <div className="author-container">
+                    {authorsArray?.map((author, index) => (
+                        <div key={index} className="author">
+                          <div>
+                            <span>{author}</span>
+                            <span onClick={() => handleRemoveAuthor(index)} style={{ marginLeft: '8px', cursor: 'pointer' }}>x</span>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+            </div>
+
             <div className="input-with-tooltip">
               <div className="top-text-wrap">
                 <FaQuestionCircle
