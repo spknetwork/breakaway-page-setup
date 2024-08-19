@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import "./bac.scss"
 import logo from "../../assets/white-nobackground_new.png"
+import hive from "../../assets/hive-blockchain-hive-logo.png"
+
 
 function Bac() {
   return (
@@ -17,6 +19,10 @@ function Bac() {
                     <Link to="/docker-setup"><button>Launch Your Platform</button></Link>
                 </div>
             </div>
+            <div className="power-wrap">
+            <h3 className="power">Powered By Hive</h3> <img src={hive} alt="" />
+            </div>
+            
         </div>
     </div>
   )

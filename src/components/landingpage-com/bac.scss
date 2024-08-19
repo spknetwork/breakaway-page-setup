@@ -115,3 +115,15 @@
     transform: translateY(-10px); /* Adjust the distance the image floats up */
   }
 }
+.power-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  gap: 6px;
+  padding-bottom: 20px;
+  img{
+    width: 20px;
+  }
+}
