@@ -9,3 +9,13 @@ export const getDockerSetups = async () => {
       throw error;
     }
   };
+
+  export const registerPlatform = async (communityData) => {
+    try {
+      const response = await api.post(`/platform-setup`, communityData);
+      return response.data;
+    } catch (error) {
+      console.error('Error during docker setup:', error.response?.data || error.message);
+      throw error.response?.data || { error: 'An unexpected error occurred' };
+    }
+  };
