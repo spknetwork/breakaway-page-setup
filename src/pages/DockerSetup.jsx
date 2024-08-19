@@ -121,7 +121,7 @@ export default function DockerSetup() {
       setContainerError("")
     }
 
-    if (!TAGS) {
+    if (tagsArray.length === 0) {
       setTagError("Please provide tag/tags")
       return;
     } else {
@@ -132,7 +132,7 @@ export default function DockerSetup() {
       setSuccessMessage("Resolve field warnings before adding the container.");
       return;
     }
-    if (containerName && HIVE_ID && TAGS) {
+    if (containerName && HIVE_ID && tagsArray) {
       const newEntry = {
         containerName,
         port: port || "3000",
