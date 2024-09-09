@@ -9,6 +9,7 @@ import Logo from "../../assets/overlay_bac.jpg"
 
 
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
+  // console.log(c)
   const [hasDomain, setHasDomain] = useState(false);
 
   useEffect(() => {

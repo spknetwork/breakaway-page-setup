@@ -30,9 +30,11 @@ const Communities = () => {
         getDockerSetups()
       ]);
 
-      setDockerSetups(setups);
+      const approvedStepups = setups.filter((data)=> data.dockerStatus === 'approved')
+
+      setDockerSetups(approvedStepups);
       const pinnedCommunitiesData = await Promise.all(
-        setups.map(async (setup) => {
+        approvedStepups.map(async (setup) => {
           try {
             let _community = await getCommunity(setup.communityId);
             if (_community) {

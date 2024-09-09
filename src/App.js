@@ -7,6 +7,8 @@ import Communities from "./pages/Communities";
 import DockerSetup from "./pages/DockerSetup";
 import "./App.scss";
 import NotFound from "./components/not-found/NotFound";
+import AdminPanel from "./pages/AdminPanel";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [nav, setNav] = useState(true);
@@ -26,8 +28,10 @@ function App() {
           <Route path="/communities" element={<Communities />} />
           <Route path="/community-create" element={<CreateCommunity />} />
           <Route path="/docker-setup" element={<DockerSetup />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ToastContainer />
       </div>
     </div>
   );

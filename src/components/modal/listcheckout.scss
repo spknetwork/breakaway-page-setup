@@ -1,0 +1,174 @@
+@import "../../mixins.scss";
+
+.fadded-container {
+  position: relative;
+  z-index: 10; // Ensure this is higher than other elements on the page
+  background-color: rgba(0, 0, 0, .6);
+  width: 100%;
+  height: 100%;
+}
+
+.modal-overlay {
+//   background-color: red;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; // Hide by default
+  justify-content: center;
+  align-items: center;
+  @include respond(phone) {
+    align-items: end;
+  }
+}
+
+.modal {
+    
+  width: 30%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #E3E3E3;
+      box-shadow: var(--box-shadow);
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+  color: black;
+  @include respond(phone) {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.transfer-input-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 17px;
+  margin-top: 10px;
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  input {
+    width: 320px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    outline: none;
+  }
+}
+
+.transfer-form-wrap {
+  button {
+    width: 100%;
+    height: 40px;
+    background-color: var(--tg-primary-purple-color);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+  }
+}
+
+.checklist-wrap {
+    display: flex; 
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 5px;
+
+    span:first-of-type {
+           
+        margin-right: 10px;   
+        color: #555;          
+    }
+    span:last-of-type {
+        font-weight: bold; 
+        color: #333;          
+        // font-style: italic; 
+    }
+}
+.info-copy-wrap{
+  display: flex; 
+    align-items: center;
+    gap: 12px;
+}
+
+.open {
+  display: flex; // Display the modal when `open` class is added
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards; // Ensure the animation plays
+}
+.delete-wrap{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .action-text{
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 3px;
+    }
+    h2{
+        padding-top: 30px;
+    }
+    p{
+        font-size: 14px;
+        margin-bottom: 20px;
+        // margin: 10px 0px;
+    }
+}
+.delete-btn-wrap{
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    .btn-delete{
+        background-color: red;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-weight: 600;
+
+    }
+    .btn-mistake{
+        background-color: #29a82970;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-weight: 600;
+
+    }
+}
+
+// .delete-off, .btn-delete, .btn-mistake{
+//   display: none;
+// }

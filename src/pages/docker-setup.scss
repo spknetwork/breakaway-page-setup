@@ -193,6 +193,12 @@
   }
 }
 
+.wrap-action-btn{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .doc-box {
   width: 50%;
   @include respond(phone) {
