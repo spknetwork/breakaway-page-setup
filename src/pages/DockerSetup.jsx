@@ -9,7 +9,9 @@ import { toast } from 'react-toastify';
 import { dockerSetupRequest, getDockerSetups, getSingleDockerPlatform } from "../api/breakaway";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
+
 export default function DockerSetup() {
+
   const [containerEntries, setContainerEntries] = useState([]);
   const [containerName, setContainerName] = useState("");
   const [port, setPort] = useState("");
@@ -32,8 +34,27 @@ export default function DockerSetup() {
   const [platformCreator, setPlatformCreator] = useState("")
   const [responseMessage , setResponseMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("");
-  // const [titleError, setTitleError] = useState("");
-  // const [adminError, setAdminError] = useState("");
+  const [showTooltip, setShowTooltip] = useState({
+    containerName: false,
+    port: false,
+    HIVE_ID: false,
+    TAGS: false,
+    domain: false,
+  });
+
+  const [fieldWarnings, setFieldWarnings] = useState({
+    containerName: "",
+    port: "",
+    HIVE_ID: "",
+    TAGS: "",
+    domain: "",
+  });
+
+  useEffect(() => {
+    if (containerEntries.length > 0) {
+      handleGenerateCompose();
+    }
+  }, [containerEntries]);
 
   const videos = [
     { id: 1, title: 'Funding a namecheap account - Part 1 of 8', src: 'https://3speak.tv/embed?v=igormuba/ijobvotk' },
@@ -59,22 +80,6 @@ export default function DockerSetup() {
       iframe.msRequestFullscreen();
     }
   };
-
-  const [showTooltip, setShowTooltip] = useState({
-    containerName: false,
-    port: false,
-    HIVE_ID: false,
-    TAGS: false,
-    domain: false,
-  });
-
-  const [fieldWarnings, setFieldWarnings] = useState({
-    containerName: "",
-    port: "",
-    HIVE_ID: "",
-    TAGS: "",
-    domain: "",
-  });
 
   const handleTooltipToggle = (field) => {
     setShowTooltip((prevState) => ({
@@ -110,13 +115,11 @@ export default function DockerSetup() {
     setPlatformCreator(e.target.value)
   } 
 
-
   const handleAddContainer = async () => {
     const communityIsValid = await getCommunityDetails(HIVE_ID);
     console.log(communityIsValid);
     const domainIsValid = await handleDomainValidation();
     console.log(domainIsValid)
-    handleDomainValidation()
     if (!communityIsValid) {
       setIdError("Invalid hive community id")
       return;
@@ -130,7 +133,7 @@ export default function DockerSetup() {
     } else {
       setDomianError("")
     }
-    if (domainIsValid?.WhoisRecord?.parseCode === 0) {
+    if (domainIsValid?.WhoisRecord?.parseCode === 0 || domainIsValid.ErrorMessage) {
       setDomianError("You have entered an invalid domain")
       console.log("invalid domain");
       return;
@@ -278,19 +281,10 @@ export default function DockerSetup() {
     }
   };
   
-
   const getdata = async ()=>{
     const data = await getDockerSetups()
     console.log(data)
   }
-  // getdata()
-
-  // useEffect(()=>{
-  //   getdata()
-  // },[])
-
-  
-
 
   const validatePort = (value) => {
     const isPortUsed = containerEntries.some((entry) => entry.port === value);
@@ -341,12 +335,6 @@ export default function DockerSetup() {
   const validateDomain = (value) => {
     setDomain(value);
   };
-
-  useEffect(() => {
-    if (containerEntries.length > 0) {
-      handleGenerateCompose();
-    }
-  }, [containerEntries]);
 
   const handleGenerateCompose = () => {
     if (containerEntries.length === 0) {
@@ -407,7 +395,6 @@ docker-compose up -d`;
     setDockerComposeConfig(composeConfig);
   };
 
-
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(dockerComposeConfig).then(() => {
       setSuccessMessage("Docker Compose configuration copied to clipboard.");
@@ -428,6 +415,7 @@ docker-compose up -d`;
 
     try {
       const response = await fetch(url);
+      console.log(response)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -452,10 +440,6 @@ docker-compose up -d`;
       },
     });
   }
-
-
-  
-  // console.log(admin)
 
   return (
     <div className="docker-main-wrap">
@@ -813,70 +797,6 @@ docker-compose up -d`;
           </div>
         </div>
         <div className="instruction-Wrap">
-          {/* <div className="instru-left-wrap"> */}
-          {/* <div className="instruct">
-              <h2>Accessing a VPS</h2>
-              <p style={{color: "green"}}>
-                To access your VPS, you'll need an SSH client. Here's how you
-                can connect:
-              </p>
-              <ul>
-                <li>
-                  When you rent a VPS server you will receive authentication
-                  details, such as user, password and IP
-                </li>
-
-                <li>Open your terminal or SSH client.</li>
-                <li>
-                  Use the following command to connect to your VPS:{" "}
-                  <code>ssh username@your_vps_ip</code>
-                </li>
-                <li>
-                  If the VPS username is root and the IP is 127.0.0.1, as an
-                  example, it will look like: <code>ssh root@127.0.0.1</code>
-                </li>
-                <li>Enter your password when prompted.</li>
-                <li>You should now be connected to your VPS.</li>
-              </ul>
-            </div> */}
-          {/* <div className="instruct"> */}
-          {/* <h2>Running the Docker Compose</h2> */}
-          {/* <p>
-                To run this generated Docker Compose file, you need a local
-                installation of docker inside the VPS, after you are inside the
-                VPS terminal
-              </p> */}
-          {/* <div className="dock-comp-cli">
-                <p style={{color: "green"}}>Click below to copy docker and dockerinstallation commands</p>
-                <pre className="doc-compose" onClick={copyDockerDownload}>
-                  <SyntaxHighlighter language="bash" style={a11yDark}>
-                    {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
-                  </SyntaxHighlighter>
-                </pre>
-              </div> */}
-          {/* <ul> */}
-          {/* <li>
-                  You can download and read more about Docker from{" "}
-                  <a href="https://www.docker.com/get-started/" target="_blank" rel="noopener noreferrer">
-                    here
-                  </a>
-                </li> */}
-          {/* <li>
-                  You can download and read more about Docker Compose from{" "}
-                  <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">
-                    here
-                  </a>
-                </li> */}
-          {/* <p style={{color: "green"}}>Paste the generated docker-compose.yml into your server</p>
-                <button className="btn" style={{margin: "10px", width: "80%"}} onClick={handleCopyToClipboard}>click here to copy docker-compse.yml file again</button> */}
-          {/* </ul> */}
-          {/* <p>
-                This command will create a directory called "my-docker-setup", 
-                it will also create a docker-compose.yml file in the directory 
-                and start the containers defined in detached mode.
-              </p> */}
-          {/* </div> */}
-          {/* </div> */}
           <div className="instru-right-wrap">
             <div className="instruct">
               <h2>Pointing a Domain to an IP Using DNS Entries</h2>
