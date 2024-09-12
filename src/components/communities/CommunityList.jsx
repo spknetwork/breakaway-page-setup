@@ -19,9 +19,11 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
             />
           </div>
           <div className="box-left">
-            <Link className="title" to={`/community/hive-${c.id}`}>
-              {c.title}
-            </Link>
+            {/* <Link className="title" to={`/community/hive-${c.id}`}> */}
+              <h2>
+                {c.title}
+              </h2>
+            {/* </Link> */}
             <span className="about">{c.about}</span>
             <span className="about-phone">
               {c.about.split(" ").slice(0, 100).join(" ")}
