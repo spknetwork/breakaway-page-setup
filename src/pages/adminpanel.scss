@@ -172,4 +172,30 @@ td{
   .table-body td {
     text-align: center;
   }
+  .all-list{
+    margin-top: 100px;
+    h3{
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+  }
+
+  .approved {
+    background-color: green;
+  }
   
+  .cancel {
+    background-color: rgb(255, 39, 39);
+  }
+  
+  .pending {
+    background-color: rgb(219, 203, 107);
+    color: black;
+  }
+  .status-color{
+    padding: 3px 8px ;
+    border-radius: 8px;
+    font-weight: 700;
+    box-sizing: border-box;
+  }

@@ -34,6 +34,8 @@ export default function DockerSetup() {
   const [platformCreator, setPlatformCreator] = useState("")
   const [responseMessage , setResponseMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDownload, setIsDownload] = useState(false);
+  const [isDisableListBtn, setIsDisableListBtn] = useState(true);
   const [showTooltip, setShowTooltip] = useState({
     containerName: false,
     port: false,
@@ -133,7 +135,8 @@ export default function DockerSetup() {
     } else {
       setDomianError("")
     }
-    if (domainIsValid?.WhoisRecord?.parseCode === 0 || domainIsValid.ErrorMessage) {
+    if (domainIsValid?.WhoisRecord?.parseCode === 0 ) {
+      // if (domainIsValid?.WhoisRecord?.parseCode === 0 || domainIsValid.ErrorMessage) {
       setDomianError("You have entered an invalid domain")
       console.log("invalid domain");
       return;
@@ -187,10 +190,8 @@ export default function DockerSetup() {
       };
 
       setContainerEntries([...containerEntries, newEntry]);
-      // setContainerName("");
-      // setPort("");
-      // setHiveId("");
-      // setTags("");
+      setIsDisableListBtn(false)
+      console.log(isDisableListBtn)
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
@@ -204,7 +205,7 @@ export default function DockerSetup() {
       setIdError("Invalid hive community id");
       return;
     }
-    setIdError(""); // Clear the error if valid
+    setIdError(""); 
   
     if (!about) {
       setTAboutError("Please provide about platform");
@@ -249,6 +250,7 @@ export default function DockerSetup() {
   
           // Show success message
           toast.success("Community listed successfully!");
+          setIsDisableListBtn(true)
   
           // Reset form fields
           setContainerName("");
@@ -740,7 +742,7 @@ docker-compose up -d`;
             <button className="add-btn" onClick={handleAddContainer}>
               Add Container
             </button>
-            <button className="add-btn" onClick={handleListPlatform}>
+            <button className={ isDisableListBtn ? "disable-btn ": "add-btn"} disabled={isDisableListBtn} onClick={handleListPlatform}>
               List Platform
             </button>
             </div>
@@ -772,6 +774,7 @@ docker-compose up -d`;
                     )}`}
                     download="docker-compose.yml"
                     className="download-button"
+                    onClick={() => setIsDownload(true)}
                   >
                     Download as docker-compose.yml
                   </a>

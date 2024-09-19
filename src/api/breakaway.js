@@ -51,3 +51,12 @@ export const getDockerSetups = async () => {
       throw error;
     }
   };
+  export const deleteDockerRequest = async (id) => {
+    try {
+      const response = await api.delete(`/platform-setup/delete/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting Docker setup:', error);
+      throw error;
+    }
+  };
