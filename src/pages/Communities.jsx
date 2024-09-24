@@ -6,6 +6,7 @@ import LoaderSK from "./LoaderSK";
 import { IoSearch } from "react-icons/io5";
 import CommunityListGrid from "../components/communities/CommunityListGrid";
 import { getDockerSetups } from "../api/breakaway";
+import SinglePageModal from "../components/single-page.mdal/SinglePageModal";
 
 const Communities = () => {
   const [communityLists, setCommunityLists] = useState([]);
@@ -17,10 +18,18 @@ const Communities = () => {
   const [gridView, setGridView] = useState(false);
   const [dockerSetups, setDockerSetups] = useState([]);
   const [error, setError] = useState(null);
+  const [singlePageModal, SetSinglepageModal] = useState(false);
+  const [selectedId, setSelectedId] = useState("")
 
   useEffect(() => {
     fetchData();
   }, [searchQuery, selectedOption]);
+
+  const handleSinglepageModal = ( ) =>{
+    SetSinglepageModal(!singlePageModal)
+  } 
+
+  console.log("selectedIdsssssssssss" , selectedId)
 
   const fetchData = async () => {
     setLoading(true);
@@ -89,6 +98,7 @@ const Communities = () => {
   };
 
   return (
+    <>
     <div className="communities-wrapper">
       <div className="hero-text">
         <h1>Tokenized Breakaway Communities</h1>
@@ -152,7 +162,9 @@ const Communities = () => {
                       pinnedCommunitiesWebsties={dockerSetups.reduce((acc, setup) => {
                         acc[setup.communityId] = setup.domain;
                         return acc;
-                      }, {})}
+                      }, {})} 
+                      setSelectedId={setSelectedId}
+                      handleSinglepageModal={handleSinglepageModal}
                     />
                   )}
                 </React.Fragment>
@@ -164,6 +176,11 @@ const Communities = () => {
         )}
       </div>
     </div>
+    <SinglePageModal singlePageModal={singlePageModal} handleSinglepageModal={handleSinglepageModal} selectedId={selectedId} communityLists={communityLists} pinnedCommunitiesWebsties={dockerSetups.reduce((acc, setup) => {
+                        acc[setup.communityId] = setup.domain;
+                        return acc;
+                      }, {})}/>
+    </>
   );
 };
 

@@ -8,7 +8,12 @@ import { useState, useEffect} from "react";
 import Logo from "../../assets/overlay_bac.jpg"
 
 
+<<<<<<< Updated upstream
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
+  // console.log(c)
+=======
+export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSelectedId, handleSinglepageModal }) {
+>>>>>>> Stashed changes
   const [hasDomain, setHasDomain] = useState(false);
 
   useEffect(() => {
@@ -42,7 +47,7 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
     <div className="cap">
 
       <div className="box-container-grid ">
-        <div className={c.isPinned ? "box-grid-bac": "box-grid"}>
+        <div className={c.isPinned ? "box-grid-bac": "box-grid"} onClick={()=>{setSelectedId(c.name); handleSinglepageModal()}}>
           <div className="box-wrap-left-grid ">
             <div className="img-cover-grid  " >
              {c.isPinned && <img className="bac" src={Logo} alt="" />}
