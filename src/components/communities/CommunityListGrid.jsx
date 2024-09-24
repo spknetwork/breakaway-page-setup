@@ -8,12 +8,7 @@ import { useState, useEffect} from "react";
 import Logo from "../../assets/overlay_bac.jpg"
 
 
-<<<<<<< Updated upstream
-export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
-  // console.log(c)
-=======
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSelectedId, handleSinglepageModal }) {
->>>>>>> Stashed changes
   const [hasDomain, setHasDomain] = useState(false);
 
   useEffect(() => {
