@@ -24,9 +24,9 @@ function SinglePageModal({
     );
 
     if (communitydata && !communitydata.domain) {
-      setNotBAC(true); // Set to true if domain is missing
+      setNotBAC(true); 
     } else {
-      setNotBAC(false); // Reset to false if domain is present
+      setNotBAC(false);
     }
 
     setData(communitydata);
@@ -34,11 +34,10 @@ function SinglePageModal({
   console.log(data);
 
   if (!data) {
-    return null; // Return null if no data is available to avoid rendering the modal
+    return null; 
   }
 
-  // const data = communityLists.find( (data)=> data.name === selectedId )
-  // console.log(data)
+ 
 
   return (
     <div
@@ -59,31 +58,14 @@ function SinglePageModal({
         <div className="sp-modal-content">
           <img
             className="sp-img"
-            // src={ `https://images.hive.blog/u/${c.name}/avatar`}
             src={`https://images.hive.blog/u/${data.name}/avatar`}
             alt=""
           />
 
-          {/* <div className="img-cover-grid  ">
-            
 
-            <img
-              className="sp-img"
-              // src={ `https://images.hive.blog/u/${c.name}/avatar`}
-              src={`https://images.hive.blog/u/${data.name}/avatar`}
-              alt=""
-            />
-          </div> */}
           <h1>{data.title}</h1>
           <p>{data.description || data.flag_text}</p>
           {NotBAC && <p>{data.about}</p>}
-
-          {/* <div className="modal-info">
-            <p><strong>Domain:</strong> <a href={data.domain} target="_blank" rel="noopener noreferrer">{data.domain}</a></p>
-            <p><strong>Subscribers:</strong> {data.subscribers}</p>
-            <p><strong>Pending Posts:</strong> {data.num_pending}</p>
-          </div> */}
-
           {NotBAC && (
             <Link to="/docker-setup" className="start">
               <h3 className="start-com-wrap glo-btnc">Launch Bac Platform</h3>
@@ -100,17 +82,6 @@ function SinglePageModal({
               Visit platform
             </h3>
           )}
-
-          {/* <div className="modal-team">
-            <h2>Team Members</h2>
-            <ul>
-              {data.team?.map((member, index) => (
-                <li key={index}>
-                  {member[0]} - {member[1]}
-                </li>
-              ))}
-            </ul>
-          </div> */}
           {Array.isArray(data.team) && data.team.length > 0 && (
             <div className="modal-team">
               <h2>Team Members</h2>

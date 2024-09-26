@@ -95,16 +95,14 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSel
                 <div className="btn-vist-phone-grid">
                   {c.isPinned ? (
                     <h3
-                      className="start-com-wrap glo-btnc"
-                      onClick={() =>
-                        window.open(
-                          `${pinnedCommunitiesWebsties[c.name]}`,
-                          "_blank"
-                        )
-                      }
-                    >
-                      Visit platform
-                    </h3>
+                    className="start-com-wrap glo-btnc"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(`${pinnedCommunitiesWebsties[c.name]}`, "_blank");
+                    }}
+                  >
+                    Visit platform
+                  </h3>
                   ) : (
                     <Link to="/docker-setup" className="start">
                       <h3 className="start-com-wrap glo-btnc">

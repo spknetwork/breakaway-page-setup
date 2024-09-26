@@ -154,6 +154,8 @@ const Communities = () => {
                         acc[setup.communityId] = setup.domain;
                         return acc;
                       }, {})}
+                      setSelectedId={setSelectedId}
+                      handleSinglepageModal={handleSinglepageModal}
                     />
                   ) : (
                     <CommunityListGrid 
