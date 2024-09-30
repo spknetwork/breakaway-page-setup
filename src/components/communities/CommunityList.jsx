@@ -1,14 +1,14 @@
 import React from "react";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi";
+import { HiUsers, HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/overlay_bac.jpg"
 
 
-export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
+export const CommunityList = ({ c, pinnedCommunitiesWebsties, setSelectedId, handleSinglepageModal }) => {
   return (
     <div className="box-container ">
-      <div className={c.isPinned ? "box-bac" :"box"}>
+      <div className={c.isPinned ? "box-bac" :"box"} onClick={()=>{setSelectedId(c.name); handleSinglepageModal()}}>
         <div className="box-wrap-left">
           <div className="img-cover">
           {c.isPinned && <img className="bac-list" src={Logo} alt="" />}
@@ -19,9 +19,14 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
             />
           </div>
           <div className="box-left">
-            <Link className="title" to={`/community/hive-${c.id}`}>
-              {c.title}
-            </Link>
+            {/* <Link className="title" to={`/community/hive-${c.id}`}> */}
+            <div className="title-and-info-wrapper">
+              <h2>
+                {c.title}
+              </h2>
+              <HiInformationCircle size={20} />
+            </div>
+            {/* </Link> */}
             <span className="about">{c.about}</span>
             <span className="about-phone">
               {c.about.split(" ").slice(0, 100).join(" ")}
@@ -61,12 +66,10 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
                 {c.isPinned ? (
                   <button
                     className="btn glo-btnc"
-                    onClick={() =>
-                      window.open(
-                        `${pinnedCommunitiesWebsties[c.name]}`,
-                        "_blank"
-                      )
-                    }
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(`${pinnedCommunitiesWebsties[c.name]}`, "_blank");
+                    }}
                   >
                     Visit platform
                   </button>
@@ -84,9 +87,10 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties }) => {
           {c.isPinned ? (
             <button
               className="btn glo-btnc"
-              onClick={() =>
-                window.open(`${pinnedCommunitiesWebsties[c.name]}`, "_blank")
-              }
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(`${pinnedCommunitiesWebsties[c.name]}`, "_blank");
+              }}
             >
               Visit platform
             </button>
