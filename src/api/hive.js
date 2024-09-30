@@ -2,6 +2,7 @@ import { keychainBroadcast, addAccountTokeychain, keychainPostingJSON } from "..
 import { SERVERS } from "../constants/servers";
 
 import { Client, PrivateKey } from "@hiveio/dhive";
+// import keychain from 'hive-keychain';
 
 const client = new Client(SERVERS, {
   timeout: 3000,
@@ -230,3 +231,24 @@ export const setUserRole = (username, community, account, role) => {
 
   return keychainPostingJSON(username, "community", json);
 };
+
+// export const loginWithKeychain = async () => {
+//   return new Promise((resolve, reject) => {
+//     keychain.requestHandshake(() => {
+//       keychain.requestSignBuffer(
+//         'username', // Replace with the actual Hive username (or pass it dynamically)
+//         'Hive Keychain Login',
+//         'Posting', // You can use Posting key for authentication
+//         (response) => {
+//           if (response.success) {
+//             // Resolve with successful login data
+//             resolve(response);
+//           } else {
+//             // Reject with an error
+//             reject(new Error('Failed to authenticate with Hive Keychain.'));
+//           }
+//         }
+//       );
+//     });
+//   });
+// };

@@ -4,10 +4,12 @@ import { confirmDockerRequest, cancelDockerRequest, getDockerSetups, deleteDocke
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 import { FaRegCopy } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList, allList,removeDeleteBtn, setIsDeleted }) {
   const [showButton, setShowButton] = useState(true);
   const [list, setList] = useState(null); // Store the selected community data
+  
 
   useEffect(() => {
     if (selectedId) {
@@ -94,14 +96,15 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList, allList
         toast.error('Failed to copy.');
       });
   };
+  
 
   return (
     <div className={`fadded-container modal-overlay ${isOpen ? 'open' : ''}`}>
       <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={()=>{closeCheckOutModal() ; removeDeleteBtn();}}></div>
       <div className="modal slide-up">
         <span className="close-btn" onClick={()=>{closeCheckOutModal() ; removeDeleteBtn();}}>X</span>
-        <div className="delete-wrap">
-          <h2>Community Info</h2>
+        <div className="delete-wrap"> 
+          <h2>Community Info</h2> 
           <div className="checkoutlist">
             <div className="checklist-wrap">
               <span>Container Name:</span> <span className='info-copy-wrap'> <span>{list.containerName}</span> <FaRegCopy size={13} onClick={() => copyToClipboard(list.containerName)}/></span>
@@ -139,7 +142,7 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList, allList
           {showButton && (
             <div className="action-btn-wrap">
               <button className="btn-approve" onClick={handleApprove}>Approve</button>
-              <button className="btn-delete" onClick={handleCancel}>Yes, Cancel</button>
+              <button className="btn-delete" onClick={handleCancel}>Remove</button>
             </div>
           )}
            {allList && (

@@ -253,6 +253,9 @@ export default function DockerSetup() {
           setIsDisableListBtn(true)
   
           // Reset form fields
+
+
+
           setContainerName("");
           setPort("");
           setHiveId("");

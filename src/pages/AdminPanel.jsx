@@ -2,20 +2,26 @@ import React, { useEffect, useState } from 'react';
 import "./adminpanel.scss";
 import ListCheckOut from '../components/modal/ListCheckOut';
 import { getDockerSetups } from '../api/breakaway';
+import { useNavigate } from 'react-router-dom';
 
-function AdminPanel() {
+
+function AdminPanel({setIsAuthenticated, isAuthenticated}) {
   const [isopen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [listData, setListData] = useState([]);
   const [approvedData, setApprovedData] = useState([]);
-  const [activeTab, setActiveTab] = useState('pending'); // State for tracking active tab
+  const [activeTab, setActiveTab] = useState('pending'); 
   const [data, setData] = useState([])
   const [allList, setAllList] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
+  const navigate = useNavigate();
+  
+
 
   useEffect(() => {
     getList();
   }, [isDeleted]);
+  
 
   const getList = async () => {
     try {
@@ -31,6 +37,7 @@ function AdminPanel() {
       console.error('Error fetching Docker setups:', error.message);
     }
   };
+
 
   const openCheckOutModal = (id) => {
     setSelectedId(id);
@@ -54,10 +61,47 @@ function AdminPanel() {
     return stringText;
   };
 
+  const handleLogout = ()=>{
+    localStorage.removeItem('adminToken')
+    setIsAuthenticated(false)
+    navigate("/")
+
+  }
+  // getList();
+  
+
+
+  // *******************new*******************
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Call login function on component mount
+  //   authenticateUser();
+  // }, []);
+
+  // const authenticateUser = async () => {
+  //   try {
+  //     const response = await loginWithKeychain();
+  //     if (response.success) {
+  //       setIsAuthenticated(true); // User is authenticated
+  //     } else {
+  //       navigate('/login'); // Redirect to login page if authentication fails
+  //     }
+  //   } catch (error) {
+  //     console.error('Authentication failed:', error);
+  //     navigate('/login'); // Redirect to login page if an error occurs
+  //   }
+  // };
+
+  // if (!isAuthenticated) {
+  //   return <div>Loading...</div>; // Or redirect the user, or show a login prompt
+  // }
+
   return (
     <div className='admin-container-wrap'>
-      <h1>Admin Controller</h1>
-      <p>Confirm the details before approving. Immediately after the community is approved, the community will go live.</p>
+      <h1>Admin Controller</h1>  
+      <p>Confirm the details before approving. Immediately a community is approved, it will be listed</p>
 
       <div className="tab-buttons">
         <button
@@ -72,6 +116,7 @@ function AdminPanel() {
         >
           Approved List
         </button>
+        {isAuthenticated &&<span className='admin-logout' onClick={handleLogout}>Logout</span>}
       </div>
 
       <div className="table-wrap">
@@ -85,8 +130,8 @@ function AdminPanel() {
               <th className='domain'>Domain</th>
               <th>Title</th>
               <th>About</th>
-              <th className='port'>Port</th>
-              <th>Tags</th>
+              {/* <th className='port'>Port</th> */}
+              {/* <th>Tags</th> */}
               <th >Action</th>
             </tr>
           </thead>
@@ -101,8 +146,8 @@ function AdminPanel() {
                   <td className='domain'>{truncateText(data.domain, 10)}</td>
                   <td>{truncateText(data.communityTitle, 10)}</td>
                   <td>{truncateText(data.aboutPlatform, 3)}</td>
-                  <td>{truncateText(data.port, 3)}</td>
-                  <td>{truncateText(data.tags, 10)}</td>
+                  {/* <td>{truncateText(data.port, 3)}</td> */}
+                  {/* <td>{truncateText(data.tags, 10)}</td> */}
                   <td><button className='review-btn' onClick={() => openCheckOutModal(data.communityId)}>Review</button></td>
                 </tr>
               ))
@@ -116,8 +161,8 @@ function AdminPanel() {
                   <td className='domain'>{truncateText(data.domain, 10)}</td>
                   <td>{truncateText(data.communityTitle, 10)}</td>
                   <td>{truncateText(data.aboutPlatform, 3)}</td>
-                  <td>{truncateText(data.port, 3)}</td>
-                  <td>{truncateText(data.tags, 10)}</td>
+                  {/* <td>{truncateText(data.port, 3)}</td> */}
+                  {/* <td>{truncateText(data.tags, 10)}</td> */}
                   <td><button className='review-btn' onClick={() => openCheckOutModal(data.communityId)}>Review</button></td>
                 </tr>
               ))
@@ -133,8 +178,7 @@ function AdminPanel() {
       </div>
 
     <div className="table-wrap all-list">
-    <h3>List of all communities Approve, Pendding and Cancel </h3>
-
+    <h3>list of communities: Approved, pending and canceled </h3>
       <table>
         <thead>
           <tr>
@@ -144,9 +188,9 @@ function AdminPanel() {
             <th className="admins">Admins</th>
             <th className='domain'>Domain</th>
             <th>Title</th>
-            <th>About</th>
+            {/* <th className='about'>About</th> */}
             <th className='port'>Status</th>
-            <th>Tags</th>
+            {/* <th>Tags</th> */}
             <th >Action</th>
           </tr>
         </thead>
@@ -160,9 +204,9 @@ function AdminPanel() {
                 <td className="admins">{truncateText(data.admins, 10)}</td>
                 <td className='domain'>{truncateText(data.domain, 10)}</td>
                 <td>{truncateText(data.communityTitle, 10)}</td>
-                <td>{truncateText(data.aboutPlatform, 3)}</td>
+                {/* <td className='about'>{truncateText(data.aboutPlatform, 3)}</td> */}
                 <td><span className={`status-color ${data.dockerStatus === 'approved' ? 'approved' : data.dockerStatus === 'canceled' ? 'cancel' : 'pending'} `}>{truncateText(data.dockerStatus, 3)}</span></td>
-                <td>{truncateText(data.tags, 10)}</td>
+                {/* <td>{truncateText(data.tags, 10)}</td> */}
                 <td><button className='review-btn' onClick={() =>{openCheckOutModal(data.communityId); setAllList(true)}}>Review</button></td>
               </tr>
             ))
