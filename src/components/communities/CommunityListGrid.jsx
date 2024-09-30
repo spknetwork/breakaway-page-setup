@@ -1,6 +1,6 @@
 import "./communityl-list-grid.scss";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi";
+import { HiUsers, HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import rally from '../../assets/rally-new-1.png'
 import { RiH1 } from "react-icons/ri";
@@ -56,9 +56,12 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSel
             </div>
             <div className="box-left-grid">
               {/* <Link className={c.isPinned ? "title-grid-bac" :"title-grid"} to={`/community/hive-${c.id}`}> */}
+              <div className="title-and-info-wrapper">
                 <h2>
                   {c.title}
                 </h2>
+                <HiInformationCircle size={20} />
+              </div>
               {/* </Link> */}
               <span className="about-grid">{text}</span>
               <div className="admins-wrapper">

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi";
+import { HiUsers, HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/overlay_bac.jpg"
 
@@ -20,9 +20,12 @@ export const CommunityList = ({ c, pinnedCommunitiesWebsties, setSelectedId, han
           </div>
           <div className="box-left">
             {/* <Link className="title" to={`/community/hive-${c.id}`}> */}
+            <div className="title-and-info-wrapper">
               <h2>
                 {c.title}
               </h2>
+              <HiInformationCircle size={20} />
+            </div>
             {/* </Link> */}
             <span className="about">{c.about}</span>
             <span className="about-phone">
