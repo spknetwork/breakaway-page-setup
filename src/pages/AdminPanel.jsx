@@ -101,7 +101,7 @@ function AdminPanel({setIsAuthenticated, isAuthenticated}) {
   return (
     <div className='admin-container-wrap'>
       <h1>Admin Controller</h1>  
-      <p>Confirm the details before approving. Immediately a community is approved, it will be listed</p>
+      <p>Please check all details carefully before approving. once a community is approved, it gets listed</p>
 
       <div className="tab-buttons">
         <button

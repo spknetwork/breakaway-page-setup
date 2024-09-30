@@ -38,6 +38,7 @@
             color: #fff;
             font-size: 18px;
             margin: auto;
+            cursor: pointer;
             @include respond(phone) {
                 padding: 8px 50px;
               }
