@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/navbar/Navbar";
@@ -7,9 +7,22 @@ import Communities from "./pages/Communities";
 import DockerSetup from "./pages/DockerSetup";
 import "./App.scss";
 import NotFound from "./components/not-found/NotFound";
+import AdminPanel from "./pages/AdminPanel";
+import { ToastContainer } from "react-toastify";
+import Login from "./pages/Login";
+import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   const [nav, setNav] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const adminToken = localStorage.getItem('adminToken');
+  useEffect(()=>{
+    const adminToken = localStorage.getItem('adminToken');
+    if(adminToken){
+      setIsAuthenticated(true)
+    }
+  },[adminToken])
+
   const handleNav = () => {
     setNav((prevNav) => !prevNav);
   };
@@ -18,7 +31,7 @@ function App() {
   };
   return (
     <div className="App">
-      {<Navbar  nav={nav} setNav={setNav} handleNav={handleNav} />}
+      <Navbar  nav={nav} setNav={setNav} handleNav={handleNav} />
       <div className="container"  onClick={()=>{ bodyToggle() }}>
         <Routes>
           <Route path="/" element={<Communities />} />
@@ -26,8 +39,14 @@ function App() {
           <Route path="/communities" element={<Communities />} />
           <Route path="/community-create" element={<CreateCommunity />} />
           <Route path="/docker-setup" element={<DockerSetup />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          {/* <Route path="/admin-panel" element={<PrivateRoute isAuthenticated={isAuthenticated} />}> */}
+          {adminToken &&<Route path="/admin-panel" element={ <AdminPanel isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />}
+        {/* </Route> */}
         </Routes>
+        <ToastContainer />
       </div>
     </div>
   );

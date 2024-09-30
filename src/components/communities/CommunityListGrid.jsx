@@ -7,7 +7,6 @@ import { RiH1 } from "react-icons/ri";
 import { useState, useEffect} from "react";
 import Logo from "../../assets/overlay_bac.jpg"
 
-
 export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSelectedId, handleSinglepageModal }) {
   const [hasDomain, setHasDomain] = useState(false);
 

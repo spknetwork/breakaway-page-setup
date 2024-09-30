@@ -6,9 +6,12 @@ import "./docker-setup.scss";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import { getCommunityDetails } from "../api/hive";
 import { toast } from 'react-toastify';
+import { dockerSetupRequest, getDockerSetups, getSingleDockerPlatform } from "../api/breakaway";
 
 const Tooltip = ({ text }) => <div className="tooltip">{text}</div>;
+
 export default function DockerSetup() {
+
   const [containerEntries, setContainerEntries] = useState([]);
   const [containerName, setContainerName] = useState("");
   const [port, setPort] = useState("");
@@ -22,31 +25,17 @@ export default function DockerSetup() {
   const [domainError, setDomianError] = useState("");
   const [containerError, setContainerError] = useState("");
   const [tagError, setTagError] = useState("");
-
-  const videos = [
-    { id: 1, title: 'Funding a namecheap account - Part 1 of 8', src: 'https://3speak.tv/embed?v=igormuba/ijobvotk' },
-    { id: 2, title: 'Acquiring a web domain - Part 2 of 8', src: 'https://3speak.tv/embed?v=igormuba/ontqfcod' },
-    { id: 3, title: 'Acquiring a Linux web server - Part 3 of 8', src: 'https://3speak.tv/embed?v=igormuba/jcxvwexp' },
-    { id: 4, title: 'SSH info and accessing the server - Part 4 of 8', src: 'https://3speak.tv/embed?v=igormuba/hlufqeae' },
-    { id: 5, title: 'Docker install and configure - Part 5 of 8', src: 'https://3speak.tv/embed?v=igormuba/jfkjqoff' },
-    { id: 6, title: 'Running the community on the server - Part 6 of 8', src: 'https://3speak.tv/embed?v=igormuba/seebjgok' },
-    { id: 7, title: 'Pointing your domain URL to server - Part 7 of 8', src: 'https://3speak.tv/embed?v=igormuba/ptxfnvuz' },
-    { id: 8, title: 'Cloudflare SSL and DDoS protection - Part 8 of 8', src: 'https://3speak.tv/embed?v=igormuba/vnrbyhdf' }
-  ];
-
-  const handleFullscreen = () => {
-    const iframe = document.getElementById('videoFrame');
-    if (iframe.requestFullscreen) {
-      iframe.requestFullscreen();
-    } else if (iframe.mozRequestFullScreen) { // Firefox
-      iframe.mozRequestFullScreen();
-    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-      iframe.webkitRequestFullscreen();
-    } else if (iframe.msRequestFullscreen) { // IE/Edge
-      iframe.msRequestFullscreen();
-    }
-  };
-  
+  const [titleError, setTitleError] = useState("");
+  const [adminsError, setAdminsError] = useState("");
+  const [aboutError, setTAboutError] = useState("");
+  const [about, setAbout] = useState("");
+  const [title, setTitle] = useState("");
+  const [admins, setAdmins] = useState([]);
+  const [platformCreator, setPlatformCreator] = useState("")
+  const [responseMessage , setResponseMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isDownload, setIsDownload] = useState(false);
+  const [isDisableListBtn, setIsDisableListBtn] = useState(true);
   const [showTooltip, setShowTooltip] = useState({
     containerName: false,
     port: false,
@@ -62,6 +51,37 @@ export default function DockerSetup() {
     TAGS: "",
     domain: "",
   });
+
+  useEffect(() => {
+    if (containerEntries.length > 0) {
+      handleGenerateCompose();
+    }
+  }, [containerEntries]);
+
+  const videos = [
+    { id: 1, title: 'Funding a namecheap account - Part 1 of 8', src: 'https://3speak.tv/embed?v=igormuba/ijobvotk' },
+    { id: 2, title: 'Acquiring a web domain - Part 2 of 8', src: 'https://3speak.tv/embed?v=igormuba/ontqfcod' },
+    { id: 3, title: 'Acquiring a Linux web server - Part 3 of 8', src: 'https://3speak.tv/embed?v=igormuba/jcxvwexp' },
+    { id: 4, title: 'SSH info and accessing the server - Part 4 of 8', src: 'https://3speak.tv/embed?v=igormuba/hlufqeae' },
+    { id: 5, title: 'Docker install and configure - Part 5 of 8', src: 'https://3speak.tv/embed?v=igormuba/jfkjqoff' },
+    { id: 6, title: 'Running the community on the server - Part 6 of 8', src: 'https://3speak.tv/embed?v=igormuba/seebjgok' },
+    { id: 7, title: 'Pointing your domain URL to server - Part 7 of 8', src: 'https://3speak.tv/embed?v=igormuba/ptxfnvuz' },
+    { id: 8, title: 'Cloudflare SSL and DDoS protection - Part 8 of 8', src: 'https://3speak.tv/embed?v=igormuba/vnrbyhdf' }
+  ];
+
+  
+  const handleFullscreen = () => {
+    const iframe = document.getElementById('videoFrame');
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+    } else if (iframe.mozRequestFullScreen) { // Firefox
+      iframe.mozRequestFullScreen();
+    } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) { // IE/Edge
+      iframe.msRequestFullscreen();
+    }
+  };
 
   const handleTooltipToggle = (field) => {
     setShowTooltip((prevState) => ({
@@ -83,13 +103,25 @@ export default function DockerSetup() {
       [field]: false,
     }));
   };
+   
+  const handleAbout = (e) => {
+    setAbout(e.target.value)
+  }
+  const handleTitle = (e) => {
+    setTitle(e.target.value)
+  }
+  const handleAdmin = (e) => {
+    setAdmins(e.target.value)
+  } 
+  const handlePlatformCreator = (e) => {
+    setPlatformCreator(e.target.value)
+  } 
 
   const handleAddContainer = async () => {
     const communityIsValid = await getCommunityDetails(HIVE_ID);
     console.log(communityIsValid);
     const domainIsValid = await handleDomainValidation();
     console.log(domainIsValid)
-    handleDomainValidation()
     if (!communityIsValid) {
       setIdError("Invalid hive community id")
       return;
@@ -97,13 +129,14 @@ export default function DockerSetup() {
       setIdError("");
     }
 
-    if(!domain) {
+    if (!domain) {
       setDomianError("Please provide domain name");
       return;
     } else {
       setDomianError("")
     }
-    if (domainIsValid?.WhoisRecord?.parseCode === 0) {
+    if (domainIsValid?.WhoisRecord?.parseCode === 0 ) {
+      // if (domainIsValid?.WhoisRecord?.parseCode === 0 || domainIsValid.ErrorMessage) {
       setDomianError("You have entered an invalid domain")
       console.log("invalid domain");
       return;
@@ -124,6 +157,24 @@ export default function DockerSetup() {
     } else {
       setTagError("")
     }
+    if (!about) {
+      setTagError("Please provide Tbout")
+      return;
+    } else {
+      setTagError("")
+    }
+    if (!title) {
+      setTagError("Please provide Title")
+      return;
+    } else {
+      setTagError("")
+    }
+    if (!admins) {
+      setTagError("Please provide Admins")
+      return;
+    } else {
+      setTagError("")
+    }
 
     if (Object.values(fieldWarnings).some((warning) => warning !== "")) {
       setSuccessMessage("Resolve field warnings before adding the container.");
@@ -139,14 +190,106 @@ export default function DockerSetup() {
       };
 
       setContainerEntries([...containerEntries, newEntry]);
-      setContainerName("");
-      setPort("");
-      setHiveId("");
-      setTags("");
+      setIsDisableListBtn(false)
+      console.log(isDisableListBtn)
     } else {
       setSuccessMessage("Please fill out all fields.");
     }
   };
+
+  const handleListPlatform = async () => { 
+    const communityIsValid = await getCommunityDetails(HIVE_ID);
+    
+    // Validate community and fields
+    if (!communityIsValid) {
+      setIdError("Invalid hive community id");
+      return;
+    }
+    setIdError(""); 
+  
+    if (!about) {
+      setTAboutError("Please provide about platform");
+      return;
+    }
+    setTAboutError("");
+  
+    if (!title) {
+      setTitleError("Please provide Title for platform");
+      return;
+    }
+    setTitleError("");
+  
+    if (!admins) {
+      setAdminsError("Please provide Admins user for the platform");
+      return;
+    }
+    setAdminsError("");
+  
+    // If all fields are valid
+    if (containerName && HIVE_ID && TAGS && title && about && admins) {
+      try {
+        const newEntry = { 
+          containerName,
+          port,
+          tags: TAGS,
+          communityId: HIVE_ID,
+          domain,
+          platformCreator,
+          aboutPlatform: about,
+          admins,
+          communityTitle: title
+        };
+  
+        // Send request to dockerSetupRequest with newEntry
+        const response = await dockerSetupRequest(newEntry);
+        
+        // Check if response indicates success
+        if (response && response.success) {
+          console.log(response.message);
+          getdata(); // Refresh data list
+  
+          // Show success message
+          toast.success("Community listed successfully!");
+          setIsDisableListBtn(true)
+  
+          // Reset form fields
+
+
+
+          setContainerName("");
+          setPort("");
+          setHiveId("");
+          setDomain("");
+          setTags("");
+          setAbout("");
+          setAdmins("");
+          setTitle("");
+          setPlatformCreator("");
+  
+          // Clear any previous messages or errors
+          setResponseMessage('');
+          setErrorMessage('');
+        } else {
+          // If no success in response, show error
+          setErrorMessage(response.message || 'Failed to list the community.');
+          toast.error(response.message || 'Failed to list the community.');
+        }
+        
+      } catch (error) {
+        console.error('Error occurred:', error);
+        setErrorMessage(error.message || 'An error occurred while processing.');
+        toast.error(error.message || 'Failed to list the community.');
+      }
+      
+    } else {
+      setErrorMessage('Please fill in all required fields.');
+    }
+  };
+  
+  const getdata = async ()=>{
+    const data = await getDockerSetups()
+    console.log(data)
+  }
 
   const validatePort = (value) => {
     const isPortUsed = containerEntries.some((entry) => entry.port === value);
@@ -176,11 +319,11 @@ export default function DockerSetup() {
   const validateHiveId = async (e) => {
     const value = e.target.value;
     setHiveId(value);
-  
+
     const isHiveIdUsed = containerEntries.some(
       (entry) => entry.HIVE_ID === value
     );
-  
+
     if (isHiveIdUsed) {
       setFieldWarnings((prevWarnings) => ({
         ...prevWarnings,
@@ -198,22 +341,15 @@ export default function DockerSetup() {
     setDomain(value);
   };
 
-  useEffect(() => {
-    if (containerEntries.length > 0) {
-      handleGenerateCompose();
+  const handleGenerateCompose = () => {
+    if (containerEntries.length === 0) {
+      setSuccessMessage("Add at least one container entry.");
+      return;
     }
-  }, [containerEntries]);
 
-const handleGenerateCompose = () => {
-  if (containerEntries.length === 0) {
-    setSuccessMessage("Add at least one container entry.");
-    return;
-  }
-
-  const composeEntries = containerEntries.map(
-    (entry, index) => `${index !== 0 ? "  " : ""}${
-      entry.containerName || `container${index}`
-    }:
+    const composeEntries = containerEntries.map(
+      (entry, index) => `${index !== 0 ? "  " : ""}${entry.containerName || `container${index}`
+        }:
     image: adesojisouljaay/breakaway-community:v1.0
     container_name: ${entry.containerName || `container${index}`}
     ports:
@@ -225,16 +361,16 @@ const handleGenerateCompose = () => {
     networks:
       - my_network
     restart: always`
-  );
+    );
 
-  const nginxEnvVars = containerEntries
-    .map(
-      (entry, index) =>
-        `- TEST${index + 1}=${entry.domain}_${entry.containerName || `container${index}`}:3000`
-    )
-    .join("\n        ");
+    const nginxEnvVars = containerEntries
+      .map(
+        (entry, index) =>
+          `- TEST${index + 1}=${entry.domain}_${entry.containerName || `container${index}`}:3000`
+      )
+      .join("\n        ");
 
-  const composeConfig = `# Step 1: Create a directory and navigate into it
+    const composeConfig = `# Step 1: Create a directory and navigate into it
 mkdir my-docker-setup
 cd my-docker-setup
 
@@ -260,10 +396,9 @@ EOF
 # Step 3: Run docker-compose up -d
 docker-compose up -d`;
 
-  setSuccessMessage("Docker Compose configuration generated.");
-  setDockerComposeConfig(composeConfig);
-};
-
+    setSuccessMessage("Docker Compose configuration generated.");
+    setDockerComposeConfig(composeConfig);
+  };
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(dockerComposeConfig).then(() => {
@@ -282,9 +417,10 @@ docker-compose up -d`;
   const handleDomainValidation = async () => {
     const apiKey = process.env.REACT_APP_WHOIS_API_KEY;
     const url = `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${apiKey}&domainName=${domain}&outputFormat=JSON`;
-  
+
     try {
       const response = await fetch(url);
+      console.log(response)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -295,7 +431,7 @@ docker-compose up -d`;
     }
   };
 
-  const copyDockerDownload = ()=> {
+  const copyDockerDownload = () => {
     const command = `sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`
     navigator.clipboard.writeText(command).then(() => {
       setSuccessMessage("Docker Compose configuration copied to clipboard.");
@@ -317,10 +453,10 @@ docker-compose up -d`;
       </div>
       <div className="tutorials">
         <div className="video-dropdown" onClick={() => setTutorial(!tutorial)}>
-        <h2 >
-          Watch tutorials on how to set up your platform
-        </h2>
-        {tutorial ? <IoIosArrowDropdown size={35} /> : <IoIosArrowDropup size={35} /> }
+          <h2 >
+            Watch tutorials on how to set up your platform
+          </h2>
+          {tutorial ? <IoIosArrowDropdown size={35} /> : <IoIosArrowDropup size={35} />}
         </div>
         {!tutorial && (
           <div className="tut-iframe">
@@ -342,12 +478,12 @@ docker-compose up -d`;
           </div>
         )}
       </div>
-      
+
       <div className="contain-wrap">
         <div className="header">Docker Container Setup</div>
         <div className="instruct">
           <h2>Accessing a VPS</h2>
-          <p style={{color: "green"}}>
+          <p style={{ color: "green" }}>
             To access your VPS, you'll need a terminal or SSH client. Here's how you
             can connect:
           </p>
@@ -376,7 +512,7 @@ docker-compose up -d`;
             installation of docker inside the VPS, after you are inside the
             VPS terminal
           </p>
-          <p style={{color: "green"}}>Click below to copy docker and docker-compose installation commands and paste into your VPS</p>
+          <p style={{ color: "green" }}>Click below to copy docker and docker-compose installation commands and paste into your VPS</p>
           <pre className="doc-compose" onClick={copyDockerDownload}>
             <SyntaxHighlighter language="bash" style={a11yDark}>
               {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
@@ -405,8 +541,8 @@ docker-compose up -d`;
                   />
                   {showTooltip.containerName && (
                     <Tooltip
-                    className="tooltiptext"
-                    text="Each container is a server"
+                      className="tooltiptext"
+                      text="Each container is a server"
                     />
                   )}
                 </div>
@@ -503,7 +639,7 @@ docker-compose up -d`;
                   className="tooltip-icon"
                   onClick={() => handleTooltipToggle("domain")}
                   // onMouseEnter={() => handleTooltipShow("domain")}
-                  onMouseLeave={() => handleTooltipHide("domain")}                  
+                  onMouseLeave={() => handleTooltipHide("domain")}
                 />
                 {showTooltip.domain && (
                   <Tooltip text="The domain is the website for this specific domain" />
@@ -518,10 +654,101 @@ docker-compose up -d`;
                 onBlur={() => handleTooltipHide("domain")}
               />
             </div>
+            {/* **************************new-input************************** */}
+            <div className="input-with-tooltip">
+              <div className="top-text-wrap">
+                <FaQuestionCircle
+                  className="tooltip-icon"
+                  onClick={() => handleTooltipToggle("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}
+                />
+                {showTooltip.domain && (
+                  <Tooltip text="About the community" />
+                )}
+              </div>
+              <input
+                type="text"
+                placeholder="About"
+                value={about}
+                onChange={handleAbout}
+                onFocus={() => handleTooltipShow("domain")}
+                onBlur={() => handleTooltipHide("domain")}
+              />
+            </div>
+            <div className="input-with-tooltip">
+              <div className="top-text-wrap">
+                <FaQuestionCircle
+                  className="tooltip-icon"
+                  onClick={() => handleTooltipToggle("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}
+                />
+                {showTooltip.domain && (
+                  <Tooltip text="Title the community" />
+                )}
+              </div>
+              <input
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={handleTitle}
+                onFocus={() => handleTooltipShow("domain")}
+                onBlur={() => handleTooltipHide("domain")}
+              />
+            </div>
+            <div className="input-with-tooltip">
+              <div className="top-text-wrap">
+                <FaQuestionCircle
+                  className="tooltip-icon"
+                  onClick={() => handleTooltipToggle("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}
+                />
+                {showTooltip.domain && (
+                  <Tooltip text="Admins of the community" />
+                )}
+              </div>
+              <input
+                type="text"
+                placeholder="Admins"
+                value={admins}
+                onChange={handleAdmin}
+                onFocus={() => handleTooltipShow("domain")}
+                onBlur={() => handleTooltipHide("domain")}
+              />
+            </div>
+            <div className="input-with-tooltip">
+              <div className="top-text-wrap">
+                <FaQuestionCircle
+                  className="tooltip-icon"
+                  onClick={() => handleTooltipToggle("domain")}
+                  // onMouseEnter={() => handleTooltipShow("domain")}
+                  onMouseLeave={() => handleTooltipHide("domain")}
+                />
+                {showTooltip.domain && (
+                  <Tooltip text="Creator of the community" />
+                )}
+              </div>
+              <input
+                type="text"
+                placeholder="PlatFormCreator"
+                value={platformCreator}
+                onChange={handlePlatformCreator}
+                onFocus={() => handleTooltipShow("domain")}
+                onBlur={() => handleTooltipHide("domain")}
+              />
+            </div>
 
+
+            <div className="wrap-action-btn">
             <button className="add-btn" onClick={handleAddContainer}>
               Add Container
             </button>
+            <button className={ isDisableListBtn ? "disable-btn ": "add-btn"} disabled={isDisableListBtn} onClick={handleListPlatform}>
+              List Platform
+            </button>
+            </div>
           </div>
           <div className="doc-box animate__animated animate__fadeIn">
             {dockerComposeConfig ? (
@@ -550,6 +777,7 @@ docker-compose up -d`;
                     )}`}
                     download="docker-compose.yml"
                     className="download-button"
+                    onClick={() => setIsDownload(true)}
                   >
                     Download as docker-compose.yml
                   </a>
@@ -557,88 +785,24 @@ docker-compose up -d`;
               </div>
             ) : (
               <>
-              <div className="docker-compose-config-demo">
-                <div className="config-action-buttons-demo">
-                  <button disabled className="copy-button animate__animated animate__pulse">
-                    <FaCopy /> Copy to Clipboard
-                  </button>
-                  <div className="demo-docker">
-                    <h4>Generate your docker-compose.yml file by filling the setup form</h4>
+                <div className="docker-compose-config-demo">
+                  <div className="config-action-buttons-demo">
+                    <button disabled className="copy-button animate__animated animate__pulse">
+                      <FaCopy /> Copy to Clipboard
+                    </button>
+                    <div className="demo-docker">
+                      <h4>Generate your docker-compose.yml file by filling the setup form</h4>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="download-wrap-demo">
-              <div disabled className="download-button-demo">Download as docker-compose.yml</div>
-              </div>
-            </>
+                <div className="download-wrap-demo">
+                  <div disabled className="download-button-demo">Download as docker-compose.yml</div>
+                </div>
+              </>
             )}
           </div>
         </div>
         <div className="instruction-Wrap">
-          {/* <div className="instru-left-wrap"> */}
-            {/* <div className="instruct">
-              <h2>Accessing a VPS</h2>
-              <p style={{color: "green"}}>
-                To access your VPS, you'll need an SSH client. Here's how you
-                can connect:
-              </p>
-              <ul>
-                <li>
-                  When you rent a VPS server you will receive authentication
-                  details, such as user, password and IP
-                </li>
-
-                <li>Open your terminal or SSH client.</li>
-                <li>
-                  Use the following command to connect to your VPS:{" "}
-                  <code>ssh username@your_vps_ip</code>
-                </li>
-                <li>
-                  If the VPS username is root and the IP is 127.0.0.1, as an
-                  example, it will look like: <code>ssh root@127.0.0.1</code>
-                </li>
-                <li>Enter your password when prompted.</li>
-                <li>You should now be connected to your VPS.</li>
-              </ul>
-            </div> */}
-            {/* <div className="instruct"> */}
-              {/* <h2>Running the Docker Compose</h2> */}
-              {/* <p>
-                To run this generated Docker Compose file, you need a local
-                installation of docker inside the VPS, after you are inside the
-                VPS terminal
-              </p> */}
-              {/* <div className="dock-comp-cli">
-                <p style={{color: "green"}}>Click below to copy docker and dockerinstallation commands</p>
-                <pre className="doc-compose" onClick={copyDockerDownload}>
-                  <SyntaxHighlighter language="bash" style={a11yDark}>
-                    {`sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io && sudo usermod -aG docker $USER && sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose`}
-                  </SyntaxHighlighter>
-                </pre>
-              </div> */}
-              {/* <ul> */}
-                {/* <li>
-                  You can download and read more about Docker from{" "}
-                  <a href="https://www.docker.com/get-started/" target="_blank" rel="noopener noreferrer">
-                    here
-                  </a>
-                </li> */}
-                {/* <li>
-                  You can download and read more about Docker Compose from{" "}
-                  <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">
-                    here
-                  </a>
-                </li> */}
-                {/* <p style={{color: "green"}}>Paste the generated docker-compose.yml into your server</p>
-                <button className="btn" style={{margin: "10px", width: "80%"}} onClick={handleCopyToClipboard}>click here to copy docker-compse.yml file again</button> */}
-              {/* </ul> */}
-              {/* <p>
-                This command will create a directory called "my-docker-setup", 
-                it will also create a docker-compose.yml file in the directory 
-                and start the containers defined in detached mode.
-              </p> */}
-            {/* </div> */}
-          {/* </div> */}
           <div className="instru-right-wrap">
             <div className="instruct">
               <h2>Pointing a Domain to an IP Using DNS Entries</h2>
