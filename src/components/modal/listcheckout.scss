@@ -144,7 +144,7 @@
         // margin: 10px 0px;
     }
 }
-.delete-btn-wrap{
+.action-btn-wrap{
     display: flex;
     gap: 12px;
     margin-bottom: 30px;
@@ -156,17 +156,33 @@
         border-radius: 5px;
         border: none;
         font-weight: 600;
+        width: 100%;
 
     }
-    .btn-mistake{
+    .btn-approve{
         background-color: #29a82970;
         color: #fff;
         padding: 10px 20px;
         border-radius: 5px;
         border: none;
         font-weight: 600;
+        width: 100%;
 
     }
+}
+.delete-btn-wrap{
+  display: flex;
+  justify-content: center;
+  .btn-delete{
+    background-color: red;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    width: 100%;
+
+}
 }
 
 // .delete-off, .btn-delete, .btn-mistake{

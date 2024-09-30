@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import "./navbar.scss";
 import spkLogo from "../../assets/white-nobackground_new.png";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 
-const Navbar = ({ handleNav, nav , setNav }) => {
+const Navbar = ({  handleNav, nav , setNav }) => {
+
   
 
   return (
@@ -20,12 +21,12 @@ const Navbar = ({ handleNav, nav , setNav }) => {
         <Link className="lists-1" to="/about">
           <li>About</li>
         </Link>
-        <Link className="lists-1" to="/Admin">
-          <li>Admin</li>
-        </Link>
+        {/* <Link className="lists-1" to="/login">
+          <li>login</li>
+        </Link> */}
       </ul>
       <Link className="lists-1" to="/docker-setup">
-          <button className="host-btn">Launch Your Platform</button>
+          <button className="host-btn">Launch Your Platform</button> 
         </Link>
 
       <div className="toggle" onClick={handleNav}>

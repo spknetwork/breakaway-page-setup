@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import "./listcheckout.scss";
-import { confirmDockerRequest, cancelDockerRequest, getDockerSetups } from '../../api/breakaway';
+import { confirmDockerRequest, cancelDockerRequest, getDockerSetups, deleteDockerRequest } from '../../api/breakaway';
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 import { FaRegCopy } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList }) {
+function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList, allList,removeDeleteBtn, setIsDeleted }) {
   const [showButton, setShowButton] = useState(true);
   const [list, setList] = useState(null); // Store the selected community data
+  
 
   useEffect(() => {
     if (selectedId) {
@@ -44,10 +46,11 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList }) {
 
   const handleApprove = async () => {
     try {
-      const response = await confirmDockerRequest(list._id); // Use list._id to approve
+      await confirmDockerRequest(list._id); 
       toast.success('Community approved successfully!'); 
-      getList(); // Refresh the list
+      getList();
       closeCheckOutModal(); 
+      removeDeleteBtn();
     } catch (error) {
       toast.error('Failed to approve community.'); 
     }
@@ -55,14 +58,34 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList }) {
 
   const handleCancel = async () => {
     try {
-      const response = await cancelDockerRequest(list._id); // Use list._id to cancel
-      toast.success('Community deleted successfully!');
-      getList(); // Refresh the list
+       await cancelDockerRequest(list._id);
+      toast.success('Community cancel successfully!');
+      getList(); 
       closeCheckOutModal(); 
+      removeDeleteBtn();
     } catch (error) {
-      toast.error('Failed to delete community.'); 
+      toast.error('Failed to cancel community.'); 
     }
   };
+
+  const handleDelete = async ()=>{
+    try{
+      const response = await deleteDockerRequest(list._id)
+      if(response.success){
+      toast.success(response.message)
+      closeCheckOutModal(); 
+      removeDeleteBtn();
+      setIsDeleted(true)
+      getList();
+      }
+      // console.log(response)
+      
+
+    }catch (error){
+      toast.error('Failed to delete community.'); 
+      console.log(error)
+    }
+  }
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
@@ -73,14 +96,15 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList }) {
         toast.error('Failed to copy.');
       });
   };
+  
 
   return (
     <div className={`fadded-container modal-overlay ${isOpen ? 'open' : ''}`}>
-      <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={closeCheckOutModal}></div>
+      <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={()=>{closeCheckOutModal() ; removeDeleteBtn();}}></div>
       <div className="modal slide-up">
-        <span className="close-btn" onClick={closeCheckOutModal}>X</span>
-        <div className="delete-wrap">
-          <h2>Community Info</h2>
+        <span className="close-btn" onClick={()=>{closeCheckOutModal() ; removeDeleteBtn();}}>X</span>
+        <div className="delete-wrap"> 
+          <h2>Community Info</h2> 
           <div className="checkoutlist">
             <div className="checklist-wrap">
               <span>Container Name:</span> <span className='info-copy-wrap'> <span>{list.containerName}</span> <FaRegCopy size={13} onClick={() => copyToClipboard(list.containerName)}/></span>
@@ -116,9 +140,14 @@ function ListCheckOut({ isOpen, closeCheckOutModal, selectedId, getList }) {
             </div>
           </div>
           {showButton && (
+            <div className="action-btn-wrap">
+              <button className="btn-approve" onClick={handleApprove}>Approve</button>
+              <button className="btn-delete" onClick={handleCancel}>Remove</button>
+            </div>
+          )}
+           {allList && (
             <div className="delete-btn-wrap">
-              <button className="btn-mistake" onClick={handleApprove}>Approve</button>
-              <button className="btn-delete" onClick={handleCancel}>Yes, Delete</button>
+              <button className="btn-delete" onClick={handleDelete}> Delete</button>
             </div>
           )}
         </div>
