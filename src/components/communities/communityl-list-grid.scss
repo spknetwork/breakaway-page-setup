@@ -163,3 +163,10 @@
       }
     
 }
+
+.title-and-info-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+}

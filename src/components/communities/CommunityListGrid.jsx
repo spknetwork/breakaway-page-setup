@@ -1,6 +1,6 @@
 import "./communityl-list-grid.scss";
 import { FaArrowUpRightDots, FaArrowUpShortWide } from "react-icons/fa6";
-import { HiUsers } from "react-icons/hi";
+import { HiUsers, HiInformationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import rally from '../../assets/rally-new-1.png'
 import { RiH1 } from "react-icons/ri";
@@ -8,7 +8,7 @@ import { useState, useEffect} from "react";
 import Logo from "../../assets/overlay_bac.jpg"
 
 
-export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
+export default function CommunityListGrid({ c, pinnedCommunitiesWebsties, setSelectedId, handleSinglepageModal }) {
   const [hasDomain, setHasDomain] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
     <div className="cap">
 
       <div className="box-container-grid ">
-        <div className={c.isPinned ? "box-grid-bac": "box-grid"}>
+        <div className={c.isPinned ? "box-grid-bac": "box-grid"} onClick={()=>{setSelectedId(c.name); handleSinglepageModal()}}>
           <div className="box-wrap-left-grid ">
             <div className="img-cover-grid  " >
              {c.isPinned && <img className="bac" src={Logo} alt="" />}
@@ -56,9 +56,12 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
             </div>
             <div className="box-left-grid">
               {/* <Link className={c.isPinned ? "title-grid-bac" :"title-grid"} to={`/community/hive-${c.id}`}> */}
+              <div className="title-and-info-wrapper">
                 <h2>
                   {c.title}
                 </h2>
+                <HiInformationCircle size={20} />
+              </div>
               {/* </Link> */}
               <span className="about-grid">{text}</span>
               <div className="admins-wrapper">
@@ -95,16 +98,14 @@ export default function CommunityListGrid({ c, pinnedCommunitiesWebsties }) {
                 <div className="btn-vist-phone-grid">
                   {c.isPinned ? (
                     <h3
-                      className="start-com-wrap glo-btnc"
-                      onClick={() =>
-                        window.open(
-                          `${pinnedCommunitiesWebsties[c.name]}`,
-                          "_blank"
-                        )
-                      }
-                    >
-                      Visit platform
-                    </h3>
+                    className="start-com-wrap glo-btnc"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(`${pinnedCommunitiesWebsties[c.name]}`, "_blank");
+                    }}
+                  >
+                    Visit platform
+                  </h3>
                   ) : (
                     <Link to="/docker-setup" className="start">
                       <h3 className="start-com-wrap glo-btnc">

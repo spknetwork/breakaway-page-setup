@@ -1,0 +1,170 @@
+@import "../../mixins.scss";
+// @import "../../mixins.scss";
+.new {
+  width: 100%;
+  height: 100%;
+  background-color: aqua;
+}
+.sp-fadded-container {
+  position: relative;
+  z-index: 10; // Ensure this is higher than other elements on the page
+  // background-color: rgba(0, 0, 0, .6);
+  width: 100%;
+  height: 100%;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; 
+  justify-content: center;
+  align-items: center;
+  @include respond(phone) {
+    align-items: end;
+  }
+}
+
+.sp-modal {
+  width: 50%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3e3e3;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+  color: black;
+  background-image: linear-gradient(
+    91deg,
+    rgb(51, 22, 110) -4%,
+    rgb(46, 35, 88) 120.34%
+  );
+  @include respond(phone) {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+  }
+}
+
+.sp-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+}
+.sp-bac{
+  border-radius: 20px;
+    padding: 5px 15px;
+    width: 90px;
+    position: absolute;
+    top: 20px;
+  left: 20px;
+}
+.sp-modal-content {
+  img{
+    border-radius: 20px;
+  }
+  width: 100%;
+  // background: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  @include respond(phone) {
+    padding: 0px;
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+    @include respond(phone) {
+      font-size: 14px;
+    }
+  }
+
+  .modal-info {
+    margin-top: 15px;
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  .modal-team {
+    margin-top: 20px;
+    h2 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap; // Allow items to wrap to the next line
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 6px;
+
+      li {
+        flex: 1 1 calc(25% - 30px); // Each item takes up 25% width minus the margins
+        padding: 4px 6px; // Add some margin between items
+        border-radius: 10px;
+        background-color: rgb(14, 11, 49);
+        color: #fff;
+        font-size: 16px;
+        box-sizing: border-box; // Ensure padding and border are included in the item width
+
+        display: flex; // Enable flexbox for the list item
+        justify-content: center; // Center content horizontally
+        align-items: center; // Center content vertically
+        text-align: center;
+        @include respond(phone) {
+          flex: 1 1 calc(50% - 30px);
+          font-size: 12.35px;
+        }
+      }
+    }
+  }
+}
+
+.open {
+  display: flex; // Display the modal when `open` class is added
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards; // Ensure the animation plays
+}
+
+// .delete-off, .btn-delete, .btn-mistake{
+//   display: none;
+// }
