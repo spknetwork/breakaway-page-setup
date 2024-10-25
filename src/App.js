@@ -11,6 +11,8 @@ import AdminPanel from "./pages/AdminPanel";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Login";
 import PrivateRoute from "./pages/PrivateRoute";
+import UpdateCommunity from "./pages/UpdateCommunity";
+import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
   const [nav, setNav] = useState(true);
@@ -39,6 +41,7 @@ function App() {
           <Route path="/communities" element={<Communities />} />
           <Route path="/community-create" element={<CreateCommunity />} />
           <Route path="/docker-setup" element={<DockerSetup />} />
+          <Route path="/Update-Community" element={<UpdateCommunity />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />

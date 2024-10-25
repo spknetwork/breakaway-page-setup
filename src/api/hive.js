@@ -41,7 +41,7 @@ export const listAllSubscriptions = async (name) => {
   }
 };
 
-export const createHiveCommunity = async (username, communityName, keys) => {
+export const createHiveCommunity = async (username, communityName, keys, profilePictureUrl, coverImageUrl) => {
   return new Promise(async (resolve, reject) => {
     const op_name = "account_create";
     const memoKey = keys.memo;
@@ -72,9 +72,14 @@ export const createHiveCommunity = async (username, communityName, keys) => {
       active,
       posting,
       memo_key: keys.memoPubkey,
-      json_metadata: "",
+      json_metadata: JSON.stringify({
+        profile: {
+          profile_image: profilePictureUrl, // Adding profile image
+          cover_image: coverImageUrl,       // Adding cover image
+        },
+      }),
       extensions: [],
-      fee: "3.000 HIVE",
+      fee: "3.000 HIVE", // Hive fee for account creation
     };
 
     const operation = [op_name, params];
@@ -104,7 +109,7 @@ export const createHiveCommunity = async (username, communityName, keys) => {
   });
 };
 
-export const createCommunityWithCredit = async (username, keys, creator_account) => {
+export const createCommunityWithCredit = async (username, keys, creator_account, profilePictureUrl, coverImageUrl) => {
   try {
     const account = {
       name: username,
@@ -143,7 +148,12 @@ export const createCommunityWithCredit = async (username, keys, creator_account)
       active,
       posting,
       memo_key: account.memoPubkey,
-      json_metadata: "",
+      json_metadata: JSON.stringify({
+        profile: {
+          profile_image: profilePictureUrl, // Adding profile image
+          cover_image: coverImageUrl,       // Adding cover image
+        },
+      }),
       extensions: []
     };
 
