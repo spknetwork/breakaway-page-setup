@@ -11,8 +11,7 @@ import AdminPanel from "./pages/AdminPanel";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Login";
 import PrivateRoute from "./pages/PrivateRoute";
-import UpdateCommunity from "./pages/UpdateCommunity";
-import UpdateProfile from "./pages/UpdateProfile";
+import { UpdateCommunity } from "./pages/UpdateCommunity";
 
 function App() {
   const [nav, setNav] = useState(true);

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { keychainBroadcast } from "../helpers/keychain"; 
-function UpdateCommunity() {
+import { updateCommunityMetadata } from '../api/hive';
+
+export const UpdateCommunity = () => {
+
   const [aboutCommunity, setAboutCommunity] = useState("");
   const [communityDescription, setCommunityDescription] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
@@ -9,62 +11,23 @@ function UpdateCommunity() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(""); 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); 
-  
-    // Prepare custom JSON data for updating community properties
-    const customJsonData = {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    if (aboutCommunity) {
-      customJsonData.about = aboutCommunity;
-    }
-
-    if (communityDescription) {
-      customJsonData.description = communityDescription;
-    }
-
-    if (profilePictureUrl) {
-      customJsonData.profile_image = profilePictureUrl;
-    }
-
-    if (coverImageUrl) {
-      customJsonData.cover_image = coverImageUrl;
-    }
-
-    // If no fields are filled, show an alert and return
-    if (Object.keys(customJsonData).length === 0) {
-      alert("Please fill in at least one field to update.");
-      return;
-    }
-
-    // Custom JSON object for Hive community update
-    const customJson = {
-      id: 'community_update', // Operation ID for updating community
-      required_auths: [],
-      required_posting_auths: [communityId], // Assuming the communityId is the username or account
-      json: JSON.stringify(customJsonData),
+    const newProfileData = {
+      about: aboutCommunity,
+      profile_image: profilePictureUrl,
+      cover_image: coverImageUrl,
+      community_description: communityDescription
     };
 
-    // Hive expects each operation to be in the format of ["custom_json", {...}]
-    const operations = [
-      ['custom_json', customJson] // Wrap in an array with the operation type "custom_json"
-    ];
+    const username = communityId;
 
-    // Broadcast using the existing keychainBroadcast helper function
-    try {
-      setLoading(true);
-      const response = await keychainBroadcast(communityId, operations, 'active'); // Use 'active' or 'posting' based on your use case
-      if (response.success) {
-        alert('Community updated successfully on the Hive blockchain!');
-        // Clear input fields or perform additional actions
-      } else {
-        alert('Error: ' + response.message);
-      }
-    } catch (error) {
-      alert('An error occurred: ' + error.message);
-    } finally {
-      setLoading(false);
-    }
+    await updateCommunityMetadata(username, profilePictureUrl, coverImageUrl, aboutCommunity, communityDescription);
+    
+    setLoading(false);
   };
 
   return (
@@ -119,5 +82,3 @@ function UpdateCommunity() {
     </div>
   );
 }
-
-export default UpdateCommunity;

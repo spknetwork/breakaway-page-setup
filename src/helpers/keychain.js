@@ -76,7 +76,7 @@ export const keychainPostingJSON = (username, type, json) => {
         type,
         "Posting",
         JSON.stringify(json),
-        "Update Community",
+        "account_update",
         (response) => {
           if (response.success) {
             resolve(response);
