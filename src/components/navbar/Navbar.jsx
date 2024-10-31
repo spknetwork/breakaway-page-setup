@@ -18,6 +18,9 @@ const Navbar = ({  handleNav, nav , setNav }) => {
         <Link className="lists-1" to="/community-create">
           <li className="">Create Community</li>
         </Link>
+        <Link className="lists-1" to="/Update-Community">
+          <li className="">Update-Community</li>
+        </Link>
         <Link className="lists-1" to="/about">
           <li>About</li>
         </Link>
@@ -48,6 +51,13 @@ const Navbar = ({  handleNav, nav , setNav }) => {
             onClick={() => setNav(!nav)}
           >
             <li className="">Create Community</li>
+          </Link>
+          <Link
+            className="lists"
+            to="/Update-Community"
+            onClick={() => setNav(!nav)}
+          >
+            <li className="">Update-Community</li>
           </Link>
           <Link className="lists" to="/about" onClick={() => setNav(!nav)}>
             <li>About</li>

@@ -1,19 +1,59 @@
-export const keychainBroadcast = (account, operations, key, rpc = null) => {
+// export const keychainBroadcast = (account, operations, key, rpc = null) => {
+//     return new Promise((resolve, reject) => {
+//       window.hive_keychain?.requestBroadcast(
+//         account,
+//         operations,
+//         key,
+//         (resp) => {
+//           if (!resp.success) {
+//             reject(resp);
+//           }
+//           resolve(resp);
+//         },
+//         rpc
+//       );
+//     });
+//   };
+
+  export const keychainBroadcast = (account, operations, key, rpc = null) => {
     return new Promise((resolve, reject) => {
       window.hive_keychain?.requestBroadcast(
         account,
         operations,
         key,
         (resp) => {
+          console.log("Keychain Response:", resp); // Log the response for debugging
           if (!resp.success) {
-            reject(resp);
+            reject(resp); // If the response is not successful, reject with the response
           }
-          resolve(resp);
+          resolve(resp); // Resolve with the response
         },
         rpc
       );
     });
   };
+  
+
+
+  // export const keychainBroadcast = (username, customJson) => {
+  //   return new Promise((resolve, reject) => {
+  //     window.hive_keychain.requestCustomJson(
+  //       username,
+  //       customJson.id, 
+  //       'Posting', 
+  //       customJson.json, 
+  //       'Profile Update', 
+  //       (response) => {
+  //         if (response.success) {
+  //           resolve(response);
+  //         } else {
+  //           reject(response);
+  //         }
+  //       }
+  //     );
+  //   });
+  // };
+  
 
 export const addAccountTokeychain = (username, keys) => new Promise((resolve, reject) => {
   if (window.hive_keychain) {
@@ -36,7 +76,7 @@ export const keychainPostingJSON = (username, type, json) => {
         type,
         "Posting",
         JSON.stringify(json),
-        "Update Community",
+        "account_update",
         (response) => {
           if (response.success) {
             resolve(response);

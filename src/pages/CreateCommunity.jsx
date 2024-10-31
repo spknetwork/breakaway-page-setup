@@ -37,6 +37,8 @@ const CreateCommunity = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [communityMod, setCommunityMod] = useState("")
   const [role, setRole] = useState("admin")
+  const [profilePictureUrl, setProfilePictureUrl] = useState("")
+  const [coverImageUrl, setCoverImageUrl]= useState("")
 
 
   const namePattern = "^hive-[1]\\d{4,6}$";
@@ -117,7 +119,9 @@ const CreateCommunity = () => {
       const response = await createHiveCommunity(
         creatingUser,
         communityName,
-        communityKeys
+        communityKeys,
+        profilePictureUrl,
+        coverImageUrl
       );
       if (response.success === true) {
         setError("");
@@ -144,7 +148,9 @@ const CreateCommunity = () => {
       const response = await createCommunityWithCredit(
         communityName,
         communityKeys,
-        creatingUser
+        creatingUser,
+        profilePictureUrl,
+        coverImageUrl
       );
       console.log(response)
       if (response.success === true) {
@@ -320,6 +326,18 @@ const CreateCommunity = () => {
                     value={aboutCommunity}
                     placeholder="About community"
                     onChange={(e) => setAboutCommunity(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={profilePictureUrl}
+                    placeholder="Profile Url"
+                    onChange={(e) => setProfilePictureUrl(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={coverImageUrl}
+                    placeholder="Cover Url"
+                    onChange={(e) => setCoverImageUrl(e.target.value)}
                   />
                   <textarea
                     rows={minRows}
