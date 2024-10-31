@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { Client, PrivateKey } from "@hiveio/dhive";
 
+
 const client = new Client(SERVERS, {
   timeout: 3000,
   failoverThreshold: 3,
@@ -263,13 +264,94 @@ export const setUserRole = (username, community, account, role) => {
 //   });
 // };
 
+// export const updateCommunityMetadata = async (
+//   username, 
+//   profilePictureUrl, 
+//   coverImageUrl, 
+//   aboutCommunity, 
+//   communityDescription
+
+// ) => {
+//   try {
+//     const apiUrl = 'https://api.hive.blog';
+//     const requestBody = {
+//       jsonrpc: '2.0',
+//       method: 'condenser_api.get_accounts',
+//       params: [[username]],
+//       id: 1
+//     };
+
+//     console.log(username, 
+//       profilePictureUrl, 
+//       coverImageUrl, 
+//       aboutCommunity, 
+//       communityDescription)
+
+//     const { data } = await axios.post(apiUrl, requestBody, {
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+
+//     if (data.result && data.result.length > 0) {
+//       let existingMetadata = data.result[0].posting_json_metadata || '{}';
+//       let metadata = {};
+
+//       try {
+//         metadata = JSON.parse(existingMetadata);
+//       } catch (e) {
+//         console.error('Error parsing existing metadata:', e);
+//         metadata = {};
+//       }
+
+//       if (!metadata.profile) {
+//         metadata.profile = {};
+//       }
+
+//       metadata.profile = {
+//         ...metadata.profile,
+//         name: metadata.profile.name || "",
+//         about: aboutCommunity ,
+//         description: communityDescription,
+//         cover_image: coverImageUrl || metadata.profile.cover_image || "",
+//         profile_image: profilePictureUrl || metadata.profile.profile_image || "",
+//         website: metadata.profile.website || "",
+//         location: metadata.profile.location || ""
+//       };
+
+//       const jsonMetadataStr = JSON.stringify(metadata);
+
+//       const operations = [
+//         ['account_update2', {
+//           account: username,
+//           json_metadata: jsonMetadataStr,
+//           posting_json_metadata: jsonMetadataStr,
+//           extensions: []
+//         }]
+//       ];
+
+//       window.hive_keychain.requestBroadcast(username, operations, 'active', (response) => {
+//         if (response.success) {
+
+//           console.log('Profile successfully updated on the Hive blockchain!');
+//         } else {
+//           console.error('Failed to update Hive profile:', response.message);
+//         }
+//       });
+//     } else {
+//       console.error('Unable to fetch account details');
+//     }
+//   } catch (error) {
+//     console.error('Error fetching or updating account details:', error);
+//   }
+// };
+
 export const updateCommunityMetadata = async (
   username, 
   profilePictureUrl, 
   coverImageUrl, 
   aboutCommunity, 
   communityDescription
-
 ) => {
   try {
     const apiUrl = 'https://api.hive.blog';
@@ -280,16 +362,10 @@ export const updateCommunityMetadata = async (
       id: 1
     };
 
-    console.log(username, 
-      profilePictureUrl, 
-      coverImageUrl, 
-      aboutCommunity, 
-      communityDescription)
+    console.log(username, profilePictureUrl, coverImageUrl, aboutCommunity, communityDescription);
 
     const { data } = await axios.post(apiUrl, requestBody, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json' }
     });
 
     if (data.result && data.result.length > 0) {
@@ -309,13 +385,10 @@ export const updateCommunityMetadata = async (
 
       metadata.profile = {
         ...metadata.profile,
-        name: metadata.profile.name || "",
-        about: aboutCommunity ,
+        about: aboutCommunity,
         description: communityDescription,
         cover_image: coverImageUrl || metadata.profile.cover_image || "",
-        profile_image: profilePictureUrl || metadata.profile.profile_image || "",
-        website: metadata.profile.website || "",
-        location: metadata.profile.location || ""
+        profile_image: profilePictureUrl || metadata.profile.profile_image || ""
       };
 
       const jsonMetadataStr = JSON.stringify(metadata);
@@ -329,17 +402,25 @@ export const updateCommunityMetadata = async (
         }]
       ];
 
-      window.hive_keychain.requestBroadcast(username, operations, 'active', (response) => {
-        if (response.success) {
-          console.log('Profile successfully updated on the Hive blockchain!');
-        } else {
-          console.error('Failed to update Hive profile:', response.message);
-        }
+      return new Promise((resolve) => {
+        window.hive_keychain.requestBroadcast(username, operations, 'active', (response) => {
+          if (response.success) {
+            console.log('Profile successfully updated on the Hive blockchain!');
+            resolve(response);  // Return the response
+          } else {
+            console.error('Failed to update Hive profile:', response.message);
+            resolve({ success: false });  // Return a consistent object
+          }
+        });
       });
     } else {
       console.error('Unable to fetch account details');
+      return { success: false };
     }
   } catch (error) {
     console.error('Error fetching or updating account details:', error);
+    return { success: false };
   }
 };
+
+

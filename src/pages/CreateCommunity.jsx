@@ -336,7 +336,7 @@ const CreateCommunity = () => {
                   <input
                     type="text"
                     value={coverImageUrl}
-                    placeholder="Background Url"
+                    placeholder="Cover Url"
                     onChange={(e) => setCoverImageUrl(e.target.value)}
                   />
                   <textarea
