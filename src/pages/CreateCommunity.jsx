@@ -293,7 +293,7 @@ const CreateCommunity = () => {
       <div className="create-community-container">
         {isLoading && <Loader />}
         <div className="header">
-          <h2>Create Hive Community</h2>
+          Create Hive Community
         </div>
         {error && <span className="error-message">{error}</span>}
         {message && step === 2 && (

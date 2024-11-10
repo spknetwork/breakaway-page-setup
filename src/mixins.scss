@@ -31,3 +31,49 @@
         
     }
 }
+
+
+
+// Media Query Manager
+// 0px - 600px;   phone
+// 600px - 900px; Tablet Portrait
+// 900px - 1200px; Tablet Landscape
+// 1200px - 1800px; Desktop
+
+// @mixin respond($breakpoint) {
+//   @if $breakpoint == sm-phone {
+//     @media screen and (max-width: 375px) {
+//       @content;
+//     }
+//   }
+
+//   @if $breakpoint == iphone-12 {
+//     @media screen and (min-width: 390px) and (max-width: 844px) {
+//       @content;
+//     }
+//   }
+
+//   @if $breakpoint == phone {
+//     @media screen and (min-width: 0px) and (max-width: 600px) {
+//       @content;
+//     }
+//   }
+
+//   @if $breakpoint == tablet-portrait {
+//     @media screen and (min-width: 600px) and (max-width: 900px) {
+//       @content;
+//     }
+//   }
+
+//   @if $breakpoint == tablet-landscape {
+//     @media screen and (min-width: 900px) and (max-width: 1200px) {
+//       @content;
+//     }
+//   }
+
+//   @if $breakpoint == desktop {
+//     @media screen and (min-width: 1200px) and (max-width: 1800px) {
+//       @content;
+//     }
+//   }
+// }

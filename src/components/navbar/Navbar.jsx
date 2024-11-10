@@ -10,7 +10,7 @@ const Navbar = ({  handleNav, nav , setNav }) => {
 
   return (
     <nav className="navbar">
-      <img src={spkLogo} className="logos" alt="" />
+      <Link className="lists-1" to="/communities"><img src={spkLogo} className="logos" alt="" /></Link>
       <ul className="links">
         <Link className="lists-1" to="/communities">
           <li className="">Explore </li>
