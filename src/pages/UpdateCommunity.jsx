@@ -100,7 +100,7 @@ export const UpdateCommunity = () => {
     <div className="create-community">
       <div className="create-community-container">
         <div className="header">
-          <h2>Update Breakaway Community</h2>
+          Update Breakaway Community
         </div>
         <div class="wrap-btn-center">
           <button class="btn-toggle" onClick={()=> setStep(!step)}>{step === true ? "Update Communuty Image URL" : "Update Community Details"}</button>

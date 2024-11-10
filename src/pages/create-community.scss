@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import "../mixins.scss";
 
 .create-community {
     display: flex;
@@ -25,6 +25,10 @@
         margin-bottom: 20px;
         font-size: 18px;
         font-weight: bold;
+        @include respond(phone) {
+          margin-bottom: 5px;
+        }
+   
       }
   
       .error-message {

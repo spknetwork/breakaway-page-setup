@@ -1,3 +1,4 @@
+@import "../mixins.scss";
 .wrap-btn-center {
     display: flex;
     justify-content: center;
@@ -14,6 +15,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      @include respond(phone) {
+        margin-top: 10px;
+      }
     }
   }
   
